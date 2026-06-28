@@ -1,0 +1,27 @@
+# Cross-Domain-Validation — .gitignore
+# Raw data is NEVER committed: the repo data layer is documentation-only
+# (data/SOURCES.md). Raw files live in the project-local store
+# C:\Users\jaek9\Documents\LaggingTruth\Cross-Domain-Validation (backed up separately).
+
+# --- Python artifacts ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# --- raw data safety net (should never be inside the repo, but just in case) ---
+data/raw/
+*.rdb
+ghcn_*.csv
+silso_yearly.csv
+ILINet.csv
+ICL_NREVSS_*.csv
+SN_*_tot_V2.0.csv
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+*~
+.vscode/
