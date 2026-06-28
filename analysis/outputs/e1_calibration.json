@@ -1,0 +1,234 @@
+{
+  "experiment": "E1",
+  "title": "calibration-scale gap-closure decomposition",
+  "params": {
+    "daily_SMAs": [
+      50,
+      200
+    ],
+    "daily_H": 63,
+    "flu_SMAs": [
+      4,
+      16
+    ],
+    "flu_H": 13,
+    "event_threshold": "expanding 75th pctile, min 50"
+  },
+  "weather": {
+    "Norwich_CT": {
+      "station": "USC00065910",
+      "n": 22636,
+      "cells": {
+        "SMA-50": {
+          "N": 329,
+          "S_W": 2.8,
+          "toward": 72.9
+        },
+        "SMA-200": {
+          "N": 327,
+          "S_W": 2.45,
+          "toward": 72.8
+        }
+      },
+      "calibration_pair": true
+    },
+    "Dallas_TX": {
+      "station": "USW00003927",
+      "n": 26625,
+      "cells": {
+        "SMA-50": {
+          "N": 358,
+          "S_W": 5.22,
+          "toward": 65.6
+        },
+        "SMA-200": {
+          "N": 359,
+          "S_W": 3.18,
+          "toward": 69.6
+        }
+      },
+      "calibration_pair": true
+    },
+    "_band_S_W_pct": [
+      2.5,
+      5.2
+    ],
+    "_LB": "LB-2/LB-3 (paper band 1.3-7.7%)"
+  },
+  "rivers": {
+    "Colorado": {
+      "gauge": "08158000",
+      "n": 46767,
+      "seasonal_variance_fraction_pct": 15.5,
+      "cells": {
+        "raw": {
+          "SMA-50": {
+            "N": 505,
+            "S_W": 46.7,
+            "toward": 56.8
+          },
+          "SMA-200": {
+            "N": 491,
+            "S_W": 27.32,
+            "toward": 52.3
+          }
+        },
+        "deseas": {
+          "SMA-50": {
+            "N": 508,
+            "S_W": 28.39,
+            "toward": 58.7
+          },
+          "SMA-200": {
+            "N": 481,
+            "S_W": 17.02,
+            "toward": 53.4
+          }
+        }
+      }
+    },
+    "Ohio": {
+      "gauge": "03294500",
+      "n": 35862,
+      "seasonal_variance_fraction_pct": 45.7,
+      "cells": {
+        "raw": {
+          "SMA-50": {
+            "N": 453,
+            "S_W": 67.39,
+            "toward": 38.6
+          },
+          "SMA-200": {
+            "N": 371,
+            "S_W": 48.04,
+            "toward": 41.8
+          }
+        },
+        "deseas": {
+          "SMA-50": {
+            "N": 468,
+            "S_W": 23.08,
+            "toward": 46.8
+          },
+          "SMA-200": {
+            "N": 447,
+            "S_W": 13.13,
+            "toward": 46.3
+          }
+        }
+      }
+    },
+    "_LB": "LB-2/LB-5/LB-6 (seasonal fraction CO ~15.5%, OH ~45.7%)"
+  },
+  "flu": {
+    "n_weeks": 1484,
+    "cells": {
+      "SMA-4": {
+        "N": 53,
+        "S_W": 153.7,
+        "toward": 13.2
+      },
+      "SMA-16": {
+        "N": 40,
+        "S_W": 101.9,
+        "toward": 7.5
+      }
+    },
+    "_LB": "LB-4 (pinned cell ~153.7% / toward ~13%; v4's 122.6-288.8% range under-specified)"
+  },
+  "ordering": {
+    "weather_S_W_band": [
+      2.5,
+      5.2
+    ],
+    "rivers_deseas_S_W": {
+      "Colorado": {
+        "SMA-50": 28.39,
+        "SMA-200": 17.02
+      },
+      "Ohio": {
+        "SMA-50": 23.08,
+        "SMA-200": 13.13
+      }
+    },
+    "flu_S_W": {
+      "SMA-4": 153.7,
+      "SMA-16": 101.9
+    },
+    "holds": true
+  },
+  "gradient": {
+    "full_history": {
+      "H=42": 4.1,
+      "H=63": 3.9,
+      "H=126": 8.4
+    },
+    "matched_1928_2026": {
+      "H=42": {
+        "CO": 14.2,
+        "OH": 10.3,
+        "gap_pp": 3.9
+      },
+      "H=63": {
+        "CO": 17.7,
+        "OH": 13.1,
+        "gap_pp": 4.6
+      },
+      "H=126": {
+        "CO": 24.2,
+        "OH": 17.8,
+        "gap_pp": 6.4
+      }
+    },
+    "_LB": "LB-5 / DISC-1.4-01 (matched gap +3.9/+4.7/+6.4; CO 17.8/OH 13.1 at H=63)"
+  },
+  "lookahead_robustness": {
+    "Colorado": {
+      "S_W_full_history": 17.02,
+      "S_W_causal_expanding": 17.93,
+      "delta_pp": 0.91
+    },
+    "Ohio": {
+      "S_W_full_history": 13.13,
+      "S_W_causal_expanding": 13.74,
+      "delta_pp": 0.61
+    },
+    "_LB": "DISC-1.4-02 (delta <=1.2pp; CO ~0.8, OH ~1.2)"
+  },
+  "rw_control": {
+    "n_sims": 10,
+    "seed": 0,
+    "matched_to": "Colorado daily log-return drift/vol",
+    "drift": -9e-06,
+    "vol": 0.443107,
+    "SMA-50": {
+      "S_W_mean": 101.8,
+      "S_W_range": [
+        88.1,
+        114.7
+      ],
+      "toward_mean": 50.0,
+      "toward_range": [
+        44.9,
+        52.9
+      ]
+    },
+    "SMA-200": {
+      "S_W_mean": 97.9,
+      "S_W_range": [
+        86.5,
+        115.0
+      ],
+      "toward_mean": 50.5,
+      "toward_range": [
+        44.1,
+        55.0
+      ]
+    },
+    "_LB": "LB-e1-rw-control (band S_W ~99-101%, toward ~48-52%)"
+  },
+  "cited_not_regenerated": {
+    "sunspot_decomposition": "Paper-4 reference import (TBL-1); does not reproduce on SILSO v2.0 (toward ~70-80%)",
+    "financial_S_W_band": "Paper-4 reference import (~64-167%); not regenerated"
+  }
+}
