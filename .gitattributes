@@ -1,0 +1,8 @@
+# Enforce LF in the repo so file MD5s are stable across machines/clones
+# (the 5b clean-room reproduction gate hashes a fresh clone). Mirrors MAFP/ART.
+* text=auto eol=lf
+
+# Binary assets — never normalize
+*.png binary
+*.pdf binary
+*.xlsx binary
