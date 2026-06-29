@@ -14,6 +14,7 @@ The paper's skeleton: the ordered argument, every citation, the load-bearing fin
 
 - v0.1 2026-06-28 — initial roadmap from the v4 manuscript + COVERAGE. Orphan citations resolved (cite all four). **Superseded.**
 - v0.2 2026-06-28 — **rebuilt on the Stage 1.5/1.6 verification record** (with DESIGN v0.2). Argument-chain wording corrected (ARG-06/07 vdiv operator is domain-specific; ARG-08 the Colorado flip is **not** an ACF zero-crossing); load-bearing findings carry a status tier (regenerate / correct / cite / open) and an original-LB cross-reference to the 24 Stage-1.1 claims; FIG-1/TBL-1/EQ-2 corrected; scope condition S5 (domain-adapted operator) and limits L-06/07/08 added; the seven DISC-1.3 reference-list metadata fixes tracked for Phase 4 (keys unchanged); LB-1 "identical methodology" refined.
+- v0.3 2026-06-28 — **D01 (Discrepancy Register).** Hydrology vdiv corrected: the pre-registered **returns** operator makes Ohio the **stronger** river signal (Ohio +0.30 > Colorado +0.12), reversing the v4 "Colorado signal vs Ohio null" contrast; the apparent Ohio null is a **level-operator seasonal confound** (Ohio +0.047), and Colorado's +0.33 is a look-ahead artifact (CIC #4: the divergence correlated with its own contemporaneous fast vol — the two rivers used different forward targets). Adjudication reconstruction-correct / original-in-error. Updated ARG-06, LB-e2-ohio-rho, S3, L-06, TBL-1; ARG-03/05/09 + FIG-1 interpretation echoes flagged for Phase-4 reconciliation; `verification/Discrepancy_Register.md` D01.
 
 ## 1. IMRaD structural map (the skeleton)
 
@@ -30,7 +31,7 @@ Abstract → Part I Introduction (1.1 What This Paper Tests · 1.2 Why Natural S
 | ARG-03 | Each domain's known restoring-force structure predicts specific framework behavior (weather strong, rivers storage-dependent, sunspots oscillatory, flu none) | 1.2 | ARG-02 | Hurst-1951, Koutsoyiannis-2002 | RETAINED |
 | ARG-04 | The decomposition — applied **identically** across domains — orders systems by restoring-force strength (weather low S_W → deseasonalized rivers intermediate → flu extreme; financial + sunspot cited from Paper 4) | 2.2–2.6 | ARG-03 | LB-e1-weather-sw, LB-e1-colorado-sw, LB-e1-ohio-sw, LB-e1-flu-sw, LB-e1-rw-control | RETAINED |
 | ARG-05 | Deseasonalization separates genuine non-seasonal persistence (Colorado) from seasonal artifact (Ohio collapse), corroborating Paper-4's Ohio finding by an independent method | 2.3.4 | ARG-04 | LB-e1-deseas-gradient, Kim-2026d, Koutsoyiannis-2005, O'Connell-2016 | CORRECTED (sweep → matched +3.9/+4.7/+6.4) |
-| ARG-06 | The divergence operator — **adapted to each domain's natural innovation representation** (log-returns / first-differences / level) — produces significant IS/OOS-stable signals where ACF structure exists, and a null where basin-averaging removes it (Ohio deseasonalized) | 3.2–3.3 | ARG-03 | LB-e2-colorado-rho, LB-e2-ohio-rho, LB-e2-flu-rho, LB-e2-weather-rho, LB-e2-sunspot-rho | CORRECTED (domain-specific operators; Colorado ≈+0.10; Norwich OPEN) |
+| ARG-06 | The divergence operator — **adapted to each domain's natural innovation representation** (log-returns / first-differences / level) — produces significant IS/OOS-stable signals where ACF structure exists; on the rivers it is significant on the **returns** of *both* (Ohio the stronger), and the apparent null is a **level-operator seasonal confound**, not absent structure | 3.2–3.3 | ARG-03 | LB-e2-colorado-rho, LB-e2-ohio-rho, LB-e2-flu-rho, LB-e2-weather-rho, LB-e2-sunspot-rho | CORRECTED (D01: returns op signal both rivers, Ohio>Colorado; level op = seasonal-confound null; Colorado +0.33 look-ahead artifact (CIC #4); Norwich OPEN) |
 | ARG-07 | The divergence operator outperforms single-window CSD in each domain; CSD is opposite-signed in epidemiology | 3.3–3.4 | ARG-06 | LB-e2-csd-compare, Scheffer-2009, Dakos-2008, Corsi-2009 | CORRECTED (sunspot "CSD also negative" sub-claim dropped) |
 | ARG-08 | Theorem-8b's ACF-sign prediction holds 100% on statistically significant predictions, including two sign flips — Colorado h=252 (R̄_near<R̄_far, ACF still positive) and flu h=26 (at the seasonal-ACF zero-crossing) | 4.4–4.5 | ARG-03 | LB-e3-significant, LB-e3-overall, LB-e3-perdomain, LB-e3-colorado-flip, LB-e3-flu-flip, Lo-MacKinlay-1988, Hong-Satchell-2015 | CORRECTED (flip mechanism wording) |
 | ARG-09 | The ACF is the unifying variable governing the divergence operator's sign, magnitude, deseasonalization response, and failure modes across all domains | 6.2–6.3 | ARG-04, ARG-06, ARG-07, ARG-08 | FIG-1, Hurst-1951, Mandelbrot-Wallis-1968 | RETAINED |
@@ -98,7 +99,7 @@ Keyed to `claims.lock` (Phase 3); **no values here.** Each carries a **status ti
 | LB-e1-sunspot-sw | Sunspot filter-share | ARG-04 | CITE (Paper-4 ref; not on SILSO v2.0) | LB-2 |
 | LB-e1-financial-band | Financial-market filter-share band | ARG-04 | CITE (Paper-4 ref) | LB-2 |
 | LB-e2-colorado-rho | Colorado divergence↔forward-vol correlation (log-returns op) | ARG-06 | CORRECT (≈+0.10/+0.08; was +0.33) | LB-8 |
-| LB-e2-ohio-rho | Ohio divergence correlation (raw borderline; deseasonalized null + shuffle z) | ARG-06 | REGEN (exact) | LB-9 |
+| LB-e2-ohio-rho | Ohio divergence correlation — returns op the strongest river signal; level op the seasonal-confound null + shuffle z | ARG-06 | CORRECT (D01: returns +0.30 signal; level +0.047 null) | LB-9 |
 | LB-e2-flu-rho | Influenza divergence correlation (first-differences op) | ARG-06 | REGEN | LB-11 |
 | LB-e2-weather-rho | Weather divergence (Dallas reproduces; Norwich deseasonalized) | ARG-06 | OPEN (Norwich ~+0.05; Dallas exact) | LB-10 |
 | LB-e2-sunspot-rho | Sunspot divergence — unique negative sign (yearly level / future-Y) | ARG-06 | REGEN (sign on v2.0 yearly) | LB-12 |
@@ -128,7 +129,7 @@ Gate checks each is PRESENT at its anchor AND REFERENCED. Each carries a COVERAG
 | ID | What it shows (one line) | § | Referenced by (ARG / §) | Status |
 |---|---|---|---|---|
 | FIG-1 | ACF unification diagram (deseasonalized ACF: Colorado, Ohio, Dallas, flu, common lag axis) | 6.2 | ARG-09 / 6.2 | CORRECT (regenerate **without** the spurious "CO 0-cross ~132d" annotation; **commit it** — DISC-1.4-04) |
-| TBL-1 | Unified cross-domain table (S_W, toward, divergence ρ, Theorem-8b, seasonality, ACF lags per system) | 6.1 | ARG-09, ARG-13 / 6.1 | CORRECT (Colorado ρ≈+0.10; matched sweep; sunspot/financial cited; Norwich open; sunspot ACF on v2.0) |
+| TBL-1 | Unified cross-domain table (S_W, toward, divergence ρ, Theorem-8b, seasonality, ACF lags per system) | 6.1 | ARG-09, ARG-13 / 6.1 | CORRECT (D01: rivers reported as returns-op ρ — Ohio +0.30 > Colorado +0.12 — with the level-op null noted; matched sweep; sunspot/financial cited; Norwich open; sunspot ACF on v2.0) |
 | EQ-1 | Gap-closure decomposition (filter-share = filter gap-closure / total gap-closure) | 2.1 | ARG-04 / 2.1 | REGEN (anchor added) |
 | EQ-2 | Volatility-divergence operator — generic form (fast std − slow std) **plus the four domain-specific constructions** | 3.2 | ARG-06 / 3.2 | CORRECT (document domain-specific operators) |
 | EQ-3 | Level-divergence operator (fast SMA − slow SMA) | 4.1 | ARG-08 / 4.1 | REGEN (anchor added) |
@@ -143,7 +144,7 @@ Each carries a greppable `S-` anchor in the manuscript.
 |---|---|---|---|
 | S1 | The observable's autocorrelation structure is approximately stationary over the sample | 3.2 / 4.1 | RETAINED |
 | S2 | Deseasonalization (monthly-mean, day-of-year mean, or per-month z-score) adequately removes the seasonal cycle while preserving stochastic departures | 2.3.2 / 3.3.3 / 4.2 | RETAINED |
-| S3 | The divergence operator requires sufficient autocorrelation structure; it returns a null where basin-scale averaging or deseasonalization removes that structure | 3.3 / 6.3 | RETAINED |
+| S3 | The divergence operator requires sufficient autocorrelation structure; on the rivers, a null arises under the **level** operator (volatility confounded with the seasonal cycle), not from absent structure — the **returns** operator recovers a significant signal in both rivers | 3.3 / 6.3 | CORRECTED (D01) |
 | S4 | The forward-prediction test requires a genuine flu season (peak ILI ≥ activity floor); a low-activity season is untestable, not falsifying | 7.1 | RETAINED |
 | S5 | The decomposition and Theorem 8b are applied identically across all four domains; the divergence operator is adapted to each domain's natural innovation representation (log-returns / first-differences / level), disclosed as such | 3.2 | NEW |
 
@@ -161,7 +162,7 @@ Each carries a greppable `C-`/`L-` anchor.
 | L-03 | National-aggregate flu data only; regional/age-stratified/facility-level behavior unknown | 5.1.6 | RETAINED |
 | L-04 | The retrospective lead-time is the evidentiary basis; the registered 2026–27 prediction is the unresolved out-of-sample test | 7 | RETAINED |
 | L-05 | Financial-market **and sunspot-decomposition** comparison values are cited from Paper 4, not regenerated here | 2.6 / 6.1 | CORRECTED |
-| L-06 | The Colorado divergence magnitude is reported at the defensible subsampled value (≈+0.10), correcting Paper-4's overlap-inflated +0.33; the qualitative Colorado-vs-Ohio contrast holds | 3.3.1 | NEW |
+| L-06 | The Colorado divergence is reported at the defensible subsampled value (+0.12 returns / -0.00 level), correcting Paper-4's +0.33 look-ahead artifact (CIC #4: the divergence correlated with its own contemporaneous fast vol); the v4 "Colorado-vs-Ohio" contrast does **not** hold — under any consistent operator Ohio ≥ Colorado, and on the pre-registered returns operator Ohio is the stronger signal | 3.3.1 | CORRECTED (D01) |
 | L-07 | The Norwich deseasonalized-divergence contrast magnitude is unverified on the current record (reported at the reproduced value; the larger figure is source-authentic but unreproduced) | 3.3.3 | NEW |
 | L-08 | The sunspot "CSD also negative" sub-claim is dropped (does not reproduce on SILSO v2.0); the load-bearing sunspot claim is the negative divergence sign, which reproduces | 3.3.4 | NEW |
 

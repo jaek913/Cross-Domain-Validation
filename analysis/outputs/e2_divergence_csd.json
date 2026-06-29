@@ -1,0 +1,164 @@
+{
+  "experiment": "E2",
+  "title": "volatility-divergence operators + CSD comparison",
+  "operators": {
+    "hydrology": "log-returns + level, fwd vol, 12/63, sub-21 (D01: returns=signal both rivers OH>CO; level=consistent null; v4 +0.33 = contemp std(12) self-corr, CIC #4)",
+    "weather_A_verified": "temperature level, fwd 63d level-vol, 12/63, sub-21, day-of-year deseason",
+    "weather_B_design": "TMAX first-diff, fwd 21d vol, 21/252, sub-21, per-month z-score deseason",
+    "epidemiology": "first-diff %ILI, fwd diff-vol, 4/16, none",
+    "solar": "yearly level, future level Y(t+5), 3/11, year<=2008"
+  },
+  "hydrology": {
+    "Colorado": {
+      "n": 46767,
+      "returns_op": {
+        "overlap": 0.105,
+        "sub21_raw": 0.12,
+        "sub21_deseas": 0.123,
+        "n_overlap": 46641,
+        "n_sub": 2221
+      },
+      "level_op": {
+        "overlap": -0.014,
+        "overlap_deseas": -0.021,
+        "sub21_raw": -0.0,
+        "sub21_deseas": 0.003,
+        "n_overlap": 46642
+      },
+      "v4_artifact_contemp_fast": {
+        "raw": 0.322,
+        "deseas": 0.365,
+        "note": "vdiv vs contemporaneous std(12) = predictor's own fast term; CIC #4 look-ahead; raw = v4's +0.33"
+      }
+    },
+    "Ohio": {
+      "n": 35862,
+      "returns_op": {
+        "overlap": 0.305,
+        "sub21_raw": 0.297,
+        "sub21_deseas": 0.289,
+        "n_overlap": 35736,
+        "n_sub": 1702
+      },
+      "level_op": {
+        "overlap": 0.053,
+        "overlap_deseas": 0.03,
+        "sub21_raw": 0.047,
+        "sub21_deseas": 0.02,
+        "n_overlap": 35737
+      },
+      "v4_artifact_contemp_fast": {
+        "raw": 0.624,
+        "deseas": 0.675,
+        "note": "vdiv vs contemporaneous std(12) = predictor's own fast term; CIC #4 look-ahead; raw = v4's +0.33"
+      }
+    },
+    "_targets": "D01: returns op = signal (Ohio +0.30 > Colorado +0.12, both rivers); level op (consistent, forward) = null both rivers (Colorado -0.00, Ohio +0.047); v4's +0.33 = Colorado vdiv vs CONTEMPORANEOUS std(12) (CIC #4 look-ahead, ~+0.32); Ohio's +0.047 used the forward target - the two rivers used different targets"
+  },
+  "weather": {
+    "NYC_CentralPark": {
+      "station": "USW00094728",
+      "n": 57413,
+      "operator_A_level": {
+        "raw": 0.208,
+        "deseas": 0.162
+      }
+    },
+    "BlueHill_MA": {
+      "station": "USC00190736",
+      "n": 51544,
+      "operator_A_level": {
+        "raw": 0.164,
+        "deseas": 0.127
+      }
+    },
+    "SanFrancisco": {
+      "station": "USW00023272",
+      "n": 38366,
+      "operator_A_level": {
+        "raw": 0.125,
+        "deseas": 0.107
+      }
+    },
+    "Philadelphia": {
+      "station": "USW00013739",
+      "n": 31146,
+      "operator_A_level": {
+        "raw": 0.221,
+        "deseas": 0.176
+      }
+    },
+    "Dallas_TX": {
+      "station": "USW00003927",
+      "n": 26625,
+      "operator_A_level": {
+        "raw": 0.301,
+        "deseas": 0.316
+      },
+      "operator_B_design": {
+        "raw": 0.745,
+        "deseas_zdiff": -0.003,
+        "deseas_diffz": 0.1,
+        "n_sub": 1255,
+        "v4_headline": "+0.745 -> +0.004"
+      }
+    },
+    "Norwich_CT": {
+      "station": "USC00065910",
+      "n": 22636,
+      "operator_A_level": {
+        "raw": 0.132,
+        "deseas": 0.103
+      },
+      "operator_B_design": {
+        "raw": 0.402,
+        "deseas_zdiff": 0.047,
+        "deseas_diffz": 0.05,
+        "n_sub": 1105,
+        "v4_headline": "+0.39 -> +0.232"
+      }
+    },
+    "_A_all6_raw_range": [
+      0.125,
+      0.301
+    ],
+    "_targets": "operator A: Dallas +0.301->+0.313, Norwich +0.129->+0.101 (verified, NO collapse); operator B resolves whether first-diff/21-252/per-month-z reproduces the +0.745->+0.004 collapse"
+  },
+  "epidemiology": {
+    "first_diff_op": {
+      "% WEIGHTED ILI": {
+        "rho": 0.391,
+        "n": 1452
+      },
+      "%UNWEIGHTED ILI": {
+        "rho": 0.416,
+        "n": 1452
+      }
+    },
+    "_target": "+0.393 weighted / +0.420 unweighted (LB-11)"
+  },
+  "solar": {
+    "years": "1700-2008",
+    "n": 294,
+    "vdiv_rho": -0.23,
+    "perm_z": -3.94,
+    "_target": "-0.230 (perm-z -3.94), the unique negative-sign domain (LB-12)"
+  },
+  "block_shuffle_null": {
+    "Ohio_deseas": {
+      "rho": 0.02,
+      "z": 1.99,
+      "_target": "rho +0.021, z +1.7 < 2.0 -> null holds (LB-9)"
+    }
+  },
+  "csd": {
+    "epidemiology": {
+      "csd_rho": -0.154,
+      "_target": "~ -0.165 (opposite sign to vdiv; LB-11/13)"
+    },
+    "solar": {
+      "csd_rho": -0.257,
+      "_note": "v4's sunspot 'CSD also negative' does NOT reproduce on SILSO v2.0 -> drop/correct"
+    }
+  }
+}
