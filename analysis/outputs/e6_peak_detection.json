@@ -1,0 +1,195 @@
+{
+  "experiment": "E6",
+  "title": "peak-detection hypothesis (rejected; honest negative)",
+  "operators": "D = SMA_4(ILI) - SMA_12(ILI) on the continuous series; lead = ILI-peak wk - detector wk (+ precedes, - lags)",
+  "season_def": "complete seasons through 2024, wk40(y)..wk20(y+1), >= 20 wks, peak ILI >= 2.0%",
+  "provenance": "NOT in the Stage-1.5 verified record; v4 figures regenerated here for the first time; reported as-computed",
+  "n_seasons": 27,
+  "hypothesis_zero_crossing_marks_peak": "REJECTED",
+  "divergence_zerocross_lead": {
+    "mean": -5.074,
+    "median": -5.0,
+    "n": 27,
+    "_note": "negative => lags the true peak; v4 ~ -5.6 (lag +5.6 wk)"
+  },
+  "sma4_peak_lead": {
+    "mean": -2.148,
+    "median": -2.0,
+    "_note": "negative => lags the true peak; v4 ~ -2.1 (lag +2.1 wk)"
+  },
+  "divergence_peak_lead": {
+    "mean": 1.333,
+    "median": -1.0,
+    "precede_count": 7,
+    "of": 27,
+    "precede_pct": 25.926,
+    "paired_t": 1.419,
+    "paired_p": 0.168,
+    "wilcoxon_p": 0.934,
+    "_note": "positive => precedes the true peak; v4 ~ +1.7, 96%, t 4.36, p 0.0002"
+  },
+  "per_season": [
+    {
+      "season": "1997-98",
+      "divpeak_lead": 2,
+      "sma4_lead": -1,
+      "zerocross_lead": -3
+    },
+    {
+      "season": "1998-99",
+      "divpeak_lead": 0,
+      "sma4_lead": -2,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "1999-00",
+      "divpeak_lead": -2,
+      "sma4_lead": -2,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2000-01",
+      "divpeak_lead": 0,
+      "sma4_lead": -3,
+      "zerocross_lead": -6
+    },
+    {
+      "season": "2001-02",
+      "divpeak_lead": 16,
+      "sma4_lead": -1,
+      "zerocross_lead": 8
+    },
+    {
+      "season": "2002-03",
+      "divpeak_lead": 15,
+      "sma4_lead": -2,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2003-04",
+      "divpeak_lead": 0,
+      "sma4_lead": 0,
+      "zerocross_lead": -4
+    },
+    {
+      "season": "2004-05",
+      "divpeak_lead": 0,
+      "sma4_lead": -1,
+      "zerocross_lead": -4
+    },
+    {
+      "season": "2005-06",
+      "divpeak_lead": -1,
+      "sma4_lead": -10,
+      "zerocross_lead": -13
+    },
+    {
+      "season": "2006-07",
+      "divpeak_lead": 6,
+      "sma4_lead": -1,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2007-08",
+      "divpeak_lead": -1,
+      "sma4_lead": -1,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2008-09",
+      "divpeak_lead": -2,
+      "sma4_lead": -3,
+      "zerocross_lead": -6
+    },
+    {
+      "season": "2009-10",
+      "divpeak_lead": -1,
+      "sma4_lead": -2,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2010-11",
+      "divpeak_lead": -2,
+      "sma4_lead": -2,
+      "zerocross_lead": -6
+    },
+    {
+      "season": "2011-12",
+      "divpeak_lead": 10,
+      "sma4_lead": 0,
+      "zerocross_lead": -3
+    },
+    {
+      "season": "2012-13",
+      "divpeak_lead": -1,
+      "sma4_lead": -3,
+      "zerocross_lead": -7
+    },
+    {
+      "season": "2013-14",
+      "divpeak_lead": -2,
+      "sma4_lead": -3,
+      "zerocross_lead": -7
+    },
+    {
+      "season": "2014-15",
+      "divpeak_lead": -1,
+      "sma4_lead": -2,
+      "zerocross_lead": -7
+    },
+    {
+      "season": "2015-16",
+      "divpeak_lead": 0,
+      "sma4_lead": 0,
+      "zerocross_lead": -4
+    },
+    {
+      "season": "2016-17",
+      "divpeak_lead": -1,
+      "sma4_lead": -2,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2017-18",
+      "divpeak_lead": 2,
+      "sma4_lead": -1,
+      "zerocross_lead": -4
+    },
+    {
+      "season": "2018-19",
+      "divpeak_lead": -1,
+      "sma4_lead": -2,
+      "zerocross_lead": -6
+    },
+    {
+      "season": "2019-20",
+      "divpeak_lead": -1,
+      "sma4_lead": -7,
+      "zerocross_lead": -10
+    },
+    {
+      "season": "2021-22",
+      "divpeak_lead": -1,
+      "sma4_lead": -2,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2022-23",
+      "divpeak_lead": -1,
+      "sma4_lead": -3,
+      "zerocross_lead": -6
+    },
+    {
+      "season": "2023-24",
+      "divpeak_lead": -1,
+      "sma4_lead": -1,
+      "zerocross_lead": -5
+    },
+    {
+      "season": "2024-25",
+      "divpeak_lead": 4,
+      "sma4_lead": -1,
+      "zerocross_lead": -4
+    }
+  ]
+}
