@@ -1,0 +1,601 @@
+{
+  "experiment": "E7b",
+  "title": "regional-consistency diagnostic (is there a consistently early region?) - E7 follow-up",
+  "n_seasons": 27,
+  "n_regions": 10,
+  "regions": [
+    "Region 1",
+    "Region 2",
+    "Region 3",
+    "Region 4",
+    "Region 5",
+    "Region 6",
+    "Region 7",
+    "Region 8",
+    "Region 9",
+    "Region 10"
+  ],
+  "method": "hindsight per-region lead + chi-square concentration; LEAVE-ONE-SEASON-OUT targeted causal detector (region selection from the other 26 seasons only); operators + season set identical to E7. Diagnostic, not a pre-registered LB claim.",
+  "part_a_consistency": {
+    "per_region": [
+      {
+        "region": "Region 1",
+        "median_lead": 0.0,
+        "mean_lead": -1.074,
+        "lead_freq_pct": 18.519,
+        "lead_ge2_pct": 7.407,
+        "max_lead": 11,
+        "min_lead": -10,
+        "earliest_credit": 1.101,
+        "times_sole_earliest": 0
+      },
+      {
+        "region": "Region 2",
+        "median_lead": 0.0,
+        "mean_lead": -0.519,
+        "lead_freq_pct": 25.926,
+        "lead_ge2_pct": 25.926,
+        "max_lead": 14,
+        "min_lead": -14,
+        "earliest_credit": 4.268,
+        "times_sole_earliest": 4
+      },
+      {
+        "region": "Region 3",
+        "median_lead": 0.0,
+        "mean_lead": -0.481,
+        "lead_freq_pct": 14.815,
+        "lead_ge2_pct": 11.111,
+        "max_lead": 11,
+        "min_lead": -12,
+        "earliest_credit": 1.268,
+        "times_sole_earliest": 1
+      },
+      {
+        "region": "Region 4",
+        "median_lead": 0.0,
+        "mean_lead": 1.074,
+        "lead_freq_pct": 40.741,
+        "lead_ge2_pct": 22.222,
+        "max_lead": 11,
+        "min_lead": -7,
+        "earliest_credit": 4.635,
+        "times_sole_earliest": 3
+      },
+      {
+        "region": "Region 5",
+        "median_lead": 0.0,
+        "mean_lead": -1.37,
+        "lead_freq_pct": 0.0,
+        "lead_ge2_pct": 0.0,
+        "max_lead": 0,
+        "min_lead": -10,
+        "earliest_credit": 0.468,
+        "times_sole_earliest": 0
+      },
+      {
+        "region": "Region 6",
+        "median_lead": 0.0,
+        "mean_lead": 1.037,
+        "lead_freq_pct": 44.444,
+        "lead_ge2_pct": 22.222,
+        "max_lead": 7,
+        "min_lead": -2,
+        "earliest_credit": 6.343,
+        "times_sole_earliest": 5
+      },
+      {
+        "region": "Region 7",
+        "median_lead": 0.0,
+        "mean_lead": -0.852,
+        "lead_freq_pct": 29.63,
+        "lead_ge2_pct": 11.111,
+        "max_lead": 2,
+        "min_lead": -8,
+        "earliest_credit": 0.468,
+        "times_sole_earliest": 0
+      },
+      {
+        "region": "Region 8",
+        "median_lead": 0.0,
+        "mean_lead": 0.481,
+        "lead_freq_pct": 29.63,
+        "lead_ge2_pct": 22.222,
+        "max_lead": 19,
+        "min_lead": -5,
+        "earliest_credit": 1.658,
+        "times_sole_earliest": 1
+      },
+      {
+        "region": "Region 9",
+        "median_lead": 0.0,
+        "mean_lead": 0.741,
+        "lead_freq_pct": 44.444,
+        "lead_ge2_pct": 33.333,
+        "max_lead": 13,
+        "min_lead": -11,
+        "earliest_credit": 4.292,
+        "times_sole_earliest": 3
+      },
+      {
+        "region": "Region 10",
+        "median_lead": 0.0,
+        "mean_lead": -0.667,
+        "lead_freq_pct": 29.63,
+        "lead_ge2_pct": 25.926,
+        "max_lead": 6,
+        "min_lead": -16,
+        "earliest_credit": 2.5,
+        "times_sole_earliest": 1
+      }
+    ],
+    "concentration": {
+      "_what": "is 'which region leads' concentrated in a few regions (structural) or spread uniformly (positional noise)? earliest-credit per region (seasons where the region is at the earliest peak week, ties split); chi-square vs the uniform expectation",
+      "expected_credit_per_region_if_uniform": 2.7,
+      "chi2": 13.964,
+      "p_value": 0.124,
+      "most_often_earliest": "Region 6",
+      "its_credit": 6.343,
+      "interpretation": "NOT distinguishable from uniform - leadership is spread across regions (positional noise); no consistent early region"
+    },
+    "single_best_region_in_sample": {
+      "region": "Region 6",
+      "median_lead": 0.0,
+      "lead_freq_pct": 44.444,
+      "_note": "the most-consistently-early region IN-SAMPLE (by median hindsight lead); Part B tests whether watching it generalizes out-of-sample"
+    }
+  },
+  "part_b_targeted_loo": {
+    "K_1": {
+      "frac_0.5": {
+        "n": 27,
+        "mean": 3.778,
+        "median": 2.0,
+        "lead_pct": 51.852,
+        "earlier_count": 14,
+        "t_vs0": 2.492,
+        "p_vs0": 0.019,
+        "wilcoxon_p": 0.05,
+        "n_fired": 27,
+        "hindsight_ceiling": {
+          "n": 27,
+          "mean": 0.0,
+          "median": 0.0,
+          "lead_pct": 18.519,
+          "earlier_count": 5,
+          "t_vs0": 0.0,
+          "p_vs0": 1.0,
+          "wilcoxon_p": 0.951
+        },
+        "selected_regions_per_season": [
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 9"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 9"
+          ],
+          [
+            "Region 4"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 9"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 9"
+          ],
+          [
+            "Region 4"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 6"
+          ],
+          [
+            "Region 9"
+          ],
+          [
+            "Region 6"
+          ]
+        ],
+        "selection_stability": {
+          "most_chosen_region": "Region 6",
+          "chosen_in_seasons": 20,
+          "of": 27,
+          "_note": "if the SAME region is chosen in most LOO folds, selection is stable (a consistent leader); if it jitters across regions, there is no consistent leader and any LOO lead is luck"
+        }
+      },
+      "frac_0.75": {
+        "n": 27,
+        "mean": 0.111,
+        "median": -4.0,
+        "lead_pct": 29.63,
+        "earlier_count": 8,
+        "t_vs0": 0.075,
+        "p_vs0": 0.941,
+        "wilcoxon_p": 0.664,
+        "n_fired": 27
+      }
+    },
+    "K_2": {
+      "frac_0.5": {
+        "n": 27,
+        "mean": 6.556,
+        "median": 9.0,
+        "lead_pct": 77.778,
+        "earlier_count": 21,
+        "t_vs0": 4.681,
+        "p_vs0": 0.0,
+        "wilcoxon_p": 0.001,
+        "n_fired": 27,
+        "hindsight_ceiling": {
+          "n": 27,
+          "mean": 2.037,
+          "median": 0.0,
+          "lead_pct": 40.741,
+          "earlier_count": 11,
+          "t_vs0": 2.923,
+          "p_vs0": 0.007,
+          "wilcoxon_p": 0.004
+        },
+        "selected_regions_per_season": [
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 4",
+            "Region 6"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 9",
+            "Region 6"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 4",
+            "Region 6"
+          ],
+          [
+            "Region 6",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9"
+          ]
+        ]
+      },
+      "frac_0.75": {
+        "n": 27,
+        "mean": 1.889,
+        "median": 0.0,
+        "lead_pct": 48.148,
+        "earlier_count": 13,
+        "t_vs0": 1.346,
+        "p_vs0": 0.19,
+        "wilcoxon_p": 0.373,
+        "n_fired": 27
+      }
+    },
+    "K_3": {
+      "frac_0.5": {
+        "n": 27,
+        "mean": 6.963,
+        "median": 9.0,
+        "lead_pct": 77.778,
+        "earlier_count": 21,
+        "t_vs0": 5.119,
+        "p_vs0": 0.0,
+        "wilcoxon_p": 0.0,
+        "n_fired": 27,
+        "hindsight_ceiling": {
+          "n": 27,
+          "mean": 3.296,
+          "median": 2.0,
+          "lead_pct": 70.37,
+          "earlier_count": 19,
+          "t_vs0": 4.739,
+          "p_vs0": 0.0,
+          "wilcoxon_p": 0.0
+        },
+        "selected_regions_per_season": [
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 9",
+            "Region 4",
+            "Region 6"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 9",
+            "Region 4",
+            "Region 6"
+          ],
+          [
+            "Region 4",
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 4",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 9",
+            "Region 6",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 9",
+            "Region 4",
+            "Region 6"
+          ],
+          [
+            "Region 4",
+            "Region 6",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 4",
+            "Region 9"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ],
+          [
+            "Region 9",
+            "Region 4",
+            "Region 6"
+          ],
+          [
+            "Region 6",
+            "Region 9",
+            "Region 4"
+          ]
+        ]
+      },
+      "frac_0.75": {
+        "n": 27,
+        "mean": 2.667,
+        "median": 1.0,
+        "lead_pct": 51.852,
+        "earlier_count": 14,
+        "t_vs0": 1.967,
+        "p_vs0": 0.06,
+        "wilcoxon_p": 0.139,
+        "n_fired": 27
+      }
+    }
+  },
+  "in_sample_ceiling_K1": {
+    "region": "Region 6",
+    "n": 27,
+    "mean": 2.519,
+    "median": -2.0,
+    "lead_pct": 48.148,
+    "earlier_count": 13,
+    "t_vs0": 1.767,
+    "p_vs0": 0.089,
+    "wilcoxon_p": 0.306,
+    "_note": "OVERFIT-PRONE: region chosen using all 27 seasons then scored on the same seasons; an optimistic ceiling, not an honest estimate - compare to the LOO K=1 result"
+  },
+  "verdict": "NO CONSISTENT LEADER: 'which region leads' is not distinguishable from uniform - a different region leads each season (positional noise). The single-earliest ~5-wk hindsight lead is NOT usable in real time. The pooled E7 H0 is ROBUST and COMPLETE."
+}

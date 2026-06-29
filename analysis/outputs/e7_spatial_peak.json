@@ -1,0 +1,533 @@
+{
+  "experiment": "E7",
+  "title": "spatial-curvature peak detection (pre-registered, net-new)",
+  "prereg": "commit ed211e0; DESIGN v0.9 / OUTLINE v0.7 / DECISIONS 2026-06-28; committed before any regional number was computed",
+  "provenance": "NET-NEW beyond v4; no v4 figure, no Stage-1.5 record; all values as-computed",
+  "causal_discipline": "every signal from data <= t; the feasibility diagnostic is HINDSIGHT and labeled; no use of the finished season to label a region peaked (the D01 / CIC #4 look-ahead lesson)",
+  "n_seasons": 27,
+  "n_regions": 10,
+  "regions": [
+    "Region 1",
+    "Region 2",
+    "Region 3",
+    "Region 4",
+    "Region 5",
+    "Region 6",
+    "Region 7",
+    "Region 8",
+    "Region 9",
+    "Region 10"
+  ],
+  "operators": "D = SMA_4 - SMA_12; momentum-rollover = D fallen by FRAC from its causal running-max since onset; lead = national-peak-pos - detector-pos (+ precedes)",
+  "season_def": "complete seasons through 2024, wk40(y)..wk20(y+1), >= 20 wks, peak >= 2.0% (identical E5/E6 set)",
+  "params": {
+    "theta_primary": 0.3,
+    "frac_primary": 0.5,
+    "onset_pp": 0.2,
+    "theta_sweep": [
+      0.2,
+      0.3,
+      0.5,
+      0.7
+    ],
+    "frac_sweep": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "_note": "theta + sweep were pre-registered; the running-max-drawdown margin (FRAC) + E4 onset guard are pinned here as the principled implementation of the pre-registered 'D_r drops below its causal running-max by a margin'; FRAC reported as a declared sensitivity. A first sustained-negative-2nd-difference implementation fired at onset on early-rise noise (an artifact) and was replaced (see DECISIONS)"
+  },
+  "LB_e7_feasibility": {
+    "_what": "HINDSIGHT diagnostic and the DECISIVE evidence on H1. The relevant ceiling is the lead of the EARLIEST regions, NOT the mean/median region: the national % ILI is ~the population-weighted center of the regional peaks, so the all-region median is ~tautologically the national peak. A detector firing when k regions have turned can lead AT MOST by the k-th-earliest region's lead.",
+    "earliest_region_leads_by_rank": {
+      "earliest_1": {
+        "median": 5.0,
+        "mean": 4.889,
+        "leads_ge_1wk": 22,
+        "leads_ge_2wk": 18,
+        "of": 27
+      },
+      "earliest_2": {
+        "median": 1.0,
+        "mean": 2.259,
+        "leads_ge_1wk": 16,
+        "leads_ge_2wk": 11,
+        "of": 27
+      },
+      "earliest_3": {
+        "median": 0.0,
+        "mean": 1.556,
+        "leads_ge_1wk": 12,
+        "leads_ge_2wk": 8,
+        "of": 27
+      },
+      "earliest_4": {
+        "median": 0.0,
+        "mean": 0.593,
+        "leads_ge_1wk": 10,
+        "leads_ge_2wk": 7,
+        "of": 27
+      },
+      "earliest_5": {
+        "median": 0.0,
+        "mean": 0.0,
+        "leads_ge_1wk": 9,
+        "leads_ge_2wk": 4,
+        "of": 27
+      }
+    },
+    "_rank_note": "earliest_1 = first region to peak; earliest_3 = the headroom for the PRIMARY theta=0.3 detector (fires when 3/10 regions have turned); earliest_2 = theta=0.2",
+    "all_region_spread_only": {
+      "mean": -0.163,
+      "median": 0.0,
+      "std": 4.095,
+      "min": -16.0,
+      "max": 19.0,
+      "region_seasons_leading_pct": 27.778,
+      "_note": "NOT the ceiling - ~tautologically ~0 since national ~ population-weighted center of the regional peaks; reported only to show the spread"
+    },
+    "region_seasons": 270,
+    "of_seasons": 27
+  },
+  "e6_national_comparators": {
+    "divergence_zerocross_lead": {
+      "n": 27,
+      "mean": -5.074,
+      "median": -5.0,
+      "lead_pct": 3.704,
+      "earlier_count": 1,
+      "t_vs0": -7.924,
+      "p_vs0": 0.0,
+      "wilcoxon_p": 0.0
+    },
+    "sma4_peak_lead": {
+      "n": 27,
+      "mean": -2.148,
+      "median": -2.0,
+      "lead_pct": 0.0,
+      "earlier_count": 0,
+      "t_vs0": -5.345,
+      "p_vs0": 0.0,
+      "wilcoxon_p": 0.0
+    },
+    "divergence_peak_lead": {
+      "n": 27,
+      "mean": 1.333,
+      "median": -1.0,
+      "lead_pct": 25.926,
+      "earlier_count": 7,
+      "t_vs0": 1.419,
+      "p_vs0": 0.168,
+      "wilcoxon_p": 0.934
+    },
+    "_note": "reproduces E6: zero-cross ~ -5 (lags), SMA-4 ~ -2 (lags), div-peak ~0 (coincident; the bar to beat)"
+  },
+  "LB_e7_spatial_lead": {
+    "spatial_first_order": {
+      "theta": 0.3,
+      "n": 27,
+      "mean": -0.667,
+      "median": -3.0,
+      "lead_pct": 33.333,
+      "earlier_count": 9,
+      "t_vs0": -0.626,
+      "p_vs0": 0.537,
+      "wilcoxon_p": 0.647,
+      "n_fired": 27,
+      "_def": "fraction of regions whose momentum D_r turned pos->neg >= theta"
+    },
+    "spatial_momentum_rollover_PRIMARY": {
+      "theta": 0.3,
+      "frac": 0.5,
+      "n": 27,
+      "mean": 4.222,
+      "median": 5.0,
+      "lead_pct": 62.963,
+      "earlier_count": 17,
+      "t_vs0": 3.606,
+      "p_vs0": 0.001,
+      "wilcoxon_p": 0.004,
+      "n_fired": 27,
+      "_def": "fraction of regions whose momentum has fallen by FRAC from its causal running-max since onset >= theta (LB-e7-spatial-lead)"
+    },
+    "national_rollover_CONTROL": {
+      "frac": 0.5,
+      "n": 27,
+      "mean": -1.37,
+      "median": -4.0,
+      "lead_pct": 22.222,
+      "earlier_count": 6,
+      "t_vs0": -1.378,
+      "p_vs0": 0.18,
+      "wilcoxon_p": 0.19,
+      "n_fired": 27,
+      "_def": "national momentum-rollover, NO spatial pooling - the spatial PRIMARY must beat this for the lead to be SPATIAL rather than universal curvature (LB-e7-curvature)"
+    }
+  },
+  "spatial_gain_over_national_control": {
+    "_what": "spatial primary lead - national-control lead, per season; + => the SPATIAL pooling adds lead beyond the national-only rollover (required for H1; ~0 => the lead is universal curvature, NOT spatial)",
+    "n_paired": 27,
+    "mean_gain": 5.593,
+    "median_gain": 4.0,
+    "a_earlier_pct": 92.593,
+    "paired_t": 5.748,
+    "paired_p": 0.0,
+    "wilcoxon_p": 0.0
+  },
+  "theta_sweep": {
+    "theta_0.2": {
+      "n": 27,
+      "mean": 6.074,
+      "median": 7.0,
+      "lead_pct": 81.481,
+      "earlier_count": 22,
+      "t_vs0": 5.216,
+      "p_vs0": 0.0,
+      "wilcoxon_p": 0.0,
+      "n_fired": 27
+    },
+    "theta_0.3": {
+      "n": 27,
+      "mean": 4.222,
+      "median": 5.0,
+      "lead_pct": 62.963,
+      "earlier_count": 17,
+      "t_vs0": 3.606,
+      "p_vs0": 0.001,
+      "wilcoxon_p": 0.004,
+      "n_fired": 27
+    },
+    "theta_0.5": {
+      "n": 27,
+      "mean": 1.148,
+      "median": -2.0,
+      "lead_pct": 44.444,
+      "earlier_count": 12,
+      "t_vs0": 1.018,
+      "p_vs0": 0.318,
+      "wilcoxon_p": 0.329,
+      "n_fired": 27
+    },
+    "theta_0.7": {
+      "n": 27,
+      "mean": -0.741,
+      "median": -3.0,
+      "lead_pct": 29.63,
+      "earlier_count": 8,
+      "t_vs0": -0.689,
+      "p_vs0": 0.497,
+      "wilcoxon_p": 0.254,
+      "n_fired": 27
+    }
+  },
+  "frac_sensitivity": {
+    "frac_0.25": {
+      "n": 27,
+      "mean": 7.889,
+      "median": 10.0,
+      "lead_pct": 77.778,
+      "earlier_count": 21,
+      "t_vs0": 6.388,
+      "p_vs0": 0.0,
+      "wilcoxon_p": 0.0,
+      "n_fired": 27
+    },
+    "frac_0.5": {
+      "n": 27,
+      "mean": 4.222,
+      "median": 5.0,
+      "lead_pct": 62.963,
+      "earlier_count": 17,
+      "t_vs0": 3.606,
+      "p_vs0": 0.001,
+      "wilcoxon_p": 0.004,
+      "n_fired": 27
+    },
+    "frac_0.75": {
+      "n": 27,
+      "mean": 0.778,
+      "median": -1.0,
+      "lead_pct": 37.037,
+      "earlier_count": 10,
+      "t_vs0": 0.697,
+      "p_vs0": 0.492,
+      "wilcoxon_p": 0.596,
+      "n_fired": 27
+    }
+  },
+  "robustness_check": {
+    "_what": "the apparent lead must SURVIVE a deeper (more genuine, less noise-triggerable) rollover and have real feasibility headroom; a monotone collapse as the drawdown is deepened indicates a regional-NOISE artifact (the loose drawdown fires early on noisy regional momenta during the rise)",
+    "lead_median_by_drawdown": {
+      "0.25": 10.0,
+      "0.5": 5.0,
+      "0.75": -1.0
+    },
+    "strict_rollover_p_vs0": 0.492,
+    "theta0.3_feasibility_headroom_wk": 0.0,
+    "national_control_median_lead": -4.0,
+    "robust_to_threshold": false,
+    "genuine_headroom": false
+  },
+  "head_to_head_vs_e6_divpeak": {
+    "_what": "spatial-rollover lead - E6 divergence-peak lead, per season; + => the spatial detector fires earlier than the coincident divergence-peak (the SOLID bar)",
+    "n_paired": 27,
+    "mean_gain": 2.889,
+    "median_gain": 3.0,
+    "a_earlier_pct": 55.556,
+    "paired_t": 2.603,
+    "paired_p": 0.015,
+    "wilcoxon_p": 0.02
+  },
+  "primary_fire_diagnostic": [
+    {
+      "season": "1997-98",
+      "fired": true,
+      "fire_wk": "1998w05",
+      "peak_wk": "1998w05",
+      "lead_wk": 0,
+      "ili_at_fire": 5.978,
+      "ili_at_peak": 5.978
+    },
+    {
+      "season": "1998-99",
+      "fired": true,
+      "fire_wk": "1998w47",
+      "peak_wk": "1999w06",
+      "lead_wk": 11,
+      "ili_at_fire": 2.112,
+      "ili_at_peak": 7.572
+    },
+    {
+      "season": "1999-00",
+      "fired": true,
+      "fire_wk": "1999w47",
+      "peak_wk": "1999w52",
+      "lead_wk": 5,
+      "ili_at_fire": 1.853,
+      "ili_at_peak": 7.042
+    },
+    {
+      "season": "2000-01",
+      "fired": true,
+      "fire_wk": "2000w46",
+      "peak_wk": "2001w03",
+      "lead_wk": 9,
+      "ili_at_fire": 1.441,
+      "ili_at_peak": 4.393
+    },
+    {
+      "season": "2001-02",
+      "fired": true,
+      "fire_wk": "2001w47",
+      "peak_wk": "2002w07",
+      "lead_wk": 12,
+      "ili_at_fire": 1.806,
+      "ili_at_peak": 3.767
+    },
+    {
+      "season": "2002-03",
+      "fired": true,
+      "fire_wk": "2002w47",
+      "peak_wk": "2003w06",
+      "lead_wk": 11,
+      "ili_at_fire": 1.406,
+      "ili_at_peak": 3.225
+    },
+    {
+      "season": "2003-04",
+      "fired": true,
+      "fire_wk": "2003w52",
+      "peak_wk": "2003w52",
+      "lead_wk": 0,
+      "ili_at_fire": 7.628,
+      "ili_at_peak": 7.628
+    },
+    {
+      "season": "2004-05",
+      "fired": true,
+      "fire_wk": "2004w51",
+      "peak_wk": "2005w07",
+      "lead_wk": 8,
+      "ili_at_fire": 2.376,
+      "ili_at_peak": 5.442
+    },
+    {
+      "season": "2005-06",
+      "fired": true,
+      "fire_wk": "2005w46",
+      "peak_wk": "2005w52",
+      "lead_wk": 6,
+      "ili_at_fire": 1.611,
+      "ili_at_peak": 3.282
+    },
+    {
+      "season": "2006-07",
+      "fired": true,
+      "fire_wk": "2006w46",
+      "peak_wk": "2007w07",
+      "lead_wk": 13,
+      "ili_at_fire": 1.534,
+      "ili_at_peak": 3.579
+    },
+    {
+      "season": "2007-08",
+      "fired": true,
+      "fire_wk": "2007w49",
+      "peak_wk": "2008w07",
+      "lead_wk": 10,
+      "ili_at_fire": 1.621,
+      "ili_at_peak": 5.983
+    },
+    {
+      "season": "2008-09",
+      "fired": true,
+      "fire_wk": "2008w47",
+      "peak_wk": "2009w06",
+      "lead_wk": 12,
+      "ili_at_fire": 1.204,
+      "ili_at_peak": 3.574
+    },
+    {
+      "season": "2009-10",
+      "fired": true,
+      "fire_wk": "2009w45",
+      "peak_wk": "2009w42",
+      "lead_wk": -3,
+      "ili_at_fire": 5.206,
+      "ili_at_peak": 7.715
+    },
+    {
+      "season": "2010-11",
+      "fired": true,
+      "fire_wk": "2011w04",
+      "peak_wk": "2011w05",
+      "lead_wk": 1,
+      "ili_at_fire": 4.162,
+      "ili_at_peak": 4.552
+    },
+    {
+      "season": "2011-12",
+      "fired": true,
+      "fire_wk": "2011w49",
+      "peak_wk": "2012w11",
+      "lead_wk": 14,
+      "ili_at_fire": 1.481,
+      "ili_at_peak": 2.389
+    },
+    {
+      "season": "2012-13",
+      "fired": true,
+      "fire_wk": "2013w04",
+      "peak_wk": "2012w52",
+      "lead_wk": -4,
+      "ili_at_fire": 4.217,
+      "ili_at_peak": 6.061
+    },
+    {
+      "season": "2013-14",
+      "fired": true,
+      "fire_wk": "2013w43",
+      "peak_wk": "2013w52",
+      "lead_wk": 9,
+      "ili_at_fire": 1.374,
+      "ili_at_peak": 4.591
+    },
+    {
+      "season": "2014-15",
+      "fired": true,
+      "fire_wk": "2014w47",
+      "peak_wk": "2014w52",
+      "lead_wk": 5,
+      "ili_at_fire": 2.055,
+      "ili_at_peak": 5.982
+    },
+    {
+      "season": "2015-16",
+      "fired": true,
+      "fire_wk": "2016w03",
+      "peak_wk": "2016w10",
+      "lead_wk": 7,
+      "ili_at_fire": 2.118,
+      "ili_at_peak": 3.56
+    },
+    {
+      "season": "2016-17",
+      "fired": true,
+      "fire_wk": "2017w05",
+      "peak_wk": "2017w06",
+      "lead_wk": 1,
+      "ili_at_fire": 4.503,
+      "ili_at_peak": 5.063
+    },
+    {
+      "season": "2017-18",
+      "fired": true,
+      "fire_wk": "2018w06",
+      "peak_wk": "2018w05",
+      "lead_wk": -1,
+      "ili_at_fire": 7.384,
+      "ili_at_peak": 7.529
+    },
+    {
+      "season": "2018-19",
+      "fired": true,
+      "fire_wk": "2019w04",
+      "peak_wk": "2019w07",
+      "lead_wk": 3,
+      "ili_at_fire": 3.82,
+      "ili_at_peak": 5.042
+    },
+    {
+      "season": "2019-20",
+      "fired": true,
+      "fire_wk": "2020w04",
+      "peak_wk": "2019w52",
+      "lead_wk": -4,
+      "ili_at_fire": 6.081,
+      "ili_at_peak": 7.062
+    },
+    {
+      "season": "2021-22",
+      "fired": true,
+      "fire_wk": "2022w03",
+      "peak_wk": "2021w52",
+      "lead_wk": -3,
+      "ili_at_fire": 2.775,
+      "ili_at_peak": 4.894
+    },
+    {
+      "season": "2022-23",
+      "fired": true,
+      "fire_wk": "2022w51",
+      "peak_wk": "2022w47",
+      "lead_wk": -4,
+      "ili_at_fire": 6.003,
+      "ili_at_peak": 7.425
+    },
+    {
+      "season": "2023-24",
+      "fired": true,
+      "fire_wk": "2024w03",
+      "peak_wk": "2023w52",
+      "lead_wk": -3,
+      "ili_at_fire": 4.324,
+      "ili_at_peak": 6.796
+    },
+    {
+      "season": "2024-25",
+      "fired": true,
+      "fire_wk": "2025w07",
+      "peak_wk": "2025w06",
+      "lead_wk": -1,
+      "ili_at_fire": 6.937,
+      "ili_at_peak": 7.844
+    }
+  ],
+  "climatological_reference": {
+    "_what": "naive baseline: predict the peak at the expanding-window median peak-week of all PRIOR seasons; a forecast ERROR in weeks (a reference, NOT a detector lead and NOT a head-to-head)",
+    "n": 26,
+    "mean_abs_error_wk": 3.942,
+    "median_abs_error_wk": 3.75
+  },
+  "verdict": "H0 / ARTIFACT: the apparent positive lead is NOT robust - it collapses monotonically as the momentum-drawdown is deepened (see robustness.lead_median_by_drawdown; not significant at the genuine-rollover end frac=0.75), the theta=0.3 feasibility headroom is ~0 (3rd-earliest region peaks at median 0), and the national-only control LAGS - so the 'lead' is a regional-NOISE artifact (the loose 50% drawdown fires early on noisy regional momenta during the rise, e.g. at ~1.5% ILI in November), NOT a genuine spatial signal. The spatial-curvature hypothesis H1 is NOT supported (honest negative, with E6)."
+}

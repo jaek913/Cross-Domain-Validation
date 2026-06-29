@@ -100,6 +100,36 @@ def load_strain_combined(ili):
     return m
 
 
+HHS_REGIONS = [f"Region {i}" for i in range(1, 11)]
+
+
+def load_ili_regional(ili):
+    """CDC ILINet HHS-region % WEIGHTED ILI, aligned 1:1 to the national week index.
+
+    Reads ILINet_HHS.csv (REGION TYPE='HHS Regions'; the confirmed pull has all 10 regions
+    x 1,484 weeks 1997w40..2026w09, fully numeric, aligned), restricts each region to the
+    national weeks (k = YEAR*100 + WEEK from `ili`, the load_ili frame -- this also drops any
+    weeks a fresh download carries past 2026w09), and returns a dict:
+        weeks  : national k-array (length N == len(ili))
+        labels : ['Region 1' .. 'Region 10'] in numeric order
+        W      : float ndarray (len(labels), N); W[r, j] = region r's % WEIGHTED ILI on
+                 national week j (np.nan if a region lacks that week -- none in the pull)
+    """
+    df = pd.read_csv(DATA / "ILINet_HHS.csv", skiprows=1)
+    df = df[df["REGION TYPE"] == "HHS Regions"].copy()
+    df["k"] = df["YEAR"] * 100 + df["WEEK"]
+    df["w"] = pd.to_numeric(df["% WEIGHTED ILI"], errors="coerce")
+    ili = ili.copy(); ili["k"] = ili["YEAR"] * 100 + ili["WEEK"]
+    weeks = ili["k"].to_numpy()
+    piv = df.pivot_table(index="k", columns="REGION", values="w", aggfunc="first").reindex(weeks)
+    labels = [r for r in HHS_REGIONS if r in piv.columns]
+    if len(labels) != len(piv.columns):       # fall back to numeric-sorted whatever is present
+        labels = sorted(piv.columns,
+                        key=lambda s: int("".join(ch for ch in str(s) if ch.isdigit()) or 9999))
+    W = piv[labels].to_numpy(dtype=float).T
+    return {"weeks": weeks, "labels": labels, "W": W}
+
+
 # --------------------------------------------------------------------------- SILSO solar
 def load_silso_yearly():
     """SILSO yearly mean total SN v2.0 -> DataFrame[year, sn] (year floored; the E2 solar
@@ -140,6 +170,9 @@ def _smoke():
           f"..{int(ili.YEAR.iloc[-1])}w{int(ili.WEEK.iloc[-1])}")
     m = load_strain_combined(ili)
     print(f"strain-merged: rows={len(m)}  weeks-with-specimens={(m.TOT>0).sum()}")
+    reg = load_ili_regional(ili)
+    print(f"ILINet HHS: regions={len(reg['labels'])} {reg['labels']}  W shape={reg['W'].shape}  "
+          f"NaN={int(np.isnan(reg['W']).sum())}")
     sn = load_silso_yearly()
     print(f"SILSO yearly: years={len(sn)}  {int(sn.year.min())}..{int(sn.year.max())}"
           f"  (<=2008: {(sn.year<=2008).sum()})")

@@ -72,6 +72,12 @@ def fetch(url: str, dst: Path):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     dst.write_bytes(urllib.request.urlopen(req, timeout=180).read())
 
+def _is_float(s):
+    try:
+        float(s); return True
+    except (TypeError, ValueError):
+        return False
+
 # ---- content verifiers (identity checks vs the verification anchors) ----
 def v_usgs(p: Path, exp_obs, exp_first, exp_last):
     lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
@@ -130,6 +136,62 @@ def v_ilinet(p, exp_rows, exp_first, exp_last, exp_md5=None):
         if m != exp_md5:
             fail(f"{p.name}: ILINet MD5 {m} != pinned {exp_md5} (variant).")
     return {"weeks": len(nat), "first": first, "last": last}
+
+def _regional_groups(idx, data, region_type="HHS Regions", week_cap=(2026, 9)):
+    """Group ILINet rows by REGION for a REGION TYPE, truncated to <= week_cap (YEAR,WEEK).
+    Returns {region_label: [(year, week, wili_str), ...]} in file row order."""
+    rt, rg, yr, wk, wi = (idx["REGION TYPE"], idx["REGION"], idx["YEAR"],
+                          idx["WEEK"], idx["% WEIGHTED ILI"])
+    groups = {}
+    cap = week_cap[0] * 100 + week_cap[1]
+    for r in data:
+        if len(r) <= max(rt, rg, yr, wk, wi):
+            continue
+        if r[rt].strip() != region_type:
+            continue
+        try:
+            y, w = int(r[yr]), int(r[wk])
+        except ValueError:
+            continue
+        if y * 100 + w > cap:                  # truncate to the national anchor window
+            continue
+        groups.setdefault(r[rg].strip(), []).append((y, w, r[wi].strip()))
+    return groups
+
+def _region_sort_key(label):
+    digits = "".join(ch for ch in label if ch.isdigit())
+    return int(digits) if digits else 9999
+
+def v_ilinet_regional(p, week_cap=(2026, 9)):
+    """Structural verifier + readout for the HHS-region ILINet pull (net-new for E7; no
+    pinned MD5). Confirms the 10 HHS regions are present with the weekly schema and prints
+    a per-region readout so the E7 loader is written against confirmed structure."""
+    idx, data = _weekly_table(p)
+    for col in ("REGION TYPE", "REGION", "YEAR", "WEEK", "% WEIGHTED ILI"):
+        if col not in idx:
+            fail(f"{p.name}: missing column '{col}' (not a FluView ILINet export?).")
+    groups = _regional_groups(idx, data, "HHS Regions", week_cap)
+    if not groups:
+        fail(f"{p.name}: no REGION TYPE='HHS Regions' rows. Download HHS Regions, all 10, "
+             f"ILINet, all seasons from the FluView portal.")
+    labels = sorted(groups, key=_region_sort_key)
+    print(f"        REGION TYPE='HHS Regions': {len(labels)} regions "
+          f"(truncated to <= {week_cap[0]}w{week_cap[1]})")
+    spans = []
+    for lab in labels:
+        rows = groups[lab]
+        f0, l0 = rows[0], rows[-1]
+        nnum = sum(1 for _, _, v in rows if _is_float(v))
+        print(f"          {lab:<14} weeks={len(rows):>5}  "
+              f"{f0[0]}w{f0[1]:02d}..{l0[0]}w{l0[1]:02d}  numeric%ILI={nnum}")
+        spans.append((lab, len(rows), (f0[0], f0[1]), (l0[0], l0[1]), nnum))
+    wk_counts = {n for _, n, *_ in spans}
+    print(f"        -> {len(labels)} regions; week-count set {sorted(wk_counts)}; "
+          f"{'ALIGNED' if len(wk_counts) == 1 else 'RAGGED (regions differ in length)'}")
+    if len(labels) != 10:
+        print(f"        ! expected 10 HHS regions, found {len(labels)} - check the selection.")
+    return {"regions": len(labels), "labels": labels, "spans": spans,
+            "aligned": len(wk_counts) == 1}
 
 def v_nrevss(p, exp_rows, exp_first, exp_last):
     idx, data = _weekly_table(p)
@@ -217,6 +279,43 @@ def main():
         tol="Recorded raw-download MD5 was 6206a4e0... (1,496 wk, pre-truncation). CDC revises ILINet "
             "retrospectively, so a fresh pull differs on recent weeks; the stable anchor is National + "
             "'% WEIGHTED ILI' + the first 1,484 weeks (ending 2026w09). Identical across all 4 LT papers."))
+
+    # ---- REUSE 3b : ILINet HHS regions (net-new; E7 spatial-curvature peak detection) ----
+    src_hhs = FLU / "ILINet_HHS.csv"
+    if not src_hhs.exists():
+        print("[skip ] ILINet_HHS.csv NOT in the store yet -- E7 regional pull pending.")
+        print("        FluView portal (fluportaldashboard): Region Type = 'HHS Regions',")
+        print("        select all 10 (Region 1..10), Data Source = ILINet, all seasons; unzip")
+        print("        and save the inner ILINet.csv (rename it) as:")
+        print(f"          {src_hhs}")
+        print("        then re-run pull.py.")
+    else:
+        dst = PROJECT_STORE / "ILINet_HHS.csv"
+        copy_verbatim(src_hhs, dst)
+        v = v_ilinet_regional(dst, week_cap=(2026, 9))
+        md5, sha, nb = hash_file(dst)
+        print(f"[reuse] ILINet_HHS.csv  regions={v['regions']}  md5={md5[:8]}  "
+              f"{'OK' if v['regions'] == 10 else 'CHECK'}")
+        span_txt = "; ".join(f"{lab}:{n}wk" for lab, n, *_ in v["spans"])
+        rec.append(dict(
+            key="A.4 ILINet-HHS", name="CDC FluView ILINet - 10 HHS Regions outpatient ILI (E7)",
+            source="US CDC FluView (FluView Interactive), ILINet, HHS Regions (public domain)",
+            tier="REUSE (shared store; structural verify; net-new, no pinned MD5)",
+            ident="REGION TYPE='HHS Regions' (Region 1..10); column '% WEIGHTED ILI'; "
+                  "FluView Phase02 ILINet (ID=1)",
+            cover=f"{v['regions']} HHS regions, 1997w40..2026w09 window "
+                  f"({'aligned' if v['aligned'] else 'ragged'})",
+            freq="weekly (MMWR)", obsv="% WEIGHTED ILI per HHS region (E7 spatial-curvature peak detection)",
+            anchor="10 HHS regions present under REGION TYPE='HHS Regions'; truncated to <= 2026w09; "
+                   "structural anchor (net-new: no prior reproduction, so no pinned MD5)",
+            path=str(dst), md5=md5, sha=sha, nb=nb,
+            verify=f"10 HHS regions; weekly '% WEIGHTED ILI'; per-region weeks: {span_txt}",
+            tol="Net-new for E7 (no Stage-1.5 anchor). Same FluView portal/vintage as the National pin "
+                "(the National '% WEIGHTED ILI' is itself the population-weighted aggregate of these "
+                "regions). CDC revises ILINet retrospectively, so the byte hash drifts; the anchor is "
+                "structural (10 regions, 1997w40 start, complete through-2024 seasons), and E7 uses only "
+                "complete seasons through 2024 (well inside the stable window). The National TARGET in E7 "
+                "is the pinned ILINet.csv, so E7 and E6 reference the identical national peak."))
 
     # ---- REUSE 4-5 : NREVSS ----------------------------------------------------
     for fn, exp, f0, l0, label, note in [
