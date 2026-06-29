@@ -1,0 +1,800 @@
+{
+  "experiment": "E3",
+  "title": "Theorem-8b persistence-sign test (in-paper falsifier)",
+  "rule": "sign[Corr(D_t,Y_{t+h})] = sign[Rbar(h,h+wf) - Rbar(h+wf,h+ws)]; D = SMA_wf - SMA_ws (LEVEL divergence)",
+  "significance": "p < 0.05 AND Fisher-z 95% CI excludes zero (repro used p<0.05 alone; reported as a cross-check)",
+  "systems": {
+    "Colorado": {
+      "n": 46767,
+      "wf": 12,
+      "ws": 63,
+      "subsample": 21,
+      "maxlag": 400,
+      "fwd_vol_window": 63,
+      "acf_first_zero_crossing": null,
+      "n_correct": 5,
+      "n_significant": 5,
+      "n_significant_correct": 5,
+      "n_significant_p_only": 5,
+      "vol_rho": 0.003,
+      "vol_observed_sign": 1,
+      "vol_significant": false,
+      "predictions": [
+        {
+          "h": 21,
+          "rho": 0.168,
+          "p": 0.0,
+          "n": 2224,
+          "predicted_sign": 1,
+          "Rbar_near": 0.526,
+          "Rbar_far": 0.385,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 1110,
+            "oos_sign": 1,
+            "oos_n": 1110,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 42,
+          "rho": 0.099,
+          "p": 0.0,
+          "n": 2223,
+          "predicted_sign": 1,
+          "Rbar_near": 0.419,
+          "Rbar_far": 0.322,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 1109,
+            "oos_sign": 1,
+            "oos_n": 1109,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 63,
+          "rho": 0.077,
+          "p": 0.0,
+          "n": 2222,
+          "predicted_sign": 1,
+          "Rbar_near": 0.346,
+          "Rbar_far": 0.278,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 1108,
+            "oos_sign": 1,
+            "oos_n": 1108,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 126,
+          "rho": 0.085,
+          "p": 0.0,
+          "n": 2219,
+          "predicted_sign": 1,
+          "Rbar_near": 0.222,
+          "Rbar_far": 0.175,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 1105,
+            "oos_sign": 1,
+            "oos_n": 1105,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 252,
+          "rho": -0.059,
+          "p": 0.006,
+          "n": 2213,
+          "predicted_sign": -1,
+          "Rbar_near": 0.12,
+          "Rbar_far": 0.144,
+          "observed_sign": -1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 1099,
+            "oos_sign": -1,
+            "oos_n": 1099,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": false,
+            "significant": false,
+            "significant_p_only": false
+          }
+        }
+      ]
+    },
+    "Ohio": {
+      "n": 35862,
+      "wf": 12,
+      "ws": 63,
+      "subsample": 21,
+      "maxlag": 400,
+      "fwd_vol_window": 63,
+      "acf_first_zero_crossing": null,
+      "n_correct": 5,
+      "n_significant": 3,
+      "n_significant_correct": 3,
+      "n_significant_p_only": 3,
+      "vol_rho": 0.02,
+      "vol_observed_sign": 1,
+      "vol_significant": false,
+      "predictions": [
+        {
+          "h": 21,
+          "rho": 0.109,
+          "p": 0.0,
+          "n": 1704,
+          "predicted_sign": 1,
+          "Rbar_near": 0.315,
+          "Rbar_far": 0.225,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 850,
+            "oos_sign": 1,
+            "oos_n": 850,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 42,
+          "rho": 0.098,
+          "p": 0.0,
+          "n": 1703,
+          "predicted_sign": 1,
+          "Rbar_near": 0.25,
+          "Rbar_far": 0.181,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 849,
+            "oos_sign": 1,
+            "oos_n": 849,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 63,
+          "rho": 0.064,
+          "p": 0.009,
+          "n": 1702,
+          "predicted_sign": 1,
+          "Rbar_near": 0.194,
+          "Rbar_far": 0.152,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 848,
+            "oos_sign": 1,
+            "oos_n": 848,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 126,
+          "rho": 0.043,
+          "p": 0.077,
+          "n": 1699,
+          "predicted_sign": 1,
+          "Rbar_near": 0.112,
+          "Rbar_far": 0.079,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 845,
+            "oos_sign": 1,
+            "oos_n": 845,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": false,
+            "significant_p_only": false
+          }
+        },
+        {
+          "h": 252,
+          "rho": -0.027,
+          "p": 0.275,
+          "n": 1693,
+          "predicted_sign": -1,
+          "Rbar_near": 0.052,
+          "Rbar_far": 0.053,
+          "observed_sign": -1,
+          "correct": true,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 839,
+            "oos_sign": 1,
+            "oos_n": 839,
+            "consistent": false
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": false,
+            "significant": false,
+            "significant_p_only": false
+          }
+        }
+      ]
+    },
+    "Norwich": {
+      "n": 22636,
+      "wf": 12,
+      "ws": 63,
+      "subsample": 21,
+      "maxlag": 400,
+      "fwd_vol_window": 63,
+      "acf_first_zero_crossing": 149,
+      "n_correct": 3,
+      "n_significant": 0,
+      "n_significant_correct": 0,
+      "n_significant_p_only": 0,
+      "vol_rho": 0.103,
+      "vol_observed_sign": 1,
+      "vol_significant": true,
+      "predictions": [
+        {
+          "h": 21,
+          "rho": 0.038,
+          "p": 0.21,
+          "n": 1074,
+          "predicted_sign": 1,
+          "Rbar_near": 0.036,
+          "Rbar_far": 0.027,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 535,
+            "oos_sign": 1,
+            "oos_n": 535,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 42,
+          "rho": 0.053,
+          "p": 0.084,
+          "n": 1073,
+          "predicted_sign": 1,
+          "Rbar_near": 0.032,
+          "Rbar_far": 0.023,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 534,
+            "oos_sign": 1,
+            "oos_n": 534,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 63,
+          "rho": 0.029,
+          "p": 0.349,
+          "n": 1072,
+          "predicted_sign": -1,
+          "Rbar_near": 0.023,
+          "Rbar_far": 0.024,
+          "observed_sign": 1,
+          "correct": false,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 533,
+            "oos_sign": -1,
+            "oos_n": 533,
+            "consistent": false
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": false,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 126,
+          "rho": -0.009,
+          "p": 0.757,
+          "n": 1069,
+          "predicted_sign": 1,
+          "Rbar_near": 0.023,
+          "Rbar_far": 0.022,
+          "observed_sign": -1,
+          "correct": false,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 530,
+            "oos_sign": -1,
+            "oos_n": 530,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 252,
+          "rho": -0.045,
+          "p": 0.144,
+          "n": 1063,
+          "predicted_sign": -1,
+          "Rbar_near": 0.009,
+          "Rbar_far": 0.016,
+          "observed_sign": -1,
+          "correct": true,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 524,
+            "oos_sign": -1,
+            "oos_n": 524,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": false,
+            "significant": true,
+            "significant_p_only": true
+          }
+        }
+      ]
+    },
+    "Dallas": {
+      "n": 26625,
+      "wf": 12,
+      "ws": 63,
+      "subsample": 21,
+      "maxlag": 400,
+      "fwd_vol_window": 63,
+      "acf_first_zero_crossing": null,
+      "n_correct": 2,
+      "n_significant": 0,
+      "n_significant_correct": 0,
+      "n_significant_p_only": 0,
+      "vol_rho": 0.316,
+      "vol_observed_sign": 1,
+      "vol_significant": true,
+      "predictions": [
+        {
+          "h": 21,
+          "rho": 0.03,
+          "p": 0.289,
+          "n": 1264,
+          "predicted_sign": 1,
+          "Rbar_near": 0.048,
+          "Rbar_far": 0.037,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 630,
+            "oos_sign": 1,
+            "oos_n": 630,
+            "consistent": false
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 42,
+          "rho": 0.002,
+          "p": 0.942,
+          "n": 1263,
+          "predicted_sign": -1,
+          "Rbar_near": 0.036,
+          "Rbar_far": 0.037,
+          "observed_sign": 1,
+          "correct": false,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 629,
+            "oos_sign": -1,
+            "oos_n": 629,
+            "consistent": false
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": false,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 63,
+          "rho": 0.051,
+          "p": 0.068,
+          "n": 1262,
+          "predicted_sign": 1,
+          "Rbar_near": 0.047,
+          "Rbar_far": 0.033,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 628,
+            "oos_sign": -1,
+            "oos_n": 628,
+            "consistent": false
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 126,
+          "rho": -0.003,
+          "p": 0.917,
+          "n": 1259,
+          "predicted_sign": 1,
+          "Rbar_near": 0.027,
+          "Rbar_far": 0.026,
+          "observed_sign": -1,
+          "correct": false,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 625,
+            "oos_sign": -1,
+            "oos_n": 625,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 252,
+          "rho": 0.018,
+          "p": 0.526,
+          "n": 1253,
+          "predicted_sign": -1,
+          "Rbar_near": 0.018,
+          "Rbar_far": 0.021,
+          "observed_sign": 1,
+          "correct": false,
+          "significant": false,
+          "significant_p_only": false,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 619,
+            "oos_sign": -1,
+            "oos_n": 619,
+            "consistent": false
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": false,
+            "significant": true,
+            "significant_p_only": true
+          }
+        }
+      ]
+    },
+    "Flu": {
+      "n": 1484,
+      "wf": 4,
+      "ws": 16,
+      "subsample": 8,
+      "maxlag": 60,
+      "fwd_vol_window": 16,
+      "acf_first_zero_crossing": 14,
+      "n_correct": 5,
+      "n_significant": 5,
+      "n_significant_correct": 5,
+      "n_significant_p_only": 5,
+      "vol_rho": 0.269,
+      "vol_observed_sign": 1,
+      "vol_significant": true,
+      "predictions": [
+        {
+          "h": 4,
+          "rho": 0.719,
+          "p": 0.0,
+          "n": 184,
+          "predicted_sign": 1,
+          "Rbar_near": 0.605,
+          "Rbar_far": 0.028,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 91,
+            "oos_sign": 1,
+            "oos_n": 91,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 8,
+          "rho": 0.686,
+          "p": 0.0,
+          "n": 183,
+          "predicted_sign": 1,
+          "Rbar_near": 0.267,
+          "Rbar_far": -0.171,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 90,
+            "oos_sign": 1,
+            "oos_n": 90,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 13,
+          "rho": 0.471,
+          "p": 0.0,
+          "n": 182,
+          "predicted_sign": 1,
+          "Rbar_near": -0.047,
+          "Rbar_far": -0.326,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 90,
+            "oos_sign": 1,
+            "oos_n": 90,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 17,
+          "rho": 0.235,
+          "p": 0.001,
+          "n": 182,
+          "predicted_sign": 1,
+          "Rbar_near": -0.233,
+          "Rbar_far": -0.364,
+          "observed_sign": 1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": 1,
+            "is_n": 89,
+            "oos_sign": 1,
+            "oos_n": 89,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": true,
+            "significant": true,
+            "significant_p_only": true
+          }
+        },
+        {
+          "h": 26,
+          "rho": -0.422,
+          "p": 0.0,
+          "n": 181,
+          "predicted_sign": -1,
+          "Rbar_near": -0.388,
+          "Rbar_far": -0.163,
+          "observed_sign": -1,
+          "correct": true,
+          "significant": true,
+          "significant_p_only": true,
+          "isoos": {
+            "is_sign": -1,
+            "is_n": 88,
+            "oos_sign": -1,
+            "oos_n": 88,
+            "consistent": true
+          },
+          "vol_formulation": {
+            "observed_sign": 1,
+            "correct": false,
+            "significant": true,
+            "significant_p_only": true
+          }
+        }
+      ]
+    }
+  },
+  "summary": {
+    "total_predictions": 25,
+    "total_correct": 20,
+    "total_correct_target": 20,
+    "significant_correct": 13,
+    "significant_total": 13,
+    "significant_correct_target": "13/13",
+    "significant_p_only_crosscheck": 13,
+    "significant_wrong": 0,
+    "in_paper_falsifier_triggered": false,
+    "per_domain_correct": {
+      "Colorado": 5,
+      "Ohio": 5,
+      "Norwich": 3,
+      "Dallas": 2,
+      "Flu": 5
+    },
+    "per_domain_significant": {
+      "Colorado": 5,
+      "Ohio": 3,
+      "Norwich": 0,
+      "Dallas": 0,
+      "Flu": 5
+    },
+    "isoos_consistent_among_significant": 13,
+    "colorado_h252_flip": {
+      "predicted_sign": -1,
+      "observed_sign": -1,
+      "Rbar_near": 0.12,
+      "Rbar_far": 0.144,
+      "acf_first_zero_crossing": null,
+      "_note": "flip = Rbar_near < Rbar_far with ACF still positive (NOT a zero-crossing); DISC-1.4-04"
+    },
+    "flu_h26_flip": {
+      "predicted_sign": -1,
+      "observed_sign": -1,
+      "Rbar_near": -0.388,
+      "Rbar_far": -0.163,
+      "acf_first_zero_crossing": 14,
+      "_note": "seasonal ACF; zero-crossing at ~14 wk is DISTINCT from h=26; DISC-1.4-05"
+    },
+    "rejected_vol_formulation": {
+      "correct": 18,
+      "of": 25,
+      "pct": 72.0,
+      "significant_wrong_fisher": 5,
+      "significant_total_fisher": 15,
+      "significant_wrong_p_only": 5,
+      "significant_total_p_only": 15,
+      "target": "~44% correct, 11 significant-wrong (the LEVEL formulation is primary)"
+    }
+  }
+}
