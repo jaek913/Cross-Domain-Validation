@@ -20,14 +20,15 @@ The exact operators, the pre-registered decision rules, the data manifest Phase 
 - v0.6 2026-06-28 — **E4 regeneration.** The load-bearing onset results reproduce exactly (27 paired seasons, divergence lead-vs-peak 14.1 / floor 5 / Q1 12, level 5.9, advantage +8.2, earlier 26/27, paired t 9.35). The **temporal-concentration shuffle** (z ≈ +2.6 in v4) is a supporting diagnostic whose exact construction is under-determined and absent from the verified repro; the rebuild's random-onset-week null gives z ≈ +7.7 (same direction, weaker null), reported as-computed and non-load-bearing. Amended: §2 E4 decision-rules shuffle clause.
 - v0.7 2026-06-28 — **E5 regeneration.** Under the pinned spec the **single-strain anchor reproduces exactly (9/9)**; hindsight 19/27, real-time 24/27 (= v4), lead median 0 (= v4) are reported as-regenerated. **Allocation scope pinned:** the A-subtyping-not-performed proportional allocation applies to the **detection signal only**; the dominant-strain ground truth uses **raw confirmed-subtyped season totals** (allocating dominance too inflates the single-strain count from 9 to 13 — the 9-season definition is the verified reconstruction's, on raw counts). Amended: §2 E5 strain-spec (a).
 - v0.8 2026-06-28 — **E6 regeneration (honest negative).** E6 peak detection is **not in the Stage-1.5 verified record** (regenerated here for the first time). The **rejected-hypothesis result reproduces**: the zero-crossing lags the true peak (-5.07 wk, worse than the SMA-4 peak -2.15 wk; v4 ~-5.6/-2.1). The v4 'reported alongside' divergence-peak lead (96% / t 4.36) does **NOT reproduce** under the pre-registered SMA_4-SMA_12 operator — the divergence peaks ~1 wk after the ILI peak, preceding in only 7/27 (26%) seasons (mean +1.3, ns) → **LB-e6-divpeak OPEN**. ARG-12 / L-02 (zero-crossing rejected) RETAINED. Amended: §2 E6 (ARG/LB, decision rules, provenance).
+- v0.9 2026-06-28 — **E7 added (pre-registration; net-new beyond v4).** Spatial-curvature peak detection: a strictly-causal signal from the 10 HHS-region ILI curves tested for **positive lead** on the **national** peak (H1), vs a short honest negative paired with E6 (H0). No v4 precedent, no Stage-1.5 record — a genuine pre-registered test with a falsifier, committed before any regional number is computed. Pairs with E4 (onset): if H1 holds, the paper claims early onset **and** leading peak detection by complementary methods. Primary = per-region curvature rollover, fraction-of-regions ≥ θ (θ=0.3), with a feasibility diagnostic (regional-vs-national peak-lead distribution) reported first as make-or-break. Comparators: E6 national detectors (primary), a climatological median-peak-week reference (computed), the FluSight literature (context); no head-to-head vs forecasting ensembles. Forward peak prediction (P3) deferred, conditional on a positive retrospective lead. Added: §2 E7, §3 manifest (HHS-region pull), §4 spec-count, §5 P3 (conditional); OUTLINE ARG-15 + LB-e7-*.
 
 ## 0. Design summary
 
 | Field | Value |
 |---|---|
-| Experiments | 6 (E1–E6) |
+| Experiments | 7 (E1–E7; E7 net-new beyond v4, pre-registered) |
 | Proofs | 0 |
-| Load-bearing claims tracked | 24 (LB-1…LB-24; §6) |
+| Load-bearing claims tracked | 24 v4 claims (LB-1…LB-24; §6) + 3 net-new pre-registered E7 findings (LB-e7-*) |
 | Datasets pulled + hashed | 5 sources (Connecticut River dropped) |
 | **Provenance tiers** | **regenerate** (every value with in-manifest data) · **cite-Paper-4-reference** (financial S_W band; sunspot decomposition S_W/toward — labeled, not regenerable) · **open** (Norwich deseasonalized vdiv) |
 | Falsifiers | headline = registered 2026–27 flu forward prediction (§5); in-paper = one statistically-significant wrong-sign Theorem-8b prediction (E3) |
@@ -123,13 +124,34 @@ The exact operators, the pre-registered decision rules, the data manifest Phase 
 - **Provenance:** **regenerated here for the first time** (E6 is not in the Stage-1.5 record; v4 figures taken from the manuscript). **Produces:** LB-e6-zerocross (reproduces), **LB-e6-divpeak (OPEN)**.
 - **Script → output:** `analysis/e6_peak_detection.py` → `outputs/e6_peak_detection.json`.
 
+### E7 — Spatial-curvature peak detection (leading-peak hypothesis; pre-registered, net-new)
+
+**Net-new beyond v4** — no v4 precedent, no Stage-1.5 reconstruction; a genuine pre-registered test with a falsifier, committed **before any regional number is computed**. Pairs with E4 (onset): if H1 holds, the paper legitimately claims early onset **and** leading peak detection by complementary methods; if H0, a short honest negative paired with E6.
+
+- **ARG / LB:** ARG-15 · LB-e7-feasibility, LB-e7-spatial-lead, LB-e7-curvature. **OPEN (pre-registered; not yet run).**
+- **Hypothesis:** *H1 (headline)* — a strictly-causal signal built from the 10 HHS-region ILI curves detects the **national** ILI peak with **positive lead** (fires before the peak), beating the ~coincident national divergence-peak (E6). *H0 (falsifier)* — no positive lead and no improvement over the national coincident detector → rejected, reported as a short honest negative with E6.
+- **Observable / data:** weekly **weighted % ILI for the 10 HHS Regions** (continuous series, 1997-present) + National as the target. State level is a **deferred** robustness cut (sparser, revised more; not in this test).
+- **Target:** the **national** peak week = argmax national % ILI. Seasons: complete seasons through 2024, peak ≥ 2.0% (the E5/E6 set, for direct comparability).
+- **Feasibility diagnostic (reported FIRST, hindsight, make-or-break):** the distribution of (national-peak-wk − regional-peak-wk) across the 10 regions × seasons — how much the early regions actually lead the nation. If regional peaks cluster within ~1-2 wk of the national peak, there is **no lead to capture** and E7 is a clean negative here; if the earliest 2-3 regions lead by several weeks, there is room (and it bounds how much detector lag can be absorbed).
+- **Signals (all strictly causal — data ≤ t only):**
+  - *Baseline (spatial, first-order):* region r "turns" when D_r = SMA_4(ILI_r) − SMA_12(ILI_r) crosses pos→neg; f(t) = fraction of the 10 regions turned; **fire when f(t) ≥ θ**.
+  - *Primary (spatial + curvature):* region r "turns" the moment its **curvature rolls over** — D_r drops below its **causal running-max** by a margin (sustained negative second difference of the regional series) — which fires earlier per region than the pos→neg crossing; f_curv(t); **fire when f_curv(t) ≥ θ**. **Primary θ = 0.3** (lean early); sweep {0.2, 0.3, 0.5, 0.7} as sensitivity.
+  - *Curvature-only national (control):* the national series' own curvature rollover, no spatial pooling — isolates whether curvature alone helps vs the spatial structure.
+- **Comparators (in order of rigor):** (1) **primary / internal** — E7 lead vs E6's national detectors computed identically on the same data: zero-crossing (~−5 wk), SMA-4 peak (~−2 wk), **divergence-peak (~0, the real bar)**; (2) **reference (computed)** — a **climatological** baseline (predict the peak at the expanding-window median peak-week of all prior seasons; a forecast error in weeks, a reference not a head-to-head); (3) **context (cited, not computed)** — the FluSight literature (peak timing is tracked, hard, the field's weakest target). **No head-to-head vs forecasting ensembles** (their output is a scored probability distribution over the peak week, not a fire-week — not an apples-to-apples lead comparison; rebuilding/scoring them is out of scope).
+- **Decision rules:** for each detector, lead = national-peak-wk − detector-fire-wk; report mean/median lead, % of seasons leading, a paired test vs the national peak week, and head-to-head vs E6. **Claim hierarchy:** beating the zero-crossing alone is **not** a claim (it is ~5 wk late to begin with); **solid** = beats the E6 coincident national divergence-peak; **headline (H1)** = significant **positive** lead (bigger better). **H1 confirmed** iff the primary leads the national peak with significant positive lead **and** beats the coincident detector; **rejected** otherwise.
+- **Look-ahead discipline (load-bearing — the D01 lesson):** every regional turn computed from **data ≤ t**; **no** using the finished season to label a region "peaked" (a future-correlation artifact would manufacture the entire result). Retrospective study uses finalized data, with an explicit note that real-time vintages are noisier; a registered 2026-27 forward **peak** prediction (P3, §5) is **deferred and conditional on a positive retrospective lead**.
+- **Provenance:** **pre-registered, net-new** (no v4 figure, no Stage-1.5 record); all values regenerated from the HHS-region pull. **Produces:** LB-e7-feasibility, LB-e7-spatial-lead, LB-e7-curvature.
+- **Script → output:** `analysis/e7_spatial_peak.py` → `outputs/e7_spatial_peak.json`; data via `data_io.load_ili_regional` (HHS-region ILINet, pulled + hashed by the extended `pull.py`).
+- **Spec-count:** primary pinned (curvature rollover, θ=0.3, 10 regions); θ-sweep {0.2/0.3/0.5/0.7} + the three signal variants (spatial-first-order / spatial-curvature / curvature-only-national) + the climatological reference disclosed as sensitivity/controls.
+
 ## 3. Data manifest (Phase-2 pull-and-hash targets)
 
 `pull.py` fetches + hashes (MD5 + SHA256) → `SOURCES.md`; scripts read only hashed copies; raw data git-ignored + separately backed up.
 
 | Source | Exact identifier(s) | Fields | Coverage | Used by | Access |
 |---|---|---|---|---|---|
-| CDC ILINet | `ILINet.csv`, `REGION TYPE="National"` (title line → skiprows=1) | `% WEIGHTED ILI` (+ YEAR, WEEK) | 1997–2026, ~1,484 wks | E1,E2,E3,E4,E6 | FluView `gis.cdc.gov/grasp/fluview/fluportaldashboard.html` |
+| CDC ILINet (national) | `ILINet.csv`, `REGION TYPE="National"` (title line → skiprows=1) | `% WEIGHTED ILI` (+ YEAR, WEEK) | 1997–2026, ~1,484 wks | E1,E2,E3,E4,E6,E7 (target) | FluView `gis.cdc.gov/grasp/fluview/fluportaldashboard.html` |
+| CDC ILINet (HHS regions) | same portal, `REGION TYPE="HHS Regions"` (Region 1–10) | `% WEIGHTED ILI` (+ REGION, YEAR, WEEK) | 1997–2026, 10 regions × ~weekly | **E7** | same FluView portal (no National filter) |
 | CDC NREVSS (pre-2015) | `ICL_NREVSS_Combined_prior_to_2015_16.csv`, `REGION TYPE="National"` | TOTAL SPECIMENS, A(2009 H1N1), A(H1), A(H3), A(Subtyping not Performed), B | 1997–2015 | E5 | `cdc.gov/fluview/surveillance/` |
 | CDC NREVSS (post-2015) | `ICL_NREVSS_Public_Health_Labs.csv`, `REGION TYPE="National"` | TOTAL SPECIMENS, A(2009 H1N1), A(H3), A(Subtyping not Performed), B, BVic, BYam | 2015–2026 | E5 | `cdc.gov/fluview/surveillance/` |
 | NOAA GHCN-Daily | **6 stations:** NYC `USW00094728`, Blue Hill `USC00190736`, San Francisco `USW00023272`, Philadelphia `USW00013739`, **Dallas `USW00003927`** (DAL-FTW WSCMO — the 26,622-obs station, *not* the FAA station), Norwich `USC00065910` | TMAX, TMIN | 70–157 yr/station | E1 (Norwich, Dallas), E2 (all 6), E3 (Norwich, Dallas) | `ncdc.noaa.gov/cdo-web/` |
@@ -149,6 +171,7 @@ Notes: the v4 sunspot-decomposition figures are a **cited Paper-4 reference** (n
 | E4 | 4 div thresholds (0.1/0.2/0.3/0.5) × 3 level baselines (+0.5/+1.0/+1.5) | Div>0.2 vs Level+1.0 | yes | 27 paired seasons (29 − 2020-21 − 2009-10) |
 | E5 | 1 strain threshold (0.3) × **2 benchmarks** (hindsight/real-time) + pinned allocation/tie-break | first-firing>0.3 vs hindsight | partially | exact counts follow the pinned spec; single-strain 9/9 robust |
 | E6 | 1 hypothesis (zero-crossing) + 1 alternative (divergence peak) | zero-crossing (rejected) | yes | honest negative |
+| E7 | 3 signal variants (spatial-1st-order / spatial-curvature / curvature-only-national) × θ-sweep {0.2/0.3/0.5/0.7} + climatological reference | spatial-curvature, θ=0.3, 10 HHS regions | pre-registered | net-new; OPEN until run |
 
 ## 5. Forward-prediction design (registered 2026–27 falsifier)
 
@@ -156,6 +179,8 @@ Two timestamped, reader-runnable predictions (CDC FluView), registered/dated at 
 
 **P1 — Onset lead.** `SMA_4(ILI) − SMA_12(ILI)` crosses `0.2` pp **≥ 6 weeks before** `ILI` crosses `baseline + 1.0` pp (baseline = mean ILI wk40–43/2026); window MMWR wk40/2026 → wk20/2027. **Falsified if** lead < 6 wk or divergence fires after level. **Untestable if** peak ILI < 2.0% → carries to 2027-28. Stronger variant: ≥ 10 wk before the peak.
 **P2 — Dominant strain.** First subtype whose percent-positive divergence (`SMA_4 − SMA_12`, `0.3` pp) fires matches the full-season plurality strain. **Falsified if** mismatch **and** single-strain season (>70%). **Inconclusive if** mismatch in a mixed season. **Untestable if** specimens < 50% of the 2017-19 average.
+
+**P3 — Peak lead (CONDITIONAL — registered only if E7's retrospective shows a positive lead; otherwise omitted).** The spatial-curvature detector (E7 primary) fires **≥ 1 week before** the national `% WEIGHTED ILI` peak for the 2026-27 season; window MMWR wk40/2026 → wk20/2027. **Falsified if** the detector fires at or after the peak week. **Untestable if** peak ILI < 2.0% → carries to 2027-28. (Most reliably testable of the three predictions — every season has a peak.) **Registered only on a positive E7 retrospective lead.**
 
 ## 6. Correction & provenance ledger (the 24 load-bearing claims + Register dispositions)
 
@@ -193,7 +218,7 @@ Two timestamped, reader-runnable predictions (CDC FluView), registered/dated at 
 
 ## 7. Planned Phase-2/3 artifacts
 
-- **Phase 2:** `pull.py` (fetch + hash §3 → `SOURCES.md`); `analysis/operators.py` (§1 primitives + the four E2 domain operators); `analysis/data_io.py` (hashed loaders); `analysis/e1…e6_*.py` → `outputs/e1…e6_*.json`.
+- **Phase 2:** `pull.py` (fetch + hash §3 → `SOURCES.md`; **extended for the HHS-region ILINet pull**); `analysis/operators.py` (§1 primitives + the four E2 domain operators); `analysis/data_io.py` (hashed loaders; **+ `load_ili_regional`**); `analysis/e1…e7_*.py` → `outputs/e1…e7_*.json` (**e7 = spatial-curvature peak detection**).
 - **Phase 3:** committed builder → `claims.lock` (LB-id ↔ regenerated value, **provenance tag** regenerate/cite/open per §6); `verify.py` (7-point CIC + check-5 OUTLINE/COVERAGE reconciliation, RW-control tolerance band); `{{LB-id}}` renderer.
 
 ## Reconciliation (run before signing)
