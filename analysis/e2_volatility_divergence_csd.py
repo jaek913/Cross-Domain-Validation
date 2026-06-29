@@ -26,7 +26,7 @@ Targets (FINDINGS_vdiv_operator.md reproduction table):
   Norwich vdiv   level op +0.129 -> +0.101    (+0.39->+0.232 under-determined; LB-10)
   ILI vdiv       +0.393 weighted / +0.420 unweighted  (first-diff op; LB-11)
   sunspot vdiv   -0.230 (perm-z -3.94)        (yearly 3/11 future-level; LB-12)
-  epi CSD        ~ -0.165 (opposite sign)     (LB-11/13)   ;  solar CSD +0.42 (drop "also negative")
+  epi CSD        ~ -0.165 (opposite sign)     (LB-11/13)   ;  solar CSD -0.103 matched future-level (D02: v4 "also negative, lower mag" reproduces; +0.42 was monthly op, -0.257 fwd-vol mismatch)
 
 Output: outputs/e2_divergence_csd.json
 """
@@ -210,9 +210,15 @@ def main():
     # ---------------- CSD comparator: epidemiology (opposite sign) + solar ----------------
     Yili = ili["w"].values.astype(float)
     epi_csd, _, _ = csd_corr(Yili, WS_E, 13, 8)
-    sol_csd, _, _ = csd_corr(Ys, WS_S, WS_S, None)
+    # D02: the solar CSD must use the vdiv's target (future-level Y(t+5)), NOT forward-vol, for an
+    # apples-to-apples comparison. Matched AR1(ws=11) vs Y(t+5) = -0.103 (negative, |rho| < vdiv's
+    # 0.230 -> v4's "CSD also negative, lower magnitude" REPRODUCES). fut/Ys are in scope from solar.
+    sol_ar1 = pd.Series(Ys).rolling(WS_S).corr(pd.Series(Ys).shift(1)).values
+    sol_csd, _, _ = op.corr_sub(sol_ar1, fut)
+    sol_csd_vol, _, _ = csd_corr(Ys, WS_S, WS_S, None)   # forward-vol target (mismatched) - diagnostic only
     out["csd"] = {"epidemiology": {"csd_rho": _r3(epi_csd), "_target": "~ -0.165 (opposite sign to vdiv; LB-11/13)"},
-                  "solar": {"csd_rho": _r3(sol_csd), "_note": "v4's sunspot 'CSD also negative' does NOT reproduce on SILSO v2.0 -> drop/correct"}}
+                  "solar": {"csd_rho": _r3(sol_csd), "csd_rho_fwdvol_diagnostic": _r3(sol_csd_vol),
+                            "_note": "D02: matched to the vdiv's future-level target = -0.103 (negative, lower magnitude than vdiv -0.230) -> v4's 'CSD also negative' REPRODUCES; the forward-vol value (-0.257) is a target mismatch, NOT the comparison"}}
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     def _ser(o):
@@ -244,7 +250,7 @@ def main():
     print("EPIDEMIOLOGY (first-diff op):", {k: v["rho"] for k, v in epi.items()}, " target +0.393/+0.420")
     print(f"SOLAR yearly 3/11 future-level: rho {out['solar']['vdiv_rho']} perm-z {out['solar']['perm_z']}  target -0.230 / -3.94")
     print(f"OHIO block-shuffle null: rho {r0:+.3f} z {z:+.2f}  target +0.021 / +1.7")
-    print(f"CSD epi {out['csd']['epidemiology']['csd_rho']} (target ~-0.165) ; solar {out['csd']['solar']['csd_rho']} (v4 'also negative' should NOT reproduce)")
+    print(f"CSD epi {out['csd']['epidemiology']['csd_rho']} (target ~-0.165) ; solar {out['csd']['solar']['csd_rho']} matched-future-level (D02: v4 'also negative, lower mag' REPRODUCES vs vdiv -0.230 ; fwd-vol diagnostic {out['csd']['solar']['csd_rho_fwdvol_diagnostic']})")
     print(f"\nwrote {OUT}")
 
 

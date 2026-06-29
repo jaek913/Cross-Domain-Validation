@@ -157,8 +157,9 @@
       "_target": "~ -0.165 (opposite sign to vdiv; LB-11/13)"
     },
     "solar": {
-      "csd_rho": -0.257,
-      "_note": "v4's sunspot 'CSD also negative' does NOT reproduce on SILSO v2.0 -> drop/correct"
+      "csd_rho": -0.103,
+      "csd_rho_fwdvol_diagnostic": -0.257,
+      "_note": "D02: matched to the vdiv's future-level target = -0.103 (negative, lower magnitude than vdiv -0.230) -> v4's 'CSD also negative' REPRODUCES; the forward-vol value (-0.257) is a target mismatch, NOT the comparison"
     }
   }
 }

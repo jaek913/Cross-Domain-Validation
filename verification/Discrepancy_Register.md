@@ -14,6 +14,7 @@ Each dossier records: **identifier**; **discrepancy as found** + the stage/exper
 | ID | Discrepancy (short) | Kind | 2nd review | State |
 |---|---|---|---|---|
 | D01 | Hydrology vdiv — v4's Colorado +0.33 is a look-ahead artifact (divergence correlated with its own contemporaneous fast vol); Ohio's +0.047 used the forward target, so the two rivers used different operators. Under either consistent operator Ohio ≥ Colorado; on the pre-registered returns operator Ohio is the strongest river signal | computational | CONFIRMED | RESOLVED |
+| D02 | Solar CSD sub-claim — the "CSD also negative" sub-claim was dropped on two off-target values (+0.42 monthly operator; −0.257 forward-vol). Under the operator-matched comparison (CSD vs the vdiv's future-level target) it is −0.103: negative, lower magnitude than the vdiv's −0.230 → v4's sub-claim reproduces; retain it | computational | CONFIRMED | RESOLVED |
 
 ---
 
@@ -55,3 +56,34 @@ Each dossier records: **identifier**; **discrepancy as found** + the stage/exper
 **Standing rule 3 (resolved construction committed as code):** the operative construction is `analysis/e2_volatility_divergence_csd.py` (returns + level operators, forward target, sub-21, both rivers), extended with the recovered v4 look-ahead artifact (`v4_artifact_contemp_fast`); this dossier documents the *decision*, the committed script preserves the *executable construction* — both the corrected result and the reproduced bug.
 
 **State: RESOLVED** (fix specified; Phase-2/4 implements). Discovered 2026-06-28; adjudicated 2026-06-28 (overlap hypothesis tested and refuted, then the look-ahead mechanism recovered and reproduced, same day).
+
+---
+
+## D02 — Solar CSD sign & target (the "CSD also negative" sub-claim)
+
+**Discrepancy as found.** Phase 2, experiment E2 (`analysis/e2_volatility_divergence_csd.py`). DESIGN §2 / §6 LB-12 / OUTLINE L-08 record that v4's sunspot "CSD also negative" sub-claim does NOT reproduce on SILSO v2.0 (CSD +0.42, positive) and should be dropped. But E2 computes the solar CSD = −0.257 (negative) — contradicting that disposition: the printed value reproduces v4's claimed sign rather than refuting it.
+
+**Kind:** computational.
+
+**Second-review validation status: CONFIRMED.** Isolated re-examination: the contradiction is real (DESIGN says positive/drop; E2 prints negative) and bears on a recorded disposition (L-08), so it crosses the threshold. Not a false positive.
+
+**Step 1 — Cascade map.** Contained to the sunspot CSD sub-claim: DESIGN §2 CSD note + §6 LB-12; OUTLINE L-08 (the "drop" disposition) + ARG-07 (sunspot sub-claim "dropped"); the e2 solar-CSD computation + `e2_divergence_csd.json → csd.solar`; manuscript §3.3.4. The load-bearing sunspot result (the negative *vdiv* sign −0.230) is a separate computation and is NOT in the cascade.
+
+**Step 2 — Method recovery (authoritative + matched recomputation).**
+- **(8) Design-rationale framing gate** *(run first, decisive)* — the CSD comparator exists to test whether the single-window CSD indicator beats the vdiv *at the vdiv's own prediction task*. The rebuild's solar vdiv predicts a **future-level** target Y(t+5) (Theorem-8b form; vdiv = −0.230, and vdiv vs forward-vol = +0.029, confirming the target is level, not vol). So the matched solar CSD must use the **future-level** target — not forward volatility.
+- **(1 / 7) Source recovery + convergent cross-validation** [original `repro_solar.py` / `FINDINGS_solar.md`] — the +0.42 (actually +0.418) was computed on **monthly** data with vdiv *and* CSD both against **forward 63-mo volatility** (vdiv −0.406, CSD +0.418): a superseded operator the rebuild replaced with yearly / future-level / 3-11. The DESIGN imported the CSD value from an operator the rebuild no longer uses.
+- **(5) Matched recomputation** — solar CSD as AR1 over the slow window (ws=11, the convention `csd_corr` and `repro_solar` share) correlated with the vdiv's **future-level** target Y(t+5) = **−0.103** (negative; |ρ| < the vdiv's 0.230). e2's −0.257 used a forward-vol target (a generic-CSD leftover, mismatched to the solar vdiv); the ws=3 fast-window alternative (+0.151) is rejected — too short for a stable AR1 and not the convention.
+- **Computational Integrity Check** — e2's solar CSD fails the operator-consistency requirement: the CSD and the vdiv it is compared against used **different targets** (CSD forward-vol vs vdiv future-level). The matched −0.103 is the admissible comparison; the +0.42 (monthly) and −0.257 (yearly forward-vol) are both off-target.
+
+**Step 3 — Adjudication: ORIGINAL CORRECT.** v4's sub-claim — "CSD also shows the correct negative sign with lower magnitude than the vdiv" — **reproduces** under the operator-matched comparison: solar CSD = −0.103 (negative, ~0.45× the vdiv's 0.230). The rebuild's "drop it" disposition was the error, caused by two off-target CSD values (the DESIGN's superseded-monthly +0.42 and e2's forward-vol −0.257). The sub-claim was effectively right in v4; the rebuild's operator/documentation was wrong.
+
+**Specified fix.**
+1. e2 — compute the solar CSD against the vdiv's **future-level** target → −0.103; retain the forward-vol value as a labeled diagnostic so the −0.257 is explained, not silently dropped.
+2. OUTLINE L-08 — **reverse**: the sunspot "CSD also negative, lower magnitude" sub-claim **reproduces** (−0.103 vs vdiv −0.230) and is **retained**, not dropped.
+3. OUTLINE ARG-07 — sunspot CSD sub-claim retained.
+4. DESIGN §2 CSD note + §6 LB-12 — the matched sunspot CSD is −0.103 (negative, lower magnitude); the +0.42 was the superseded monthly operator and −0.257 a target mismatch.
+5. Dated DESIGN/OUTLINE amendment (v0.4).
+
+**Standing rule 3 (resolved construction committed as code):** the operative construction is the matched solar CSD in `e2_volatility_divergence_csd.py` (AR1 ws=11 vs future-level Y(t+5) = −0.103), with the forward-vol value kept as a diagnostic.
+
+**State: RESOLVED** (fix specified; Phase-2/4 implements). Discovered 2026-06-28; adjudicated 2026-06-28.
