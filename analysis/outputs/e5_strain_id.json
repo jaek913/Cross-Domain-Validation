@@ -1,0 +1,337 @@
+{
+  "experiment": "E5",
+  "title": "strain-level divergence (dominant-strain identification)",
+  "operator": "pp_s = subtype/TOTAL*100 (allocated signal); D_s = SMA_4(pp_s) - SMA_12(pp_s); first-firing = first subtype D_s > 0.3 pp (tie: higher pp)",
+  "pinned_spec": "A(Subtyping not Performed) allocated proportionally to subtyped H1:H3 on the SIGNAL only; DOMINANCE uses raw confirmed-subtyped season totals; tie-break by pp; complete seasons through 2024",
+  "n_seasons": 27,
+  "single_strain": {
+    "hit": 9,
+    "of": 9,
+    "_target": "9/9 (raw-dominance single-strain seasons; reproduces exactly)"
+  },
+  "hindsight": {
+    "match": 19,
+    "of": 27,
+    "pct": 70.37,
+    "_note": "as-regenerated under the pinned spec (v4 21/27 under-specified; Stage-1.5 no-allocation recon got 20/27)"
+  },
+  "realtime": {
+    "match": 24,
+    "of": 27,
+    "pct": 88.889,
+    "_note": "as-regenerated under the pinned spec (v4 24/27 under-specified; Stage-1.5 recon got 25/27)"
+  },
+  "strain_fire_vs_aggregate_onset": {
+    "lead_median": 0.0,
+    "n": 27,
+    "_note": "as-regenerated (v4 median 0 under-specified; Stage-1.5 recon got 2)"
+  },
+  "per_season": [
+    {
+      "season": "1997-98",
+      "dominant": "H3N2",
+      "dom_share": 0.968,
+      "fire_strain": "H3N2",
+      "single_strain": true,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0,
+      "single_strain_hit": true
+    },
+    {
+      "season": "1998-99",
+      "dominant": "Btot",
+      "dom_share": 0.559,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "Btot",
+      "realtime_match": false,
+      "hindsight_match": false,
+      "lead_vs_aggregate": 10
+    },
+    {
+      "season": "1999-00",
+      "dominant": "H3N2",
+      "dom_share": 0.937,
+      "fire_strain": "H3N2",
+      "single_strain": true,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2000-01",
+      "dominant": "Btot",
+      "dom_share": 0.694,
+      "fire_strain": "H1N1",
+      "single_strain": false,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": false,
+      "lead_vs_aggregate": 4
+    },
+    {
+      "season": "2001-02",
+      "dominant": "H3N2",
+      "dom_share": 0.659,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 3
+    },
+    {
+      "season": "2002-03",
+      "dominant": "Btot",
+      "dom_share": 0.558,
+      "fire_strain": "Btot",
+      "single_strain": false,
+      "realtime_leader": "Btot",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 9
+    },
+    {
+      "season": "2003-04",
+      "dominant": "H3N2",
+      "dom_share": 0.963,
+      "fire_strain": "H3N2",
+      "single_strain": true,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2004-05",
+      "dominant": "Btot",
+      "dom_share": 0.508,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": false,
+      "lead_vs_aggregate": -2
+    },
+    {
+      "season": "2005-06",
+      "dominant": "H3N2",
+      "dom_share": 0.533,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 6
+    },
+    {
+      "season": "2006-07",
+      "dominant": "Btot",
+      "dom_share": 0.456,
+      "fire_strain": "H1N1",
+      "single_strain": false,
+      "realtime_leader": "Btot",
+      "realtime_match": false,
+      "hindsight_match": false,
+      "lead_vs_aggregate": -1
+    },
+    {
+      "season": "2007-08",
+      "dominant": "Btot",
+      "dom_share": 0.566,
+      "fire_strain": "H1N1",
+      "single_strain": false,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": false,
+      "lead_vs_aggregate": 8
+    },
+    {
+      "season": "2008-09",
+      "dominant": "H1N1",
+      "dom_share": 0.535,
+      "fire_strain": "H1N1",
+      "single_strain": false,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 2
+    },
+    {
+      "season": "2009-10",
+      "dominant": "H1N1",
+      "dom_share": 0.993,
+      "fire_strain": "H1N1",
+      "single_strain": true,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2010-11",
+      "dominant": "H3N2",
+      "dom_share": 0.414,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "Btot",
+      "realtime_match": false,
+      "hindsight_match": true,
+      "lead_vs_aggregate": -2
+    },
+    {
+      "season": "2011-12",
+      "dominant": "H3N2",
+      "dom_share": 0.601,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 9
+    },
+    {
+      "season": "2012-13",
+      "dominant": "H3N2",
+      "dom_share": 0.585,
+      "fire_strain": "Btot",
+      "single_strain": false,
+      "realtime_leader": "Btot",
+      "realtime_match": true,
+      "hindsight_match": false,
+      "lead_vs_aggregate": -5
+    },
+    {
+      "season": "2013-14",
+      "dominant": "H1N1",
+      "dom_share": 0.74,
+      "fire_strain": "H1N1",
+      "single_strain": true,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2014-15",
+      "dominant": "H3N2",
+      "dom_share": 0.715,
+      "fire_strain": "H3N2",
+      "single_strain": true,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 2,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2015-16",
+      "dominant": "H1N1",
+      "dom_share": 0.565,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": false,
+      "lead_vs_aggregate": -1
+    },
+    {
+      "season": "2016-17",
+      "dominant": "H3N2",
+      "dom_share": 0.754,
+      "fire_strain": "H3N2",
+      "single_strain": true,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2017-18",
+      "dominant": "H3N2",
+      "dom_share": 0.6,
+      "fire_strain": "H3N2",
+      "single_strain": false,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0
+    },
+    {
+      "season": "2018-19",
+      "dominant": "H1N1",
+      "dom_share": 0.535,
+      "fire_strain": "H1N1",
+      "single_strain": false,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 3
+    },
+    {
+      "season": "2019-20",
+      "dominant": "H1N1",
+      "dom_share": 0.531,
+      "fire_strain": "Btot",
+      "single_strain": false,
+      "realtime_leader": "Btot",
+      "realtime_match": true,
+      "hindsight_match": false,
+      "lead_vs_aggregate": 5
+    },
+    {
+      "season": "2021-22",
+      "dominant": "H3N2",
+      "dom_share": 0.991,
+      "fire_strain": "H3N2",
+      "single_strain": true,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": -1,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2022-23",
+      "dominant": "H3N2",
+      "dom_share": 0.701,
+      "fire_strain": "H3N2",
+      "single_strain": true,
+      "realtime_leader": "H3N2",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 0,
+      "single_strain_hit": true
+    },
+    {
+      "season": "2023-24",
+      "dominant": "H1N1",
+      "dom_share": 0.491,
+      "fire_strain": "H1N1",
+      "single_strain": false,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": 1
+    },
+    {
+      "season": "2024-25",
+      "dominant": "H1N1",
+      "dom_share": 0.494,
+      "fire_strain": "H1N1",
+      "single_strain": false,
+      "realtime_leader": "H1N1",
+      "realtime_match": true,
+      "hindsight_match": true,
+      "lead_vs_aggregate": -5
+    }
+  ]
+}

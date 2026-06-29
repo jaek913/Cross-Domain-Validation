@@ -77,22 +77,25 @@ def _num(s):
 
 def load_strain_combined(ili):
     """CDC NREVSS pre+post combined on (year,week), post-2015 precedence, merged onto ILI weeks.
-    Returns the ILI frame with TOT, H1N1, H3N2, Btot columns (per the pinned strain spec)."""
+    Returns the ILI frame with TOT, H1N1, H3N2, Btot, Aunsub (A-subtyping-not-performed) columns;
+    the pinned-spec proportional allocation of Aunsub into H1N1/H3N2 is applied in E5."""
     pre = pd.read_csv(DATA / "ICL_NREVSS_Combined_prior_to_2015_16.csv", skiprows=1)
     pre = pre[pre["REGION TYPE"] == "National"].copy()
     pre["H1N1"] = _num(pre["A (2009 H1N1)"]) + _num(pre["A (H1)"])
     pre["H3N2"] = _num(pre["A (H3)"]); pre["Btot"] = _num(pre["B"]); pre["TOT"] = _num(pre["TOTAL SPECIMENS"])
+    pre["Aunsub"] = _num(pre.get("A (Subtyping not Performed)", 0))
     post = pd.read_csv(DATA / "ICL_NREVSS_Public_Health_Labs.csv", skiprows=1)
     post = post[post["REGION TYPE"] == "National"].copy()
     post["H1N1"] = _num(post["A (2009 H1N1)"]); post["H3N2"] = _num(post["A (H3)"])
     post["Btot"] = _num(post["B"]) + _num(post.get("BVic", 0)) + _num(post.get("BYam", 0))
     post["TOT"] = _num(post["TOTAL SPECIMENS"])
+    post["Aunsub"] = _num(post.get("A (Subtyping not Performed)", 0))
     pre["k"] = pre.YEAR * 100 + pre.WEEK; post["k"] = post.YEAR * 100 + post.WEEK
     comb = pd.concat([pre[pre.k < 201540], post[post.k >= 201540]], ignore_index=True)
-    comb = comb[["k", "TOT", "H1N1", "H3N2", "Btot"]].sort_values("k")
+    comb = comb[["k", "TOT", "H1N1", "H3N2", "Btot", "Aunsub"]].sort_values("k")
     ili = ili.copy(); ili["k"] = ili.YEAR * 100 + ili.WEEK
     m = ili.merge(comb, on="k", how="left")
-    for c in ["TOT", "H1N1", "H3N2", "Btot"]:
+    for c in ["TOT", "H1N1", "H3N2", "Btot", "Aunsub"]:
         m[c] = m[c].fillna(0)
     return m
 
