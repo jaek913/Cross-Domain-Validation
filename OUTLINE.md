@@ -8,7 +8,7 @@ The paper's skeleton: the ordered argument, every citation, the load-bearing fin
 - **Archetype:** empirical-with-verified-theory
 - **Source pin (rebuild):** v4 manuscript, SHA256 `982176a228c35cd76856b76fee17433ad5f6312e3490bf58f893dc17c3302a50` (MD5 `23428fb275f6ea6d6a3846fc17d91a86`) — pre-audit; no revised paper exists
 - **Verification record consulted:** pre-fix repo `verification/Stage_1.1…1.6`, `Discrepancy_Register.md`, `analysis/repro_*.py`, `FINDINGS_*.md`
-- **Standard:** v1.8 · **Outline version:** v0.2 — 2026-06-28 · **Status:** draft
+- **Standard:** v1.8 · **Outline version:** v0.9 — 2026-06-29 · **Status:** draft
 
 ## Changelog
 
@@ -20,6 +20,7 @@ The paper's skeleton: the ordered argument, every citation, the load-bearing fin
 - v0.6 2026-06-28 — **E6 regeneration (honest negative).** The rejected-hypothesis result reproduces (zero-crossing lags the true peak -5.07 wk, worse than the SMA-4 peak -2.15 wk; v4 ~-5.6/-2.1). E6 peak detection is **not in the Stage-1.5 verified record** (regenerated here for the first time); the v4 'reported alongside' divergence-peak lead (96% / t 4.36) does **NOT reproduce** under the pre-registered SMA_4-SMA_12 construction — the divergence peaks ~1 wk after the ILI peak, preceding in only 7/27 seasons (mean +1.3, ns) → **LB-e6-divpeak OPEN**. ARG-12 / L-02 (zero-crossing rejected) RETAINED; the honest-negative is, if anything, stronger.
 - v0.7 2026-06-28 — **E7 added (pre-registration; net-new beyond v4, with DESIGN v0.9).** Spatial-curvature peak detection: a strictly-causal signal from the 10 HHS-region ILI curves tested for **positive lead** on the national peak — paired with onset (ARG-10) for a combined early-onset-and-leading-peak claim if it holds, or a short honest negative with E6 if not. Added ARG-15 + LB-e7-feasibility/spatial-lead/curvature (all OPEN, pre-registered); ARG-14 notes the conditional peak prediction P3; IMRaD §5.1 extended to peak detection. Committed as the pre-registration **before any regional number is computed**.
 - v0.8 2026-06-29 — **E7 result (net-new): HONEST NEGATIVE (H0).** The 10-region spatial-curvature detector does **not** yield a robust causal lead on the national peak. The author's feasibility correction was decisive — the all-region peak-lead median is ~tautological (national ≈ the population-weighted center of the regional peaks); on the **ranked-earliest** measure only the single earliest region leads (~5 wk), 2nd/3rd at 1/0, so the θ=0.3 headroom is ~0. The primary rollover's apparent ~5-wk lead is a **regional-noise artifact** (it collapses as the drawdown deepens — median 10/5/−1 for frac 0.25/0.5/0.75, ns at the genuine-rollover end; the θ-sweep collapses 7/5/−2/−3; the 'leading' seasons fire in November at onset-level ILI regardless of peak timing; the national-only control LAGS under the identical rule). ARG-15 → H0; LB-e7-feasibility/spatial-lead/curvature RESOLVED as honest-negative; the conditional forward peak prediction **P3 is foreclosed** (ARG-14). A leave-one-season-out targeted-region follow-up (e7b) confirms **no consistent geographic leader** (Region 6/South is earliest slightly more than chance but not significantly; median lead 0; a targeted detector collapses at frac=0.75 like the pool) — the negative is complete, not a wrong-tool artifact. Paired with E6 in §5.1. With DESIGN v0.10.
+- v0.9 2026-06-29 — **Phase-3 ledger tie.** Every §4 load-bearing finding is mapped to its concrete `claims.lock` LB-id(s) in the new **§4a Ledger tie** (the §4 first column is the readable family label; §4a names the real ledger ids the manuscript renders as `{{LB-id}}` and `verify.py` greps at Phase 4). No finding changes — this records the OUTLINE↔ledger agreement at the Phase-3 gate (`claims.lock` = 73 rows: 52 regenerate + 2 cite + 5 open + 12 negative + 2 theorem-check; `build_claims.py` + `verify.py` committed; verify green). Metadata version corrected to track the changelog (was stale at v0.2). With DESIGN v0.10.
 
 ## 1. IMRaD structural map (the skeleton)
 
@@ -94,7 +95,7 @@ Roles: prior-art · motivating-anomaly · method-precedent · corroboration · c
 
 Keyed to `claims.lock` (Phase 3); **no values here.** Each carries a **status tier** — REGEN (reproduces, regenerate) · CORRECT (regenerate to the corrected value) · CITE (Paper-4 reference, not regenerated) · OPEN (unresolved) — and a cross-reference to the original Stage-1.1 claim (LB-N).
 
-| LB-id (provisional) | Finding (one line, no value) | Supports (ARG) | Status | orig LB |
+| LB-id (family; concrete ids in §4a) | Finding (one line, no value) | Supports (ARG) | Status | orig LB |
 |---|---|---|---|---|
 | LB-e1-weather-sw | Weather temperature-anomaly filter-share (benchmark low end) | ARG-04 | REGEN | LB-3 |
 | LB-e1-colorado-sw | Colorado River filter-share, raw and deseasonalized | ARG-04, ARG-05 | REGEN | LB-5 |
@@ -130,6 +131,45 @@ Keyed to `claims.lock` (Phase 3); **no values here.** Each carries a **status ti
 | LB-e7-curvature | Curvature-only national control (does curvature alone help, absent spatial pooling) | ARG-15 | RESOLVED (H0): the national control LAGS under the identical rule — the spatial 'gain' is the noise differential | (net-new) |
 
 Interpretations (no value): **LB-1** (external-calibration thesis, refined) → ARG-01/13; **LB-6** (gradient corroborates Paper 4) → ARG-05; **LB-22** (ACF governs behavior) → ARG-09. Forward predictions **LB-23/24** → ARG-14.
+
+### 4a. Ledger tie — OUTLINE finding -> claims.lock LB-id(s)
+
+Each §4 finding (family label) resolves to these concrete `claims.lock` rows — the ids the manuscript renders as `{{LB-id}}` and `verify.py` checks (the outline still carries no values). All 73 ledger rows are tied: 52 regenerate + 2 cite + 5 open + 12 negative + 2 theorem-check.
+
+- LB-e1-weather-sw -> LB-e1-weather-sw
+- LB-e1-colorado-sw -> LB-e1-colorado-sw, LB-e1-colorado-seasonal
+- LB-e1-ohio-sw -> LB-e1-ohio-sw, LB-e1-ohio-seasonal
+- LB-e1-flu-sw -> LB-e1-flu-sw, LB-e1-flu-toward
+- LB-e1-rw-control -> LB-e1-rw-control
+- LB-e1-deseas-gradient -> LB-e1-gradient-h42, LB-e1-gradient-h63, LB-e1-gradient-h126; look-ahead robustness LB-e1-lookahead-co, LB-e1-lookahead-oh
+- LB-e1-sunspot-sw -> LB-e1-sunspot-decomp-cite (CITE)
+- LB-e1-financial-band -> LB-e1-financial-band-cite (CITE)
+- LB-e2-colorado-rho -> LB-e2-colorado-rho-returns, LB-e2-colorado-rho-level, LB-e2-colorado-artifact
+- LB-e2-ohio-rho -> LB-e2-ohio-rho-returns, LB-e2-ohio-rho-level, LB-e2-ohio-blockshuffle-z
+- LB-e2-flu-rho -> LB-e2-flu-rho
+- LB-e2-weather-rho -> LB-e2-weather-dallas, LB-e2-weather-dallas-deseas, LB-e2-weather-norwich-raw, LB-e2-weather-norwich-deseas (OPEN)
+- LB-e2-sunspot-rho -> LB-e2-sunspot-rho, LB-e2-sunspot-permz
+- LB-e2-csd-compare -> LB-e2-csd-epi, LB-e2-csd-solar
+- LB-e3-significant -> LB-e3-significant-correct, LB-e3-significant-total, LB-e3-significant-wrong, LB-e3-falsifier
+- LB-e3-overall -> LB-e3-overall
+- LB-e3-perdomain -> LB-e3-perdomain-significant, LB-e3-perdomain-correct
+- LB-e3-colorado-flip -> LB-e3-colorado-flip-sign, LB-e3-colorado-flip-acf
+- LB-e3-flu-flip -> LB-e3-flu-flip-sign, LB-e3-flu-flip-acf
+- LB-e3-rejected-volform -> LB-e3-rejected-volform-pct, LB-e3-rejected-volform-sigwrong (OPEN)
+- LB-e4-lead -> LB-e4-div-lead, LB-e4-level-lead, LB-e4-advantage, LB-e4-paired-t
+- LB-e4-seasons -> LB-e4-seasons, LB-e4-earlier
+- LB-e4-floor -> LB-e4-floor, LB-e4-q1
+- LB-e5-hindsight -> LB-e5-hindsight
+- LB-e5-realtime -> LB-e5-realtime
+- LB-e5-single -> LB-e5-single
+- LB-e5-lead -> LB-e5-lead
+- LB-e6-zerocross -> LB-e6-zerocross, LB-e6-sma4peak
+- LB-e6-divpeak -> LB-e6-divpeak-precede, LB-e6-divpeak-p (OPEN)
+- LB-e7-feasibility -> LB-e7-feasibility-e1, LB-e7-feasibility-e3, LB-e7-robust-headroom (negative)
+- LB-e7-spatial-lead -> LB-e7-spatial-primary, LB-e7-robust-threshold, LB-e7-robust-strictp, LB-e7-verdict (negative)
+- LB-e7-curvature -> LB-e7-curvature-control (negative)
+- LB-e7b (regional-consistency diagnostic; supports ARG-15 completeness) -> LB-e7b-chi2, LB-e7b-chi2-p, LB-e7b-targeted-collapse-p, LB-e7b-verdict (negative)
+- Theorem 8b machine-checks (support ARG-08; proof-check part 1 of 3) -> THM-8b-stress, THM-8b-symbolic
 
 ## 5. Figures, tables & equations
 
@@ -179,7 +219,7 @@ Each carries a greppable `C-`/`L-` anchor.
 
 - [x] Every ARG node has ≥1 support and a valid `Depends on` (or "—").
 - [x] Every citation key maps to ≥1 ARG node or section; four orphans cited; seven DISC-1.3 metadata fixes tracked for Phase 4 (keys unchanged).
-- [x] Every load-bearing finding names an LB-id, a status tier, and an original-LB cross-reference; **all 24 Stage-1.1 claims covered** (LB-1…24 ↔ LB-e* / ARG nodes); no values here.
+- [x] Every load-bearing finding names a real `claims.lock` LB-id (concrete ids in §4a — all 73 ledger rows tied), a status tier, and an original-LB cross-reference; **all 24 Stage-1.1 claims covered** (LB-1…24 ↔ LB-e* / ARG nodes); no values here.
 - [x] Every figure/table/equation has an anchor + a referencing ARG node; FIG-1/TBL-1/EQ-2 corrections noted.
 - [x] Every scope condition (S-) and limit-of-claim (C-/L-) has an anchor; S5 + L-06/07/08 added for the corrections.
 - [ ] Every internal cross-reference resolves — verify.py check-5 once the manuscript exists (Phase 4).

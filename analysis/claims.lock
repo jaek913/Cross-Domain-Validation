@@ -1,0 +1,1884 @@
+{
+  "_meta": {
+    "paper": "Cross-Domain Validation of a Moving-Average Divergence Framework in Atmospheric Science, Hydrology, Solar Physics, and Epidemiology",
+    "standard": "v1.8",
+    "phase": 3,
+    "design_version": "v0.10",
+    "source_pin_sha256": "982176a228c35cd76856b76fee17433ad5f6312e3490bf58f893dc17c3302a50",
+    "generated_by": "analysis/build_claims.py",
+    "generated_at": "2026-06-29T20:16:18Z",
+    "warning": "GENERATED ARTIFACT - DO NOT HAND-EDIT. Regenerate via build_claims.py.",
+    "n_claims": 73,
+    "n_by_provenance": {
+      "regenerate": 52,
+      "cite": 2,
+      "open": 5,
+      "negative": 12,
+      "theorem-check": 2
+    },
+    "provenance_tiers": {
+      "regenerate": "value regenerated from in-manifest hashed data; verify must reproduce within tol",
+      "cite": "Paper-4 reference import; displayed, not regenerated, no numeric check",
+      "open": "does NOT reproduce the v4 figure; the as-regenerated value is locked + flagged in DECISIONS",
+      "negative": "honest-negative / artifact disposition; the negative (booleans/values) is locked + must reproduce",
+      "theorem-check": "registered numeric stress / symbolic step-check script; must exit clean"
+    },
+    "signoff": {
+      "signer": "Jae Kim",
+      "orcid": "0009-0005-3260-7880",
+      "date": null,
+      "note": "Phase-3 gate sign-off pending verify.py green + reviewer; CIC flags signed at build."
+    }
+  },
+  "inputs": {
+    "usgs_08158000.rdb": {
+      "store_file": "usgs_08158000.rdb",
+      "sha256": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+      "md5": "c688469aa32dd35d2e67c04aba9297ba",
+      "bytes": 1775924,
+      "anchor": "coverage end 2026-03-18; 46,767 valid (>0) daily obs"
+    },
+    "usgs_03294500.rdb": {
+      "store_file": "usgs_03294500.rdb",
+      "sha256": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+      "md5": "b2aedd5e632f3a6bd99d3a0cfb19ef99",
+      "bytes": 1237711,
+      "anchor": "coverage end 2026-03-18; 35,862 valid (>0) daily obs"
+    },
+    "ILINet.csv": {
+      "store_file": "ILINet.csv",
+      "sha256": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461",
+      "md5": "d2922245ab5c5bbce730202d6af60915",
+      "bytes": 111441,
+      "anchor": "first 1,484 weeks, 1997w40..2026w09 (file pre-truncated to exactly these weeks)"
+    },
+    "ILINet_HHS.csv": {
+      "store_file": "ILINet_HHS.csv",
+      "sha256": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+      "md5": "56782e24834669378586501a238e4d85",
+      "bytes": 1135279,
+      "anchor": "10 HHS regions present under REGION TYPE='HHS Regions'; truncated to <= 2026w09; structural anchor (net-new: no prior reproduction, so no pinned MD5)"
+    },
+    "ICL_NREVSS_Combined_prior_to_2015_16.csv": {
+      "store_file": "ICL_NREVSS_Combined_prior_to_2015_16.csv",
+      "sha256": "b436e99303e8d7ddc704f83e1422acfb9ba8743f0b3f6c92e0305138e7b8b009",
+      "md5": "04445b64bdcc5c3b2758a6f50d99ea86",
+      "bytes": 48116,
+      "anchor": "National; 1997w40..2015w39"
+    },
+    "ICL_NREVSS_Public_Health_Labs.csv": {
+      "store_file": "ICL_NREVSS_Public_Health_Labs.csv",
+      "sha256": "37c43f3c2ba4d47486f274f6b4aa69f745037f2563c0a0625fe47c8bdb9eff34",
+      "md5": "0120a7ae61f5788896e8dbaded05ad99",
+      "bytes": 24707,
+      "anchor": "National; 2015w40..2026w9"
+    },
+    "ghcn_USW00094728.csv": {
+      "store_file": "ghcn_USW00094728.csv",
+      "sha256": "0dbbaad34e0ab46dd3b5d71ed4867275529709595791106f8cddd84177c9318f",
+      "md5": "4f4e4ed287b202d3e426d11929047ea2",
+      "bytes": 17798509,
+      "anchor": "DATE<= 2026-03-18: 57,413 TMAX&TMIN days"
+    },
+    "ghcn_USC00190736.csv": {
+      "store_file": "ghcn_USC00190736.csv",
+      "sha256": "7754ed28122dea5235c7b620901cc3f6a5cf42d9933c30568823a4e712ff1a39",
+      "md5": "fa537f25bd9ca58836a0a5f9996cbb25",
+      "bytes": 10615607,
+      "anchor": "DATE<= 2026-03-18: 51,544 TMAX&TMIN days"
+    },
+    "ghcn_USW00023272.csv": {
+      "store_file": "ghcn_USW00023272.csv",
+      "sha256": "8127865903aaac4b0bac0ce2598b2dddaddec94b6f9b3259dce685024638400b",
+      "md5": "1a4ffe3ce90777e3cc309746b2c5c277",
+      "bytes": 7472996,
+      "anchor": "DATE<= 2026-03-18: 38,366 TMAX&TMIN days"
+    },
+    "ghcn_USW00013739.csv": {
+      "store_file": "ghcn_USW00013739.csv",
+      "sha256": "8e31afdbcf37ae12c51ec42455b22a22b82e14dd468bb7eacacfe23fe4046f5c",
+      "md5": "526209bc11a75c83131da2d0bfade4f8",
+      "bytes": 11821009,
+      "anchor": "DATE<= 2026-03-18: 31,146 TMAX&TMIN days"
+    },
+    "ghcn_USW00003927.csv": {
+      "store_file": "ghcn_USW00003927.csv",
+      "sha256": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+      "md5": "56960d915711ea906e2c08c6641af80f",
+      "bytes": 10107772,
+      "anchor": "DATE<= 2026-03-18: 26,625 TMAX&TMIN days"
+    },
+    "ghcn_USC00065910.csv": {
+      "store_file": "ghcn_USC00065910.csv",
+      "sha256": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+      "md5": "3abc111ad64f8e53ba5807d2ebbd4c30",
+      "bytes": 5147714,
+      "anchor": "DATE<= 2026-03-18: 22,636 TMAX&TMIN days"
+    },
+    "silso_yearly.csv": {
+      "store_file": "silso_yearly.csv",
+      "sha256": "0ccb2104b03f2f0c4ad151c97f8721139414cae288a039cdeb37ee36c9e35b6d",
+      "md5": "c85ebbd8b90969d32882c71ce563483e",
+      "bytes": 9454,
+      "anchor": "filter year<=2008; vdiv std(3)-std(11) vs future Y(t+5) -> rho -0.230 (verified)"
+    }
+  },
+  "cic": {
+    "E1": {
+      "script": "analysis/e1_calibration_decomposition.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; expanding-75th-pctile event rule; RW control seed=0 reproduces."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "deseason via day-of-year / per-month groupby aligns on the index; events spaced >= H; no truncation onto a gap-filtered series."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "TMAX&TMIN both-present filter; valid (>0) discharge only; expanding window min 50 prior obs."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "event threshold = EXPANDING 75th pctile (prior obs only); look-ahead robustness shows causal-vs-full S_W delta <= 1.2pp."
+        },
+        "5_overlap_consistency": {
+          "status": "n/a",
+          "note": "N/A - decomposition events are non-overlapping by construction (spaced >= H); RW control is a tolerance band, not an exact match."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "each station / gauge / series decomposed separately; no computation across record boundaries."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "obs counts match SOURCES anchors (CO 46767, OH 35862, flu 1484 wk, Norwich 22636, Dallas 26625)."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    },
+    "E2": {
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; sub-21 sampling; block-shuffle nsh=1000 seed=0 reproduces."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "log-returns / first-difference shift drops the first obs; the forward target is shifted; sub-21 sampling is on the aligned index."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "returns/first-diff dropna; per-month / day-of-year deseason; dropna before each correlation."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "THE D01/CIC#4 GUARD: the forward target is strictly future (forward vol / future level Y(t+5)); the v4 +0.33 (vdiv vs its OWN CONTEMPORANEOUS std(12)) is recorded as v4_artifact_contemp_fast and is NOT used as a result."
+        },
+        "5_overlap_consistency": {
+          "status": "pass",
+          "note": "sub-21 non-overlapping value cross-checked against the overlapping value (D01: overlap ~ subsample in every cell)."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "computed per station / gauge / domain; no cross-record computation."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "obs counts match anchors; solar filtered to year<=2008 (n=294)."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    },
+    "E3": {
+      "script": "analysis/e3_theorem8b_sign.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; subsample every 21 (daily) / 8 (flu); 5 systems x 5 horizons = 25."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "D(t)=SMA_wf-SMA_ws vs Y(t+h) aligned by the h-shift; subsample on the aligned index."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "dropna on the (D, Y_{t+h}) pairs before Spearman."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "D is built from data <= t; Y_{t+h} is the prediction TARGET (not an input to D); no future leakage into the predictor."
+        },
+        "5_overlap_consistency": {
+          "status": "pass",
+          "note": "subsample every 21/8 (non-overlapping); IS/OOS split at the temporal midpoint on 6 representative predictions incl. both flips."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "computed per system; sunspots are NOT in the E3 set; no cross-record computation."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "obs counts match anchors; ACF max-lag 400 daily / 60 flu covers h+w_s (315 / 42)."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    },
+    "E4": {
+      "script": "analysis/e4_flu_onset.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; 27 paired seasons; random-onset-week shuffle (seed 0) is a non-load-bearing diagnostic."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "SMA_4/SMA_12 on the CONTINUOUS weekly series; only the onset SEARCH is season-bounded; no index truncation."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "seasons require >= 20 weeks and peak ILI >= 2.0%; 2020-21 (peak<2.0%) and 2009-10 (no level onset) excluded."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "D(t)=SMA_4-SMA_12 from data <= t; the level baseline uses only the season's first 4 weeks (wk40-43); the peak is the target."
+        },
+        "5_overlap_consistency": {
+          "status": "n/a",
+          "note": "N/A - one onset per season; no overlapping-subsample issue."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "national ILINet only; no cross-record computation."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "1484 weeks; 29 candidate -> 28 with valid peak -> 27 paired (DISC-1.4-03)."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    },
+    "E5": {
+      "script": "analysis/e5_strain_id.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; complete seasons through 2024 (n=27)."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "A(Subtyping not Performed) allocated per-week to the subtyped H1:H3 split on the SIGNAL only; SMA_4/SMA_12 on the continuous percent-positive series."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "pre-2015 + post-2015 NREVSS merged; overlapping weeks resolved to the post-2015 file; dropna on per-subtype series."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "real-time leader = cumulative positives AT first firing (data <= t); hindsight dominance = raw confirmed-subtyped SEASON totals, explicitly labeled as hindsight ground truth."
+        },
+        "5_overlap_consistency": {
+          "status": "n/a",
+          "note": "N/A - one firing per season per subtype."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "national NREVSS only; pre/post-2015 file boundary handled (no double-count); no cross-record computation."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "pre-2015 940 wk + post-2015 544 wk = 1484; dominance on raw subtyped counts."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    },
+    "E6": {
+      "script": "analysis/e6_peak_detection.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; 27 complete seasons (identical E5/E7 set)."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "SMA_4/SMA_12 on the continuous series; lead = peak-wk - detector-wk on the aligned weekly index."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "seasons >= 20 wk, peak >= 2.0%; dropna."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "zero-crossing / divergence-peak / SMA-4 peak all from data <= t; the true ILI peak is the target."
+        },
+        "5_overlap_consistency": {
+          "status": "n/a",
+          "note": "N/A - one detection per season."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "national ILINet only; no cross-record computation."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "27 seasons; zero-crossing lag -5.07 and SMA-4 lag -2.15 reproduce v4 (~-5.6 / -2.1)."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    },
+    "E7": {
+      "script": "analysis/e7_spatial_peak.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; net-new; 27 complete seasons; 10 HHS regions."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "each regional SMA_4/SMA_12 aligned 1:1 to the national week index; lead = national-peak-pos - detector-pos."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "10 regions complete over the window; momentum rollover guarded by the E4 onset (onset_pp=0.2)."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "THE D01 LESSON, LOAD-BEARING: every regional turn from data <= t; the running-max is causal; the feasibility diagnostic is HINDSIGHT and labeled; the finished season is NEVER used to label a region peaked."
+        },
+        "5_overlap_consistency": {
+          "status": "n/a",
+          "note": "N/A - one fire per season; the robustness check sweeps frac {0.25/0.5/0.75} and theta {0.2/0.3/0.5/0.7} as declared sensitivity."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "computed per region; the national TARGET is the pinned ILINet.csv (identical national peak to E6); no cross-record computation."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "10 HHS regions x 1484 weeks; 27 complete-through-2024 seasons inside the stable window."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    },
+    "E7b": {
+      "script": "analysis/e7b_regional_consistency.py",
+      "flags": {
+        "1_reexecutes": {
+          "status": "pass",
+          "note": "deterministic; leave-one-season-out region selection; 27 seasons, 10 regions; same operators/season set as E7."
+        },
+        "2_index_alignment": {
+          "status": "pass",
+          "note": "each regional SMA_4/SMA_12 aligned 1:1 to the national week index; identical alignment to E7."
+        },
+        "3_nan_gap": {
+          "status": "pass",
+          "note": "10 regions complete over the window; dropna; chi-square on earliest-credit counts."
+        },
+        "4_no_lookahead": {
+          "status": "pass",
+          "note": "CIC#4 GUARD: the targeted region(s) are selected from the OTHER 26 seasons ONLY (true leave-one-out); the in-sample ceiling is explicitly labeled OVERFIT-PRONE and is NOT the reported result."
+        },
+        "5_overlap_consistency": {
+          "status": "n/a",
+          "note": "N/A - one fire per season; the frac sweep {0.5/0.75} is a declared sensitivity."
+        },
+        "6_record_boundaries": {
+          "status": "pass",
+          "note": "computed per region; the national TARGET is the pinned ILINet.csv (identical national peak to E6/E7); no cross-record computation."
+        },
+        "7_input_integrity": {
+          "status": "pass",
+          "note": "10 HHS regions x 1484 weeks; 27 complete-through-2024 seasons; identical to E7."
+        }
+      },
+      "signed_by": "Jae Kim / ORCID 0009-0005-3260-7880",
+      "signed_date": "2026-06-29"
+    }
+  },
+  "claims": {
+    "LB-e1-weather-sw": {
+      "claim": "weather deseasonalized S_W band (Norwich/Dallas); paper band 1.3-7.7%",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "weather",
+        "_band_S_W_pct"
+      ],
+      "check": "num_list",
+      "value": [
+        2.5,
+        5.2
+      ],
+      "design_lb": "LB-2/LB-3",
+      "cic_ref": "E1",
+      "inputs": {
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-colorado-seasonal": {
+      "claim": "Colorado seasonal variance fraction (~15.5%)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "rivers",
+        "Colorado",
+        "seasonal_variance_fraction_pct"
+      ],
+      "check": "num",
+      "value": 15.5,
+      "design_lb": "LB-2/LB-5",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-colorado-sw": {
+      "claim": "Colorado deseasonalized SMA-200 S_W",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "rivers",
+        "Colorado",
+        "cells",
+        "deseas",
+        "SMA-200",
+        "S_W"
+      ],
+      "check": "num",
+      "value": 17.02,
+      "design_lb": "LB-2",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      },
+      "tol": 0.05
+    },
+    "LB-e1-ohio-seasonal": {
+      "claim": "Ohio seasonal variance fraction (~45.7%)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "rivers",
+        "Ohio",
+        "seasonal_variance_fraction_pct"
+      ],
+      "check": "num",
+      "value": 45.7,
+      "design_lb": "LB-2/LB-5",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-ohio-sw": {
+      "claim": "Ohio deseasonalized SMA-200 S_W",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "rivers",
+        "Ohio",
+        "cells",
+        "deseas",
+        "SMA-200",
+        "S_W"
+      ],
+      "check": "num",
+      "value": 13.13,
+      "design_lb": "LB-2",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.05
+    },
+    "LB-e1-flu-sw": {
+      "claim": "flu pinned-cell S_W (~153.7%)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "flu",
+        "cells",
+        "SMA-4",
+        "S_W"
+      ],
+      "check": "num",
+      "value": 153.7,
+      "design_lb": "LB-4",
+      "cic_ref": "E1",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-flu-toward": {
+      "claim": "flu pinned-cell toward (~13%)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "flu",
+        "cells",
+        "SMA-4",
+        "toward"
+      ],
+      "check": "num",
+      "value": 13.2,
+      "design_lb": "LB-4",
+      "cic_ref": "E1",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-gradient-h42": {
+      "claim": "matched CO-OH gradient gap H=42 (+3.9pp)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "gradient",
+        "matched_1928_2026",
+        "H=42",
+        "gap_pp"
+      ],
+      "check": "num",
+      "value": 3.9,
+      "design_lb": "LB-5/DISC-1.4-01",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-gradient-h63": {
+      "claim": "matched CO-OH gradient gap H=63 (+4.6pp)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "gradient",
+        "matched_1928_2026",
+        "H=63",
+        "gap_pp"
+      ],
+      "check": "num",
+      "value": 4.6,
+      "design_lb": "LB-5/DISC-1.4-01",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-gradient-h126": {
+      "claim": "matched CO-OH gradient gap H=126 (+6.4pp)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "gradient",
+        "matched_1928_2026",
+        "H=126",
+        "gap_pp"
+      ],
+      "check": "num",
+      "value": 6.4,
+      "design_lb": "LB-5/DISC-1.4-01",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.1
+    },
+    "LB-e1-rw-control": {
+      "claim": "RW control SMA-200 S_W mean within band ~88-115% (seed 0)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "rw_control",
+        "SMA-200",
+        "S_W_mean"
+      ],
+      "check": "band",
+      "value": 97.9,
+      "design_lb": "LB-e1-rw-control",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      },
+      "band": [
+        86.5,
+        115.0
+      ]
+    },
+    "LB-e1-lookahead-co": {
+      "claim": "Colorado look-ahead S_W delta (<=1.2pp)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "lookahead_robustness",
+        "Colorado",
+        "delta_pp"
+      ],
+      "check": "num",
+      "value": 0.91,
+      "design_lb": "DISC-1.4-02",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      },
+      "tol": 0.05
+    },
+    "LB-e1-lookahead-oh": {
+      "claim": "Ohio look-ahead S_W delta (<=1.2pp)",
+      "experiment": "E1",
+      "provenance": "regenerate",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "lookahead_robustness",
+        "Ohio",
+        "delta_pp"
+      ],
+      "check": "num",
+      "value": 0.61,
+      "design_lb": "DISC-1.4-02",
+      "cic_ref": "E1",
+      "inputs": {
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.05
+    },
+    "LB-e1-sunspot-decomp-cite": {
+      "claim": "sunspot decomposition S_W/toward = cited Paper-4 reference (not regenerated)",
+      "experiment": "E1",
+      "provenance": "cite",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "cited_not_regenerated",
+        "sunspot_decomposition"
+      ],
+      "check": "cite",
+      "value": "Paper-4 reference import (TBL-1); does not reproduce on SILSO v2.0 (toward ~70-80%)",
+      "design_lb": "LB-2",
+      "cic_ref": "E1",
+      "inputs": {}
+    },
+    "LB-e1-financial-band-cite": {
+      "claim": "financial S_W band = cited Paper-4 reference (~64-167%, not regenerated)",
+      "experiment": "E1",
+      "provenance": "cite",
+      "script": "analysis/e1_calibration_decomposition.py",
+      "output": "outputs/e1_calibration.json",
+      "json_path": [
+        "cited_not_regenerated",
+        "financial_S_W_band"
+      ],
+      "check": "cite",
+      "value": "Paper-4 reference import (~64-167%); not regenerated",
+      "design_lb": "LB-2",
+      "cic_ref": "E1",
+      "inputs": {}
+    },
+    "LB-e2-colorado-rho-returns": {
+      "claim": "Colorado returns-op vdiv = the signal (+0.12)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "hydrology",
+        "Colorado",
+        "returns_op",
+        "sub21_raw"
+      ],
+      "check": "num",
+      "value": 0.12,
+      "design_lb": "LB-8/D01",
+      "cic_ref": "E2",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-colorado-rho-level": {
+      "claim": "Colorado level-op vdiv = the seasonal-confound null (~ -0.00)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "hydrology",
+        "Colorado",
+        "level_op",
+        "sub21_raw"
+      ],
+      "check": "num",
+      "value": -0.0,
+      "design_lb": "LB-8/D01",
+      "cic_ref": "E2",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-colorado-artifact": {
+      "claim": "v4 +0.33 reproduced as the CIC#4 look-ahead artifact (~+0.322)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "hydrology",
+        "Colorado",
+        "v4_artifact_contemp_fast",
+        "raw"
+      ],
+      "check": "num",
+      "value": 0.322,
+      "design_lb": "LB-8",
+      "cic_ref": "E2",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-ohio-rho-returns": {
+      "claim": "Ohio returns-op vdiv = the strongest hydrology signal (~+0.30)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "hydrology",
+        "Ohio",
+        "returns_op",
+        "sub21_raw"
+      ],
+      "check": "num",
+      "value": 0.297,
+      "design_lb": "LB-9/D01",
+      "cic_ref": "E2",
+      "inputs": {
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-ohio-rho-level": {
+      "claim": "Ohio level-op vdiv = the seasonal-confound null (+0.047)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "hydrology",
+        "Ohio",
+        "level_op",
+        "sub21_raw"
+      ],
+      "check": "num",
+      "value": 0.047,
+      "design_lb": "LB-9/D01",
+      "cic_ref": "E2",
+      "inputs": {
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-ohio-blockshuffle-z": {
+      "claim": "Ohio level-op block-shuffle z (<2.0, the null holds)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "block_shuffle_null",
+        "Ohio_deseas",
+        "z"
+      ],
+      "check": "num",
+      "value": 1.99,
+      "design_lb": "LB-9",
+      "cic_ref": "E2",
+      "inputs": {
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d"
+      },
+      "tol": 0.05
+    },
+    "LB-e2-weather-dallas": {
+      "claim": "Dallas operator-B raw vdiv (+0.745)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "weather",
+        "Dallas_TX",
+        "operator_B_design",
+        "raw"
+      ],
+      "check": "num",
+      "value": 0.745,
+      "design_lb": "LB-10",
+      "cic_ref": "E2",
+      "inputs": {
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-weather-dallas-deseas": {
+      "claim": "Dallas operator-B deseasonalized vdiv (collapse -> ~0)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "weather",
+        "Dallas_TX",
+        "operator_B_design",
+        "deseas_zdiff"
+      ],
+      "check": "num",
+      "value": -0.003,
+      "design_lb": "LB-10",
+      "cic_ref": "E2",
+      "inputs": {
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-weather-norwich-raw": {
+      "claim": "Norwich operator-B raw vdiv (+0.40)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "weather",
+        "Norwich_CT",
+        "operator_B_design",
+        "raw"
+      ],
+      "check": "num",
+      "value": 0.402,
+      "design_lb": "LB-10",
+      "cic_ref": "E2",
+      "inputs": {
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-weather-norwich-deseas": {
+      "claim": "OPEN: Norwich deseasonalized vdiv ~+0.05 (v4 +0.232 not confirmed; contrast softened)",
+      "experiment": "E2",
+      "provenance": "open",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "weather",
+        "Norwich_CT",
+        "operator_B_design",
+        "deseas_zdiff"
+      ],
+      "check": "num",
+      "value": 0.047,
+      "design_lb": "LB-10/DISC-1.5-02",
+      "cic_ref": "E2",
+      "inputs": {
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-flu-rho": {
+      "claim": "epidemiology first-diff vdiv (+0.39 weighted)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "epidemiology",
+        "first_diff_op",
+        "% WEIGHTED ILI",
+        "rho"
+      ],
+      "check": "num",
+      "value": 0.391,
+      "design_lb": "LB-11",
+      "cic_ref": "E2",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-sunspot-rho": {
+      "claim": "sunspot vdiv = the unique negative sign (-0.230)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "solar",
+        "vdiv_rho"
+      ],
+      "check": "num",
+      "value": -0.23,
+      "design_lb": "LB-12",
+      "cic_ref": "E2",
+      "inputs": {
+        "silso_yearly.csv": "0ccb2104b03f2f0c4ad151c97f8721139414cae288a039cdeb37ee36c9e35b6d"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-sunspot-permz": {
+      "claim": "sunspot vdiv permutation z (-3.94)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "solar",
+        "perm_z"
+      ],
+      "check": "num",
+      "value": -3.94,
+      "design_lb": "LB-12",
+      "cic_ref": "E2",
+      "inputs": {
+        "silso_yearly.csv": "0ccb2104b03f2f0c4ad151c97f8721139414cae288a039cdeb37ee36c9e35b6d"
+      },
+      "tol": 0.05
+    },
+    "LB-e2-csd-epi": {
+      "claim": "epidemiology CSD = opposite (negative) sign (~ -0.165)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "csd",
+        "epidemiology",
+        "csd_rho"
+      ],
+      "check": "num",
+      "value": -0.154,
+      "design_lb": "LB-11/13",
+      "cic_ref": "E2",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.01
+    },
+    "LB-e2-csd-solar": {
+      "claim": "sunspot CSD RETAINED: negative, lower magnitude than vdiv (-0.103, matched future-level target)",
+      "experiment": "E2",
+      "provenance": "regenerate",
+      "script": "analysis/e2_volatility_divergence_csd.py",
+      "output": "outputs/e2_divergence_csd.json",
+      "json_path": [
+        "csd",
+        "solar",
+        "csd_rho"
+      ],
+      "check": "num",
+      "value": -0.103,
+      "design_lb": "LB-12/D02",
+      "cic_ref": "E2",
+      "inputs": {
+        "silso_yearly.csv": "0ccb2104b03f2f0c4ad151c97f8721139414cae288a039cdeb37ee36c9e35b6d"
+      },
+      "tol": 0.01
+    },
+    "LB-e3-significant-correct": {
+      "claim": "significant-correct count (13/13)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "significant_correct"
+      ],
+      "check": "int",
+      "value": 13,
+      "design_lb": "LB-14",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-significant-total": {
+      "claim": "significant total (13)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "significant_total"
+      ],
+      "check": "int",
+      "value": 13,
+      "design_lb": "LB-14",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-significant-wrong": {
+      "claim": "significant-WRONG count (0 - the in-paper falsifier is not triggered)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "significant_wrong"
+      ],
+      "check": "int",
+      "value": 0,
+      "design_lb": "LB-14",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-overall": {
+      "claim": "overall correct (20 of 25)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "total_correct"
+      ],
+      "check": "int",
+      "value": 20,
+      "design_lb": "LB-15",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-perdomain-significant": {
+      "claim": "per-domain significant-correct (CO5/OH3/Nor0/Dal0/Flu5)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "per_domain_significant"
+      ],
+      "check": "int_dict",
+      "value": {
+        "Colorado": 5,
+        "Ohio": 3,
+        "Norwich": 0,
+        "Dallas": 0,
+        "Flu": 5
+      },
+      "design_lb": "LB-17",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-perdomain-correct": {
+      "claim": "per-domain correct (CO5/OH5/Nor3/Dal2/Flu5)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "per_domain_correct"
+      ],
+      "check": "int_dict",
+      "value": {
+        "Colorado": 5,
+        "Ohio": 5,
+        "Norwich": 3,
+        "Dallas": 2,
+        "Flu": 5
+      },
+      "design_lb": "LB-17",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-colorado-flip-sign": {
+      "claim": "Colorado h=252 sign flip (-1)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "colorado_h252_flip",
+        "observed_sign"
+      ],
+      "check": "int",
+      "value": -1,
+      "design_lb": "LB-16/DISC-1.4-04",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      }
+    },
+    "LB-e3-colorado-flip-acf": {
+      "claim": "Colorado ACF has NO zero-crossing (flip = Rbar_near<Rbar_far, ACF positive)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "colorado_h252_flip",
+        "acf_first_zero_crossing"
+      ],
+      "check": "null",
+      "value": null,
+      "design_lb": "DISC-1.4-04",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6"
+      }
+    },
+    "LB-e3-flu-flip-sign": {
+      "claim": "flu h=26 sign flip (-1)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "flu_h26_flip",
+        "observed_sign"
+      ],
+      "check": "int",
+      "value": -1,
+      "design_lb": "LB-16/DISC-1.4-05",
+      "cic_ref": "E3",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-flu-flip-acf": {
+      "claim": "flu ACF zero-crossing at 14 wk (distinct from h=26)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "flu_h26_flip",
+        "acf_first_zero_crossing"
+      ],
+      "check": "int",
+      "value": 14,
+      "design_lb": "DISC-1.4-05",
+      "cic_ref": "E3",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-falsifier": {
+      "claim": "in-paper falsifier triggered = false (no significant wrong-sign prediction)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "in_paper_falsifier_triggered"
+      ],
+      "check": "bool",
+      "value": false,
+      "design_lb": "LB-14",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-rejected-volform-pct": {
+      "claim": "OPEN: rejected vol-formulation correct-pct (v4 ~44% not reproduced; regenerated ~72%)",
+      "experiment": "E3",
+      "provenance": "open",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "rejected_vol_formulation",
+        "pct"
+      ],
+      "check": "num",
+      "value": 72.0,
+      "design_lb": "E3-rejected-volform",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.5
+    },
+    "LB-e3-rejected-volform-sigwrong": {
+      "claim": "OPEN: rejected vol-formulation significant-wrong (>=5 vs the level form's 0 - contrast holds)",
+      "experiment": "E3",
+      "provenance": "open",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "rejected_vol_formulation",
+        "significant_wrong_fisher"
+      ],
+      "check": "int",
+      "value": 5,
+      "design_lb": "E3-rejected-volform",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e4-div-lead": {
+      "claim": "divergence onset lead-vs-peak (14.1 wk)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "divergence_lead_vs_peak",
+        "mean"
+      ],
+      "check": "num",
+      "value": 14.148,
+      "design_lb": "LB-18",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e4-level-lead": {
+      "claim": "level onset lead-vs-peak (5.9 wk)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "level_lead_vs_peak",
+        "mean"
+      ],
+      "check": "num",
+      "value": 5.926,
+      "design_lb": "LB-18",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e4-advantage": {
+      "claim": "divergence advantage over level (+8.2 wk)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "advantage_div_minus_level",
+        "mean"
+      ],
+      "check": "num",
+      "value": 8.222,
+      "design_lb": "LB-18",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e4-earlier": {
+      "claim": "divergence fires earlier in 26 of 27 seasons",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "advantage_div_minus_level",
+        "earlier"
+      ],
+      "check": "int",
+      "value": 26,
+      "design_lb": "LB-18",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e4-paired-t": {
+      "claim": "paired t for the advantage (9.35)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "advantage_div_minus_level",
+        "paired_t"
+      ],
+      "check": "num",
+      "value": 9.352,
+      "design_lb": "LB-18",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e4-seasons": {
+      "claim": "27 paired seasons (29 candidate - 2020-21 - 2009-10)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "n_paired"
+      ],
+      "check": "int",
+      "value": 27,
+      "design_lb": "DISC-1.4-03",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e4-floor": {
+      "claim": "minimum divergence lead-vs-peak (floor 5 wk)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "divergence_lead_vs_peak",
+        "floor_min"
+      ],
+      "check": "num",
+      "value": 5.0,
+      "design_lb": "LB-19",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e4-q1": {
+      "claim": "Q1 divergence lead-vs-peak (~12 wk)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "divergence_lead_vs_peak",
+        "q1"
+      ],
+      "check": "num",
+      "value": 11.5,
+      "design_lb": "LB-19",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e5-single": {
+      "claim": "single-strain anchor (9/9, reproduces exactly)",
+      "experiment": "E5",
+      "provenance": "regenerate",
+      "script": "analysis/e5_strain_id.py",
+      "output": "outputs/e5_strain_id.json",
+      "json_path": [
+        "single_strain",
+        "hit"
+      ],
+      "check": "int",
+      "value": 9,
+      "design_lb": "LB-20",
+      "cic_ref": "E5",
+      "inputs": {
+        "ICL_NREVSS_Combined_prior_to_2015_16.csv": "b436e99303e8d7ddc704f83e1422acfb9ba8743f0b3f6c92e0305138e7b8b009",
+        "ICL_NREVSS_Public_Health_Labs.csv": "37c43f3c2ba4d47486f274f6b4aa69f745037f2563c0a0625fe47c8bdb9eff34"
+      }
+    },
+    "LB-e5-hindsight": {
+      "claim": "hindsight dominant-strain matches (19/27, as-regenerated)",
+      "experiment": "E5",
+      "provenance": "regenerate",
+      "script": "analysis/e5_strain_id.py",
+      "output": "outputs/e5_strain_id.json",
+      "json_path": [
+        "hindsight",
+        "match"
+      ],
+      "check": "int",
+      "value": 19,
+      "design_lb": "LB-20",
+      "cic_ref": "E5",
+      "inputs": {
+        "ICL_NREVSS_Combined_prior_to_2015_16.csv": "b436e99303e8d7ddc704f83e1422acfb9ba8743f0b3f6c92e0305138e7b8b009",
+        "ICL_NREVSS_Public_Health_Labs.csv": "37c43f3c2ba4d47486f274f6b4aa69f745037f2563c0a0625fe47c8bdb9eff34"
+      }
+    },
+    "LB-e5-realtime": {
+      "claim": "real-time dominant-strain matches (24/27, as-regenerated)",
+      "experiment": "E5",
+      "provenance": "regenerate",
+      "script": "analysis/e5_strain_id.py",
+      "output": "outputs/e5_strain_id.json",
+      "json_path": [
+        "realtime",
+        "match"
+      ],
+      "check": "int",
+      "value": 24,
+      "design_lb": "LB-20",
+      "cic_ref": "E5",
+      "inputs": {
+        "ICL_NREVSS_Combined_prior_to_2015_16.csv": "b436e99303e8d7ddc704f83e1422acfb9ba8743f0b3f6c92e0305138e7b8b009",
+        "ICL_NREVSS_Public_Health_Labs.csv": "37c43f3c2ba4d47486f274f6b4aa69f745037f2563c0a0625fe47c8bdb9eff34"
+      }
+    },
+    "LB-e5-lead": {
+      "claim": "strain-fire vs aggregate-onset lead median (0 wk)",
+      "experiment": "E5",
+      "provenance": "regenerate",
+      "script": "analysis/e5_strain_id.py",
+      "output": "outputs/e5_strain_id.json",
+      "json_path": [
+        "strain_fire_vs_aggregate_onset",
+        "lead_median"
+      ],
+      "check": "num",
+      "value": 0.0,
+      "design_lb": "LB-21",
+      "cic_ref": "E5",
+      "inputs": {
+        "ICL_NREVSS_Combined_prior_to_2015_16.csv": "b436e99303e8d7ddc704f83e1422acfb9ba8743f0b3f6c92e0305138e7b8b009",
+        "ICL_NREVSS_Public_Health_Labs.csv": "37c43f3c2ba4d47486f274f6b4aa69f745037f2563c0a0625fe47c8bdb9eff34"
+      },
+      "tol": 0.01
+    },
+    "LB-e6-zerocross": {
+      "claim": "zero-crossing lead (lags -5.07 wk; rejected; reproduces)",
+      "experiment": "E6",
+      "provenance": "regenerate",
+      "script": "analysis/e6_peak_detection.py",
+      "output": "outputs/e6_peak_detection.json",
+      "json_path": [
+        "divergence_zerocross_lead",
+        "mean"
+      ],
+      "check": "num",
+      "value": -5.074,
+      "design_lb": "ARG-12",
+      "cic_ref": "E6",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e6-sma4peak": {
+      "claim": "SMA-4 peak lead (lags -2.15 wk)",
+      "experiment": "E6",
+      "provenance": "regenerate",
+      "script": "analysis/e6_peak_detection.py",
+      "output": "outputs/e6_peak_detection.json",
+      "json_path": [
+        "sma4_peak_lead",
+        "mean"
+      ],
+      "check": "num",
+      "value": -2.148,
+      "design_lb": "ARG-12",
+      "cic_ref": "E6",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e6-divpeak-precede": {
+      "claim": "OPEN: divergence-peak precedes only 7/27 (v4 96% not reproduced)",
+      "experiment": "E6",
+      "provenance": "open",
+      "script": "analysis/e6_peak_detection.py",
+      "output": "outputs/e6_peak_detection.json",
+      "json_path": [
+        "divergence_peak_lead",
+        "precede_count"
+      ],
+      "check": "int",
+      "value": 7,
+      "design_lb": "LB-e6-divpeak",
+      "cic_ref": "E6",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e6-divpeak-p": {
+      "claim": "OPEN: divergence-peak lead is not significant (p=0.17)",
+      "experiment": "E6",
+      "provenance": "open",
+      "script": "analysis/e6_peak_detection.py",
+      "output": "outputs/e6_peak_detection.json",
+      "json_path": [
+        "divergence_peak_lead",
+        "paired_p"
+      ],
+      "check": "num",
+      "value": 0.168,
+      "design_lb": "LB-e6-divpeak",
+      "cic_ref": "E6",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.01
+    },
+    "LB-e7-feasibility-e1": {
+      "claim": "only the single earliest region leads (~5 wk)",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "LB_e7_feasibility",
+        "earliest_region_leads_by_rank",
+        "earliest_1",
+        "median"
+      ],
+      "check": "num",
+      "value": 5.0,
+      "design_lb": "LB-e7-feasibility",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e7-feasibility-e3": {
+      "claim": "theta=0.3 detector feasibility headroom ~0 (3rd-earliest median 0)",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "LB_e7_feasibility",
+        "earliest_region_leads_by_rank",
+        "earliest_3",
+        "median"
+      ],
+      "check": "num",
+      "value": 0.0,
+      "design_lb": "LB-e7-feasibility",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e7-spatial-primary": {
+      "claim": "PRIMARY rollover APPEARS to lead (+4.2) but is NOT robust (see robustness)",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "LB_e7_spatial_lead",
+        "spatial_momentum_rollover_PRIMARY",
+        "mean"
+      ],
+      "check": "num",
+      "value": 4.222,
+      "design_lb": "LB-e7-spatial-lead",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e7-curvature-control": {
+      "claim": "national-only control LAGS (-1.37) under the identical rule",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "LB_e7_spatial_lead",
+        "national_rollover_CONTROL",
+        "mean"
+      ],
+      "check": "num",
+      "value": -1.37,
+      "design_lb": "LB-e7-curvature",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e7-robust-threshold": {
+      "claim": "H0 anchor: the lead does NOT survive a genuine (frac=0.75) rollover",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "robustness_check",
+        "robust_to_threshold"
+      ],
+      "check": "bool",
+      "value": false,
+      "design_lb": "LB-e7-spatial-lead",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e7-robust-headroom": {
+      "claim": "H0 anchor: there is no genuine feasibility headroom",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "robustness_check",
+        "genuine_headroom"
+      ],
+      "check": "bool",
+      "value": false,
+      "design_lb": "LB-e7-feasibility",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e7-robust-strictp": {
+      "claim": "the genuine-rollover lead is not significant (p=0.49)",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "robustness_check",
+        "strict_rollover_p_vs0"
+      ],
+      "check": "num",
+      "value": 0.492,
+      "design_lb": "LB-e7-spatial-lead",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.01
+    },
+    "LB-e7-verdict": {
+      "claim": "H0 / ARTIFACT verdict (apparent lead is a regional-noise artifact)",
+      "experiment": "E7",
+      "provenance": "negative",
+      "script": "analysis/e7_spatial_peak.py",
+      "output": "outputs/e7_spatial_peak.json",
+      "json_path": [
+        "verdict"
+      ],
+      "check": "contains",
+      "value": "H0 / ARTIFACT: the apparent positive lead is NOT robust - it collapses monotonically as the momentum-drawdown is deepened (see robustness.lead_median_by_drawdown; not significant at the genuine-rollover end frac=0.75), the theta=0.3 feasibility headroom is ~0 (3rd-earliest region peaks at median 0), and the national-only control LAGS - so the 'lead' is a regional-NOISE artifact (the loose 50% drawdown fires early on noisy regional momenta during the rise, e.g. at ~1.5% ILI in November), NOT a genuine spatial signal. The spatial-curvature hypothesis H1 is NOT supported (honest negative, with E6).",
+      "design_lb": "ARG-15",
+      "cic_ref": "E7",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e7b-chi2": {
+      "claim": "earliest-region concentration chi-square (13.96)",
+      "experiment": "E7b",
+      "provenance": "negative",
+      "script": "analysis/e7b_regional_consistency.py",
+      "output": "outputs/e7b_regional_consistency.json",
+      "json_path": [
+        "part_a_consistency",
+        "concentration",
+        "chi2"
+      ],
+      "check": "num",
+      "value": 13.964,
+      "design_lb": "ARG-15 (diagnostic)",
+      "cic_ref": "E7b",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.1
+    },
+    "LB-e7b-chi2-p": {
+      "claim": "concentration not distinguishable from uniform (p=0.12): no consistent leader",
+      "experiment": "E7b",
+      "provenance": "negative",
+      "script": "analysis/e7b_regional_consistency.py",
+      "output": "outputs/e7b_regional_consistency.json",
+      "json_path": [
+        "part_a_consistency",
+        "concentration",
+        "p_value"
+      ],
+      "check": "num",
+      "value": 0.124,
+      "design_lb": "ARG-15 (diagnostic)",
+      "cic_ref": "E7b",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.01
+    },
+    "LB-e7b-targeted-collapse-p": {
+      "claim": "leave-one-out targeted detector collapses at frac=0.75 (p=0.94)",
+      "experiment": "E7b",
+      "provenance": "negative",
+      "script": "analysis/e7b_regional_consistency.py",
+      "output": "outputs/e7b_regional_consistency.json",
+      "json_path": [
+        "part_b_targeted_loo",
+        "K_1",
+        "frac_0.75",
+        "p_vs0"
+      ],
+      "check": "num",
+      "value": 0.941,
+      "design_lb": "ARG-15 (diagnostic)",
+      "cic_ref": "E7b",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.01
+    },
+    "LB-e7b-verdict": {
+      "claim": "NO CONSISTENT LEADER verdict (pooled H0 robust and complete)",
+      "experiment": "E7b",
+      "provenance": "negative",
+      "script": "analysis/e7b_regional_consistency.py",
+      "output": "outputs/e7b_regional_consistency.json",
+      "json_path": [
+        "verdict"
+      ],
+      "check": "contains",
+      "value": "NO CONSISTENT LEADER: 'which region leads' is not distinguishable from uniform - a different region leads each season (positional noise). The single-earliest ~5-wk hindsight lead is NOT usable in real time. The pooled E7 H0 is ROBUST and COMPLETE.",
+      "design_lb": "ARG-15 (diagnostic)",
+      "cic_ref": "E7b",
+      "inputs": {
+        "ILINet_HHS.csv": "ae3793545516f17088a3f9ee9dce169f488f3a5893d97037db937803408ee72c",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "THM-8b-stress": {
+      "claim": "Theorem-8b numeric stress: the sign rule sign[Corr(D,Y_{t+h})]=sign[Rbar_near-Rbar_far] holds from a known ACF across an AR-grid, incl. a deliberate sign-flip case; finite-sample sim confirms.",
+      "experiment": "THM",
+      "provenance": "theorem-check",
+      "script": "checks/theorem8b_stress.py",
+      "check": "script",
+      "design_lb": "LB-14/LB-16 (Theorem 8b)",
+      "cic_ref": "THM",
+      "value": "clean-exit-required"
+    },
+    "THM-8b-symbolic": {
+      "claim": "Theorem-8b symbolic step-check: Cov(SMA_wf-SMA_ws, Y_{t+h}) reduces to ((ws-wf)/ws)*(Rbar_near - Rbar_far) in ACF terms, so the sign equals sign(Rbar_near - Rbar_far). sympy simplify == 0 over a (wf,ws,h) grid.",
+      "experiment": "THM",
+      "provenance": "theorem-check",
+      "script": "checks/theorem8b_symbolic.py",
+      "check": "script",
+      "design_lb": "LB-14/LB-16 (Theorem 8b)",
+      "cic_ref": "THM",
+      "value": "clean-exit-required"
+    }
+  }
+}
