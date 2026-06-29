@@ -15,6 +15,7 @@ The Phase-1 gate that accounts for every element of the source so nothing vanish
 
 - v0.1 2026-06-28 — built from the pinned v4 manuscript alone; everything KEEP/"values regenerated". **Superseded** (it inherited v4's Paper-4 reference imports and single-operator framing).
 - v0.2 2026-06-28 — **re-dispositioned on the Stage 1.5/1.6 verification record.** Corrections marked TRANSFORM (Colorado vdiv, the Colorado–Ohio sweep, the domain-specific operator, the abstract/FIG-1 ACF fix, the season count, the strain spec, the seven citation fixes, six weather GHCN IDs, SILSO v2.0 yearly); Paper-4 reference imports marked CITE (sunspot decomposition + financial band); the unreproduced Norwich deseasonalized vdiv marked OPEN; the OUTLINE-mapping reconciliation box ticked.
+- v0.3 2026-06-29 — **Phase-2 executed-check + E7 (net-new) added.** All seven experiments E1–E7 (+ the e7b regional-consistency diagnostic) have committed scripts + outputs; the Phase-2 reconciliation item is ticked. E7 (spatial-curvature peak detection) is a **net-new ADD beyond the v4 source** — concluded an **honest negative** (H0; the apparent spatial lead is a regional-noise artifact, confirmed complete by the e7b leave-one-season-out targeted-region test); added to §3 and the experiment count (6 → 7). Per author directive, the peak negatives (E6 + E7) are written CONCISELY in the manuscript (detail in repo/DECISIONS).
 
 ## 1. Sections
 
@@ -85,8 +86,10 @@ The Phase-1 gate that accounts for every element of the source so nothing vanish
 | E4 — Flu divergence onset detector vs level surveillance (§5.1.2). Lead-time test | KEEP | SMA-4 − SMA-12 of ILI, threshold 0.2pp; reproduces exactly; **27 paired seasons (29 − 2020-21 − 2009-10)** | analysis/e4_flu_onset.py → outputs/e4_flu_onset.json |
 | E5 — Strain-level divergence / dominant-strain ID (§5.1.3). Hindsight + real-time accuracy | TRANSFORM | **strain spec pinned**; counts as-regenerated (single-strain 9/9 robust; hindsight/real-time/lead may differ from v4 — under-specified in v4) | analysis/e5_strain_id.py → outputs/e5_strain_id.json |
 | E6 — Divergence peak detection / zero-crossing test (§5.1.2 note) | KEEP | rejected-hypothesis result retained; reproduces | analysis/e6_peak_detection.py → outputs/e6_peak_detection.json |
+| **E7 — Spatial-curvature peak detection (§5.1; NET-NEW, no v4 source)** | **ADD (net-new)** | pre-registered net-new experiment beyond v4; **honest negative (H0)** — a strictly-causal 10-HHS-region signal does NOT lead the national peak (the apparent +5-wk lead is a regional-noise artifact, collapses at a genuine rollover; feasibility headroom ~0); P3 forward peak prediction foreclosed | analysis/e7_spatial_peak.py → outputs/e7_spatial_peak.json |
+| E7b — Regional-consistency / targeted-detector diagnostic (E7 follow-up) | ADD (diagnostic) | confirms E7 H0 is COMPLETE — no consistent geographic leader to exploit (leave-one-season-out targeted detector collapses like the pool); not a pre-registered LB claim | analysis/e7b_regional_consistency.py → outputs/e7b_regional_consistency.json |
 
-> Experiment count for the shape ledger = **6** (script ids planned in DESIGN.md §2; final names fixed at Phase 2).
+> Experiment count for the shape ledger = **7** (E1–E6 from the v4 source + **E7 net-new**; the e7b diagnostic supports E7 and is not counted separately). All committed at Phase 2 (final script names fixed).
 
 ## 4. Analyses
 
@@ -134,7 +137,7 @@ The Phase-1 gate that accounts for every element of the source so nothing vanish
 |---|---|---|---|---|
 | Pages | [from built v4.pdf — fill at Phase 4] | [Phase 4] | [Phase 4] | >15% → sign-off; >10% → note |
 | Words | 14,220 | [Phase 4] | [Phase 4] | >15% → sign-off; >10% → note |
-| Experiment count | 6 | [Phase 4] | [Phase 4] | >15% → sign-off; >10% → note |
+| Experiment count | 6 | 7 (E7 net-new) | +1 | intentional ADD (E7); not a breach |
 | Proof count | 0 | [Phase 4] | [Phase 4] | n/a (empirical archetype) |
 
 **Breach notes / sign-offs:** [none yet — completed at Phase 4]. *Note: the rebuild adds the four domain-specific operators and the correction notes, which may grow §3.2 and Part VI; watch the word delta at Phase 4.*
@@ -146,7 +149,7 @@ The Phase-1 gate that accounts for every element of the source so nothing vanish
 - [x] Every DROP carries a valid reason (Connecticut River 63.5-yr gap).
 - [x] **Every KEEP/TRANSFORM/CITE/OPEN row maps to ≥1 node in OUTLINE.md** — verified against OUTLINE v0.2 (sections → §1; experiments → ARG-04…12 + LB-e*; datasets → LB/ARG supports; figures/equations → §5; citations → §3; the corrections → the corrected LB statuses + S5/L-06/07/08).
 - [ ] Shape ledger computed — source side recorded; rebuild side at Phase 4.
-- [ ] (At Phase 2) every KEEP/TRANSFORM experiment has a committed script or a logged escalation in DECISIONS.md.
+- [x] (At Phase 2) every KEEP/TRANSFORM experiment — **and the net-new E7 (+ e7b diagnostic)** — has a committed script + output: E1 e1_calibration_decomposition.py, E2 e2_volatility_divergence_csd.py, E3 e3_theorem8b_sign.py, E4 e4_flu_onset.py, E5 e5_strain_id.py, E6 e6_peak_detection.py, E7 e7_spatial_peak.py, e7b e7b_regional_consistency.py (commits 424ee96 / a5fd146 / e0eee89 / c35bb35 / 54d31b3 / 2b71744 / c7f667c / ed211e0 / e1fff4e). No escalations open.
 
 ## Author sign-off
 
