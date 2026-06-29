@@ -1,0 +1,262 @@
+{
+  "experiment": "E4",
+  "title": "divergence-based influenza onset detection",
+  "operator": "D = SMA_4(ILI) - SMA_12(ILI) on the continuous series; onset = first week D > 0.2 pp",
+  "level_comparator": "first week ILI > (mean of season's first 4 weeks) + 1.0 pp",
+  "season_def": "wk40(y)..wk20(y+1), >= 20 weeks, peak ILI >= 2.0%",
+  "n_candidate_seasons": 28,
+  "n_paired": 27,
+  "divergence_lead_vs_peak": {
+    "mean": 14.148,
+    "median": 13.0,
+    "iqr": [
+      11.5,
+      18.0
+    ],
+    "floor_min": 5.0,
+    "q1": 11.5,
+    "_target": "mean 14.1, floor 5, Q1 12"
+  },
+  "level_lead_vs_peak": {
+    "mean": 5.926,
+    "_target": "mean 5.9"
+  },
+  "advantage_div_minus_level": {
+    "mean": 8.222,
+    "median": 9.0,
+    "earlier": 26,
+    "of": 27,
+    "paired_t": 9.352,
+    "paired_p": 0.0,
+    "wilcoxon_stat": 5.5,
+    "wilcoxon_p": 0.0,
+    "_target": "advantage +8.2, earlier 26/27, t 9.35"
+  },
+  "sensitivity": {
+    "div>0.1": {
+      "advantage_mean": 9.185,
+      "earlier_pct": 96.296,
+      "n": 27
+    },
+    "div>0.2": {
+      "advantage_mean": 8.222,
+      "earlier_pct": 96.296,
+      "n": 27
+    },
+    "div>0.3": {
+      "advantage_mean": 4.769,
+      "earlier_pct": 88.462,
+      "n": 26
+    }
+  },
+  "temporal_concentration_shuffle": {
+    "div_lead_mean": 14.148,
+    "z": 7.734,
+    "_note": "robustness diagnostic only (random-onset-week null, seed 0); NOT load-bearing; v4 reported z ~ +2.6 by an under-determined shuffle"
+  },
+  "per_season": [
+    {
+      "season": "1997-98",
+      "div_lead": 7,
+      "level_lead": 11,
+      "paired": true,
+      "earlier": false
+    },
+    {
+      "season": "1998-99",
+      "div_lead": 18,
+      "level_lead": 7,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "1999-00",
+      "div_lead": 11,
+      "level_lead": 4,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2000-01",
+      "div_lead": 14,
+      "level_lead": 5,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2001-02",
+      "div_lead": 19,
+      "level_lead": 4,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2002-03",
+      "div_lead": 18,
+      "level_lead": 6,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2003-04",
+      "div_lead": 11,
+      "level_lead": 7,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2004-05",
+      "div_lead": 17,
+      "level_lead": 8,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2005-06",
+      "div_lead": 11,
+      "level_lead": 2,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2006-07",
+      "div_lead": 18,
+      "level_lead": 9,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2007-08",
+      "div_lead": 18,
+      "level_lead": 7,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2008-09",
+      "div_lead": 18,
+      "level_lead": 6,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2009-10",
+      "div_lead": 2,
+      "level_lead": null,
+      "paired": false,
+      "earlier": false
+    },
+    {
+      "season": "2010-11",
+      "div_lead": 13,
+      "level_lead": 7,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2011-12",
+      "div_lead": 23,
+      "level_lead": 3,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2012-13",
+      "div_lead": 6,
+      "level_lead": 3,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2013-14",
+      "div_lead": 12,
+      "level_lead": 2,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2014-15",
+      "div_lead": 12,
+      "level_lead": 4,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2015-16",
+      "div_lead": 21,
+      "level_lead": 10,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2016-17",
+      "div_lead": 18,
+      "level_lead": 7,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2017-18",
+      "div_lead": 17,
+      "level_lead": 8,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2018-19",
+      "div_lead": 19,
+      "level_lead": 9,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2019-20",
+      "div_lead": 12,
+      "level_lead": 5,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2021-22",
+      "div_lead": 5,
+      "level_lead": 2,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2022-23",
+      "div_lead": 7,
+      "level_lead": 4,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2023-24",
+      "div_lead": 12,
+      "level_lead": 6,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2024-25",
+      "div_lead": 13,
+      "level_lead": 10,
+      "paired": true,
+      "earlier": true
+    },
+    {
+      "season": "2025-26",
+      "div_lead": 12,
+      "level_lead": 4,
+      "paired": true,
+      "earlier": true
+    }
+  ],
+  "excluded": [
+    {
+      "season": "2009-10",
+      "div_lead": 2,
+      "level_lead": null
+    }
+  ]
+}
