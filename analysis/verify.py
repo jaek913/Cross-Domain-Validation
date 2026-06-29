@@ -229,6 +229,102 @@ def check_paper(text, required_sections, required_cites, lock=None):
 
 
 # --------------------------------------------------------------------------- #
+# Phase-4 OUTLINE-driven reconciliation (the "teeth"): drive the required
+# citation keys off OUTLINE.md and the LB-ids off the lock, then confirm the
+# manuscript carries every one, every {{token}} resolves, no stub survives, the
+# theorem + every required section + every FIG/TBL/EQ/S/C/L anchor is present.
+CITEKEY_RE = re.compile(r"\b([A-Z][A-Za-z'’]+(?:-[A-Z][A-Za-z'’]+)*-(?:18|19|20)\d{2}[a-z]?)\b")
+
+
+def _norm_apostrophes(s: str) -> str:
+    return s.replace("’", "'").replace("‘", "'")
+
+
+def parse_outline_cites(outline_text: str):
+    """Extract the citation keys from OUTLINE.md's '## 3' (Citations) section.
+
+    Scoped to section 3 (the citation table) so a Surname-YEAR token mentioned in
+    prose elsewhere (e.g. a removed-citation note) is not forced into the paper.
+    Falls back to the whole document if the section bounds are not found.
+    """
+    lines = outline_text.splitlines()
+    s = e = None
+    for i, ln in enumerate(lines):
+        if s is None and re.match(r"^##\s+3(\.|\s)", ln):
+            s = i
+        elif s is not None and re.match(r"^##\s+4(\.|\s)", ln):
+            e = i
+            break
+    section = "\n".join(lines[s:e]) if s is not None else outline_text
+    return {_norm_apostrophes(m.group(1)) for m in CITEKEY_RE.finditer(section)}
+
+
+def reconcile_paper(lock, outline_text, paper_src):
+    """The Phase-4 reconciliation gate. RED on any missing element or placeholder.
+
+    Runs on the SOURCE manuscript (token-bearing); renders internally so it also
+    confirms every {{LB-id}} resolves and no token would survive in the rendered
+    paper.
+    """
+    rows = []
+    paper_norm = _norm_apostrophes(paper_src)
+
+    # (a) no placeholder words anywhere
+    for bad in ("STUB", "TODO", "PLACEHOLDER", "FIXME", "XXX"):
+        hit = re.search(rf"\b{bad}\b", paper_src)
+        rows.append((f"recon:no-{bad}", RED if hit else GREEN, "FOUND" if hit else "clean"))
+
+    # (b) every {{token}} resolves against the lock, and none survives a render
+    rendered, unresolved = render_text(paper_src, lock)
+    uniq = sorted(set(unresolved))
+    rows.append(("recon:tokens-resolve", GREEN if not unresolved else RED,
+                 "all {{LB-id}} resolve against the lock"
+                 if not unresolved else f"{len(uniq)} unresolved: {uniq[:6]}"))
+    surviving = TOKEN_RE.findall(rendered)
+    rows.append(("recon:no-surviving-stub", GREEN if not surviving else RED,
+                 "no {{...}} survives the render"
+                 if not surviving else f"surviving: {surviving[:6]}"))
+
+    # (c) LB-id coverage: every non-theorem lock id appears as a literal {{id}} token
+    lb_ids = [cid for cid, r in lock["claims"].items() if r["provenance"] != "theorem-check"]
+    missing_lb = [cid for cid in lb_ids if ("{{" + cid + "}}") not in paper_src]
+    rows.append(("recon:lb-coverage", GREEN if not missing_lb else RED,
+                 f"all {len(lb_ids)} LB tokens present"
+                 if not missing_lb else f"{len(missing_lb)} missing: {missing_lb[:6]}"))
+
+    # (d) citation coverage: every OUTLINE section-3 key is present in the paper
+    keys = parse_outline_cites(outline_text)
+    missing_cite = sorted(k for k in keys if k not in paper_norm)
+    rows.append(("recon:cite-coverage", GREEN if not missing_cite else RED,
+                 f"all {len(keys)} OUTLINE citation keys present"
+                 if not missing_cite else f"{len(missing_cite)} missing: {missing_cite[:8]}"))
+
+    # (e) the theorem id (statement + written proof live in Appendix B)
+    thm = "Theorem 8b" in paper_src
+    rows.append(("recon:theorem-8b", GREEN if thm else RED,
+                 "Theorem 8b present" if thm else "Theorem 8b MISSING"))
+
+    # (f) required IMRaD / OUTLINE sections
+    req_sections = ["## Abstract", "Keywords", "JEL", "## 1. Introduction", "related work",
+                    "Methodology", "## 3.", "## 4.", "## 5.", "## 6.", "Conclusions",
+                    "## 7.", "Acknowledg", "## References", "## Appendix A", "## Appendix B"]
+    miss_sec = [s for s in req_sections if s not in paper_src]
+    rows.append(("recon:sections", GREEN if not miss_sec else RED,
+                 f"all {len(req_sections)} required sections present"
+                 if not miss_sec else f"missing: {miss_sec}"))
+
+    # (g) figure / table / equation + scope / conclusion / limit anchors
+    anchors = (["FIG-1", "TBL-1"] + [f"EQ-{i}" for i in range(1, 6)]
+               + [f"S{i}" for i in range(1, 6)]
+               + ["C-01", "C-02", "C-03"] + [f"L-0{i}" for i in range(1, 9)])
+    miss_anc = [a for a in anchors if a not in paper_src]
+    rows.append(("recon:anchors", GREEN if not miss_anc else RED,
+                 f"all {len(anchors)} FIG/TBL/EQ/S/C/L anchors present"
+                 if not miss_anc else f"missing: {miss_anc}"))
+    return rows
+
+
+# --------------------------------------------------------------------------- #
 def _print(title, rows):
     n_fail = sum(1 for _, s, _ in rows if s == RED)
     print(f"\n== {title} ==  ({len(rows)-n_fail}/{len(rows)} pass)")
@@ -326,8 +422,9 @@ def main(argv):
 
     if paper_path:
         text = Path(paper_path).read_text(encoding="utf-8")
-        total_fail += _print("(5) paper reconciliation",
-                             check_paper(text, ["## Methods", "## Results"], ["kim2026"], lock))
+        outline_text = (REPO / "OUTLINE.md").read_text(encoding="utf-8")
+        total_fail += _print("(5) paper reconciliation (OUTLINE-driven)",
+                             reconcile_paper(lock, outline_text, text))
     else:
         print("\n== (5) paper reconciliation ==  DEFERRED (no --paper; Phase-4 check, "
               "runs once the manuscript exists)")

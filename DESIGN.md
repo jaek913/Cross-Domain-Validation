@@ -5,10 +5,10 @@ The exact operators, the pre-registered decision rules, the data manifest Phase 
 ## Metadata
 
 - **Paper:** Cross-Domain Validation of a Moving-Average Divergence Framework in Atmospheric Science, Hydrology, Solar Physics, and Epidemiology
-- **Archetype:** empirical-with-verified-theory (proof count 0; Theorem 8b / Theorem 5 / the Paper-1 decomposition are **cited**, not re-derived)
+- **Archetype:** empirical-with-verified-theory (no *new* mathematics; Theorem 8b / Theorem 5 / the Paper-1 decomposition are **cited**, not re-derived — a written proof of the cited Theorem 8b is reproduced in Appendix B for the stand-alone paper, with three-way verification)
 - **Source pin (rebuild):** v4 manuscript, SHA256 `982176a228c35cd76856b76fee17433ad5f6312e3490bf58f893dc17c3302a50` (MD5 `23428fb275f6ea6d6a3846fc17d91a86`) — the **pre-audit** manuscript; no revised paper exists
 - **Verification record consulted (method-spec + corrected values, NOT a results target):** pre-fix repo `verification/Stage_1.1…1.6`, `Discrepancy_Register.md`, `analysis/repro_*.py`, `analysis/FINDINGS_*.md`
-- **Standard:** v1.8 · **Design version:** v0.2 — 2026-06-28 · **Status:** draft (locks at first analysis commit)
+- **Standard:** v1.8 · **Design version:** v0.10 — 2026-06-29 · **Status:** draft (locks at first analysis commit)
 
 ## Changelog
 
@@ -232,7 +232,7 @@ Two timestamped, reader-runnable predictions (CDC FluView), registered/dated at 
 - [x] All seven citation fixes (DISC-1.3) and six consistency fixes (DISC-1.4) are captured for Phase-2/4.
 - [x] Spec gaps pinned: continuous-vs-season SMAs, season exclusions (29→27), ACF max-lags, RW seed, strain spec, flu E1 window.
 - [x] Both falsifiers specified; no result values hard-coded in this file.
-- [ ] (Phase-4) every internal cross-reference resolves — verify.py check-5 once the manuscript exists.
+- [x] (Phase-4) every internal cross-reference resolves — verify.py check-5 GREEN (reconciliation 12/12; full VERIFY: PASS).
 
 ## Sign-off
 

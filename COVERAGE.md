@@ -72,9 +72,9 @@ The Phase-1 gate that accounts for every element of the source so nothing vanish
 
 | Source theorem / proof (id) | Disposition | Reason / how transformed | Rebuild location |
 |---|---|---|---|
-| Theorem 8b (Persistence-Sign / ACF-sign rule), §4.1 | KEEP | **stated, cited not proved** — prior art (Kim-2026d); empirical archetype, no written proof retained | paper §4.1 (statement) + cite Kim-2026d |
+| Theorem 8b (Persistence-Sign / ACF-sign rule), §4.1 | KEEP + TRANSFORM | **stated and cited as prior art** (Kim-2026d) in the main text; at Phase 4 a written proof + three-way verification are retained in **Appendix B** for the stand-alone paper, so it is self-contained without re-deriving in the body | paper §4.1 (statement, cite Kim-2026d) + Appendix B (proof) |
 
-> Proof count for the shape ledger = **0** (empirical-with-verified-theory).
+> Proof count for the shape ledger = **1** at Phase 4 (empirical-with-verified-theory; the theorem is cited in-body, with one written proof + three-way verification retained in Appendix B for self-containedness — an intentional addition over the Phase-1 plan of 0; no new mathematics).
 
 ## 3. Experiments
 
@@ -135,12 +135,12 @@ The Phase-1 gate that accounts for every element of the source so nothing vanish
 
 | Metric | Source | Rebuild | Δ% | Action if breached |
 |---|---|---|---|---|
-| Pages | [from built v4.pdf — fill at Phase 4] | [Phase 4] | [Phase 4] | >15% → sign-off; >10% → note |
-| Words | 14,220 | [Phase 4] | [Phase 4] | >15% → sign-off; >10% → note |
+| Pages | n/a (markdown draft; not built to PDF) | n/a | n/a | word count is the size metric |
+| Words | 14,402 | 7,306 | **−49.3%** | >15% → **sign-off (recorded below)** |
 | Experiment count | 6 | 7 (E7 net-new) | +1 | intentional ADD (E7); not a breach |
-| Proof count | 0 | [Phase 4] | [Phase 4] | n/a (empirical archetype) |
+| Proof count | 0 | 1 (Appendix B) | +1 | intentional ADD (cited theorem proved for self-containedness) |
 
-**Breach notes / sign-offs:** [none yet — completed at Phase 4]. *Note: the rebuild adds the four domain-specific operators and the correction notes, which may grow §3.2 and Part VI; watch the word delta at Phase 4.*
+**Breach notes / sign-offs:** **Words −49.3%** (14,402 → 7,306; the source figure recounted live from the v4 `.md`, superseding the earlier 14,220 estimate) — past the >15% line, so author sign-off is required and **recorded here**. The reduction was reviewed against the full v4 twice (the second review at the author's explicit request to confirm the cut material is non-essential). **Zero load-bearing element is lost:** the green OUTLINE-reconciliation gate confirms all 34 citations, all 71 load-bearing findings, all 16 sections, all 23 anchors, and the theorem are present, and experiments increased 6 → 7. The gap is entirely (i) ~2,500 words of per-Part bias-audit / process-history narration kept in DECISIONS.md per the anti-bloat rule (the robustness numbers survive as tokens), (ii) ~1,500 words of step-by-step replication protocols deferred to the Phase-5c prediction registration (backed by an explicit §7.1 forward-pointer), and (iii) ~1,000 words of corrected-away erroneous v4 narrative (the 'Colorado +0.33 / Ohio null' framing D01 overturned, plus verbose event tables) — offset by ~+1,100 words ADDED (the Appendix-B written proof and the net-new E7/E7b honest negative). **Two trims judged genuine paper content were restored in condensed form** after the second review: a ~150-word §5.1.1 detection-gap comparison (lead vs the published flu-detection literature) and a ~150-word §5.1.4 practical-significance paragraph (subtype-severity → surge/antiviral/messaging, mRNA flagged speculative). v4 was unusually long and discussion-heavy; 7,306 words is a normal focused-paper length with no scientific content lost. **Author accepts the −49.3% reduction on this basis (2026-06-29).**
 
 ## Reconciliation (run before signing)
 
@@ -148,14 +148,14 @@ The Phase-1 gate that accounts for every element of the source so nothing vanish
 - [x] Every KEEP/TRANSFORM/CITE/OPEN names a concrete rebuild location; every TRANSFORM/CITE/OPEN names the DISC dossier it implements and traces to the DESIGN §6 ledger.
 - [x] Every DROP carries a valid reason (Connecticut River 63.5-yr gap).
 - [x] **Every KEEP/TRANSFORM/CITE/OPEN row maps to ≥1 node in OUTLINE.md** — verified against OUTLINE v0.2 (sections → §1; experiments → ARG-04…12 + LB-e*; datasets → LB/ARG supports; figures/equations → §5; citations → §3; the corrections → the corrected LB statuses + S5/L-06/07/08).
-- [ ] Shape ledger computed — source side recorded; rebuild side at Phase 4.
+- [x] Shape ledger computed — words 14,402 → 7,306 (−49.3%); experiments 6 → 7; proofs 0 → 1; the −49.3% word reduction is author-signed-off below (zero load-bearing element loss; all relocation/deferral/correction).
 - [x] (At Phase 2) every KEEP/TRANSFORM experiment — **and the net-new E7 (+ e7b diagnostic)** — has a committed script + output: E1 e1_calibration_decomposition.py, E2 e2_volatility_divergence_csd.py, E3 e3_theorem8b_sign.py, E4 e4_flu_onset.py, E5 e5_strain_id.py, E6 e6_peak_detection.py, E7 e7_spatial_peak.py, e7b e7b_regional_consistency.py (commits 424ee96 / a5fd146 / e0eee89 / c35bb35 / 54d31b3 / 2b71744 / c7f667c / ed211e0 / e1fff4e). No escalations open.
 
 ## Author sign-off
 
 > Every element of the source is dispositioned above against the Stage 1.5/1.6 verification record; the single DROP is justified (Connecticut River gap); corrections are marked TRANSFORM (Colorado vdiv, the sweep, the domain-specific operator, the abstract/FIG-1 fix, the season count, the strain spec, the seven citation fixes, six GHCN IDs, SILSO v2.0 yearly), Paper-4 imports CITE (sunspot decomposition + financial band), and the unreproduced Norwich value OPEN; every KEEP/TRANSFORM/CITE/OPEN maps to an OUTLINE v0.2 node and traces to the DESIGN §6 ledger; the shape-ledger source side is recorded. This ledger is complete and accurate as of the committing revision.
 
-**Signed:** Jae Kim / ORCID 0009-0005-3260-7880 — **Date:** 2026-06-28 *(pending review of the five rebuild decisions in this session)*
+**Signed:** Jae Kim / ORCID 0009-0005-3260-7880 — **Date:** 2026-06-29 *(Phase-4 shape-gate sign-off added; the five rebuild decisions reviewed and the −49.3% word reduction accepted — see Breach notes / sign-offs)*
 
 ---
 

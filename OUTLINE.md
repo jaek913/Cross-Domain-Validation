@@ -222,7 +222,7 @@ Each carries a greppable `C-`/`L-` anchor.
 - [x] Every load-bearing finding names a real `claims.lock` LB-id (concrete ids in §4a — all 73 ledger rows tied), a status tier, and an original-LB cross-reference; **all 24 Stage-1.1 claims covered** (LB-1…24 ↔ LB-e* / ARG nodes); no values here.
 - [x] Every figure/table/equation has an anchor + a referencing ARG node; FIG-1/TBL-1/EQ-2 corrections noted.
 - [x] Every scope condition (S-) and limit-of-claim (C-/L-) has an anchor; S5 + L-06/07/08 added for the corrections.
-- [ ] Every internal cross-reference resolves — verify.py check-5 once the manuscript exists (Phase 4).
+- [x] Every internal cross-reference resolves — verify.py check-5 GREEN at Phase 4 (reconciliation 12/12: all 71 LB tokens resolve, all 34 cite keys, 16 sections, 23 anchors present, no surviving {{…}}).
 - [x] Every node has a status; the one source DROP (Connecticut River) is a dataset, recorded in COVERAGE.
 - [x] The IMRaD map matches the source's section list; the abstract correction (DISC-1.4-04) is flagged.
 - [x] (Rebuild) every COVERAGE keep/correct row maps to ≥1 node here; corrected values trace to the DESIGN §6 ledger + Register dispositions.
