@@ -16,12 +16,24 @@ Systems / params (verified Stage-1.5 repro_crossdomain.py):
 
 Decision rules (DESIGN E3): correct iff sign(observed rho) == predicted sign; significant iff
 p < 0.05 AND the Fisher-z 95% CI excludes zero (the verified repro used p<0.05 alone - reported
-here as a cross-check). HEADLINE = significant-correct count (target 13/13: Colorado 5 + Ohio 3 +
-Flu 5; weather 0 significant); overall 20/25 (CO 5/5, OH 5/5, NOR 3/5, DAL 2/5, Flu 5/5). Two sign
-flips: Colorado h=252 (Rbar_near < Rbar_far, ACF still POSITIVE - not a zero-crossing; DISC-1.4-04)
-and Flu h=26 (seasonal ACF; the ACF zero-crossing is at ~14 wk, distinct from h=26; DISC-1.4-05).
-Falsifier (in-paper): any statistically-significant prediction whose observed sign contradicts the
-rule.
+here as a cross-check). HEADLINE = the theorem-predicted SIGN (overall 20/25 correct; 13/13 of the
+Fisher-z-significant predictions correct; ZERO significant-WRONG = the in-paper falsifier not
+triggered). Two sign flips: Colorado h=252 (Rbar_near < Rbar_far, ACF still POSITIVE - not a
+zero-crossing; DISC-1.4-04) and Flu h=26 (seasonal ACF; the ACF zero-crossing is at ~14 wk,
+distinct from h=26; DISC-1.4-05).
+
+Phase-5a recast (DECISIONS 2026-06-29). The parametric Fisher-z significance is ANTI-CONSERVATIVE
+(the subsample stride sub=21 < the slow window ws=63, so adjacent subsamples share overlapping
+divergence windows, and the rivers carry long-range dependence) - it is reported as a DEMOTED
+cross-check, not the headline. Theorem 8b predicts THIS correlation's sign FROM the ACF, so the
+correlation is a theory-derived consequence of the autocorrelation, not a spurious artifact of it;
+the load-bearing backbone is therefore (i) the theorem-predicted SIGN and (ii) its block-independent
+IS/OOS sign-STABILITY: every one of the 13 significant predictions keeps its sign on both temporal
+halves (isoos_consistent_among_significant). A moving-block bootstrap was attempted and REJECTED as
+the wrong tool (a joint-block percentile CI tightens around a real structure-driven correlation as
+the block grows, so it makes a true small correlation look MORE significant, not less - see DECISIONS).
+4A adds a CAUSAL (expanding) deseasonalization recompute for the 4 daily systems (flu is RAW),
+closing the 5a finding that the causal-vs-full check covered only E1.
 
 Rejected alternative (manuscript Part IV, reported as history): vol divergence vdiv = std(Y,wf) -
 std(Y,ws) predicting FORWARD VOLATILITY (the Part-III target: realized std over a fixed 63 d / 16 wk
@@ -61,7 +73,8 @@ def _sign(x):
 
 
 def _is_sig(p, r, n):
-    """DESIGN E3 significance: p < 0.05 AND the Fisher-z 95% CI for r (n pairs) excludes zero."""
+    """DESIGN E3 significance: p < 0.05 AND the Fisher-z 95% CI for r (n pairs) excludes zero.
+    Reported as a DEMOTED cross-check (anti-conservative: sub < ws => overlapping windows; Phase-5a)."""
     if p is None or (isinstance(p, float) and np.isnan(p)) or p >= 0.05:
         return False
     if r is None or n is None or n <= 3 or (isinstance(r, float) and np.isnan(r)):
@@ -89,7 +102,9 @@ def observed_vol(a, wf, ws, sub, hfwd):
 
 
 def isoos_signs(a, h, wf, ws, sub):
-    """Level-divergence observed sign on the in-sample / out-of-sample halves (temporal split)."""
+    """Level-divergence observed sign on the in-sample / out-of-sample halves (temporal split). The
+    block-independent backbone of the sign claim (Phase-5a): a significant prediction is sign-STABLE
+    iff its observed sign matches across both halves and the full sample."""
     a = np.asarray(a, float)
     mid = len(a) // 2
     r_is, _, n_is = op.observed_8b(a[:mid], h, wf, ws, sub)
@@ -148,6 +163,14 @@ def main():
         g = dio.load_ghcn_temp(sid)
         return dio.deseason_doy(g["temp"].values, g["date"].dt.dayofyear.values)
 
+    def usgs_deseas_causal(site):
+        d = dio.load_usgs(site)
+        return dio.deseason_month_causal(dio.log_discharge(d), d["date"].dt.month.values)
+
+    def ghcn_deseas_causal(sid):
+        g = dio.load_ghcn_temp(sid)
+        return dio.deseason_doy_causal(g["temp"].values, g["date"].dt.dayofyear.values)
+
     systems = [
         ("Colorado", usgs_deseas("08158000"),     WF_D, WS_D, H_D, SUB_D, MAXLAG_D, H_FWD_D),
         ("Ohio",     usgs_deseas("03294500"),     WF_D, WS_D, H_D, SUB_D, MAXLAG_D, H_FWD_D),
@@ -158,7 +181,7 @@ def main():
 
     out = {"experiment": "E3", "title": "Theorem-8b persistence-sign test (in-paper falsifier)",
            "rule": "sign[Corr(D_t,Y_{t+h})] = sign[Rbar(h,h+wf) - Rbar(h+wf,h+ws)]; D = SMA_wf - SMA_ws (LEVEL divergence)",
-           "significance": "p < 0.05 AND Fisher-z 95% CI excludes zero (repro used p<0.05 alone; reported as a cross-check)",
+           "significance": "p < 0.05 AND Fisher-z 95% CI excludes zero - DEMOTED cross-check (anti-conservative: sub<ws => overlapping windows + long-range dependence); backbone = predicted sign + IS/OOS stability (Phase-5a)",
            "systems": {}}
     for name, Y, wf, ws, hs, sub, ml, hfwd in systems:
         out["systems"][name] = run_system(Y, wf, ws, hs, sub, ml, hfwd)
@@ -178,6 +201,34 @@ def main():
                           for s in S.values() for r in s["predictions"])
     isoos_consistent = sum(r["isoos"]["consistent"]
                            for s in S.values() for r in s["predictions"] if r["significant"])
+
+    # 4A: recompute the grid under CAUSAL (expanding) deseasonalization for the 4 daily systems
+    # (flu is RAW, unaffected). A flip = the observed Spearman sign differs from the full-sample run.
+    daily_causal = [("Colorado", usgs_deseas_causal("08158000")),
+                    ("Ohio",     usgs_deseas_causal("03294500")),
+                    ("Norwich",  ghcn_deseas_causal("USC00065910")),
+                    ("Dallas",   ghcn_deseas_causal("USW00003927"))]
+    cz_obs_flips = cz_correct_flips = cz_sig_correct_flips = 0
+    cz_rows = []
+    for name, Yc in daily_causal:
+        acc = op.acf_vals(Yc, MAXLAG_D)
+        for r in S[name]["predictions"]:
+            h = r["h"]
+            rho_c, _, _ = op.observed_8b(Yc, h, WF_D, WS_D, SUB_D)
+            ps_c, _, _ = op.predicted_sign(acc, h, WF_D, WS_D)
+            osign_c = _sign(rho_c)
+            correct_c = (osign_c is not None) and (int(ps_c) == osign_c)
+            obs_flip = bool(osign_c is not None and r["observed_sign"] is not None and osign_c != r["observed_sign"])
+            correct_flip = bool(correct_c != r["correct"])
+            sig_correct_flip = bool((r["significant"] and r["correct"]) and not correct_c)
+            cz_obs_flips += int(obs_flip)
+            cz_correct_flips += int(correct_flip)
+            cz_sig_correct_flips += int(sig_correct_flip)
+            cz_rows.append({"system": name, "h": h, "obs_sign_full": r["observed_sign"],
+                            "obs_sign_causal": osign_c, "rho_causal": _r3(rho_c),
+                            "correct_full": bool(r["correct"]), "correct_causal": bool(correct_c),
+                            "was_significant_correct": bool(r["significant"] and r["correct"]),
+                            "obs_flip": obs_flip})
 
     co252 = next(r for r in S["Colorado"]["predictions"] if r["h"] == 252)
     flu26 = next(r for r in S["Flu"]["predictions"] if r["h"] == 26)
@@ -199,6 +250,11 @@ def main():
                          "Rbar_near": flu26["Rbar_near"], "Rbar_far": flu26["Rbar_far"],
                          "acf_first_zero_crossing": S["Flu"]["acf_first_zero_crossing"],
                          "_note": "seasonal ACF; zero-crossing at ~14 wk is DISTINCT from h=26; DISC-1.4-05"},
+        "causal_deseason_robustness": {
+            "n_daily_predictions": len(cz_rows), "n_observed_sign_flips": cz_obs_flips,
+            "n_correct_flips": cz_correct_flips, "n_significant_correct_flips": cz_sig_correct_flips,
+            "_note": "E3 grid recomputed with EXPANDING (causal) per-calendar deseasonalization for the 4 daily systems (flu is RAW, unaffected); flu's 5 predictions are unchanged. The 2 observed-sign flips are non-significant near-zero weather predictions; no significant-correct verdict changes. Closes the 5a finding that the causal-vs-full check covered only E1 (Phase-5a 4A).",
+            "detail": cz_rows},
         "rejected_vol_formulation": {"correct": vol_correct, "of": 25, "pct": round(100.0 * vol_correct / 25, 1),
                                      "significant_wrong_fisher": vol_sig_wrong, "significant_total_fisher": vol_sig,
                                      "significant_wrong_p_only": vol_sig_wrong_p, "significant_total_p_only": vol_sig_p,
@@ -226,7 +282,9 @@ def main():
           f"Rnear {co252['Rbar_near']} vs Rfar {co252['Rbar_far']}  (ACF 0-cross @ {S['Colorado']['acf_first_zero_crossing']})")
     print(f"  Flu h=26 flip: pred {flu26['predicted_sign']} obs {flu26['observed_sign']}  "
           f"(ACF 0-cross @ {S['Flu']['acf_first_zero_crossing']} wk, distinct from h=26)")
-    print(f"  IS/OOS sign-consistent among the {sig} significant predictions: {isoos_consistent}")
+    print(f"  IS/OOS sign-consistent among the {sig} significant predictions: {isoos_consistent}  (block-independent backbone)")
+    print(f"  [4A] Causal-deseason robustness (4 daily systems, 20 preds): observed-sign flips {cz_obs_flips}/20 ; "
+          f"correct-verdict flips {cz_correct_flips} ; significant-correct flips {cz_sig_correct_flips}")
     print(f"  REJECTED vol formulation (vdiv vs fixed forward-vol; level-ACF rule): {vol_correct}/25 correct "
           f"({round(100.0 * vol_correct / 25, 1)}%)")
     print(f"       significant-wrong: Fisher {vol_sig_wrong}/{vol_sig} ; p-only {vol_sig_wrong_p}/{vol_sig_p}  (target ~44% / 11)")

@@ -112,7 +112,7 @@ CIC_SPEC = {
         "D(t)=SMA_wf-SMA_ws vs Y(t+h) aligned by the h-shift; subsample on the aligned index.",
         "dropna on the (D, Y_{t+h}) pairs before Spearman.",
         "D is built from data <= t; Y_{t+h} is the prediction TARGET (not an input to D); no future leakage into the predictor.",
-        "subsample every 21/8 (non-overlapping); IS/OOS split at the temporal midpoint on 6 representative predictions incl. both flips.",
+        "subsample stride 21/8 is SHORTER than the slow window (63/16), so adjacent subsamples' divergence windows OVERLAP -> the parametric Fisher-z significance is anti-conservative and DEMOTED to a cross-check (Phase-5a); the load-bearing backbone is the predicted SIGN + IS/OOS sign-stability (all 13 significant predictions sign-consistent across both temporal halves) + the causal-deseasonalization recompute (no significant-correct verdict flips). A moving-block bootstrap was attempted and rejected as the wrong tool for a theory-derived correlation (DECISIONS 2026-06-29).",
         "computed per system; sunspots are NOT in the E3 set; no cross-record computation.",
         "obs counts match anchors; ACF max-lag 400 daily / 60 flu covers h+w_s (315 / 42)."),
     "E4": cic("analysis/e4_flu_onset.py",
@@ -182,7 +182,7 @@ CLAIMS = [
     # ---- E1 calibration-scale decomposition --------------------------------
     R("LB-e1-weather-sw", "E1", "e1_calibration.json", ["weather", "_band_S_W_pct"],
       "num_list", "regenerate", [GHCN["Norwich"], GHCN["Dallas"]], "LB-2/LB-3",
-      "weather deseasonalized S_W band (Norwich/Dallas); paper band 1.3-7.7%", tol=0.1),
+      "weather deseasonalized S_W band (Norwich/Dallas); paper band ~2.5-5.2%", tol=0.1),
     R("LB-e1-colorado-seasonal", "E1", "e1_calibration.json",
       ["rivers", "Colorado", "seasonal_variance_fraction_pct"], "num", "regenerate",
       [CO], "LB-2/LB-5", "Colorado seasonal variance fraction (~15.5%)", tol=0.1),
@@ -312,6 +312,17 @@ CLAIMS = [
       ["summary", "rejected_vol_formulation", "significant_wrong_fisher"], "int", "open",
       [CO, OH, GHCN["Norwich"], GHCN["Dallas"], ILI], "E3-rejected-volform",
       "OPEN: rejected vol-formulation significant-wrong (>=5 vs the level form's 0 - contrast holds)"),
+    R("LB-e3-isoos-consistent", "E3", "e3_theorem8b.json", ["summary", "isoos_consistent_among_significant"],
+      "int", "regenerate", [CO, OH, GHCN["Norwich"], GHCN["Dallas"], ILI], "LB-14",
+      "IS/OOS sign-stable among the significant predictions (13/13; the block-independent backbone of the sign claim)"),
+    R("LB-e3-causal-sigcorrect-flips", "E3", "e3_theorem8b.json",
+      ["summary", "causal_deseason_robustness", "n_significant_correct_flips"], "int", "regenerate",
+      [CO, OH, GHCN["Norwich"], GHCN["Dallas"]], "LB-14",
+      "causal (expanding) deseasonalization flips 0 significant-correct verdicts (5a 4A robustness)"),
+    R("LB-e3-causal-obs-flips", "E3", "e3_theorem8b.json",
+      ["summary", "causal_deseason_robustness", "n_observed_sign_flips"], "int", "regenerate",
+      [CO, OH, GHCN["Norwich"], GHCN["Dallas"]], "LB-14",
+      "causal deseasonalization flips only 2/20 daily observed signs (both non-significant near-zero weather)"),
 
     # ---- E4 divergence-based flu onset (load-bearing) ----------------------
     R("LB-e4-div-lead", "E4", "e4_flu_onset.json", ["divergence_lead_vs_peak", "mean"],
@@ -330,6 +341,12 @@ CLAIMS = [
       "num", "regenerate", [ILI], "LB-19", "minimum divergence lead-vs-peak (floor 5 wk)", tol=0.05),
     R("LB-e4-q1", "E4", "e4_flu_onset.json", ["divergence_lead_vs_peak", "q1"],
       "num", "regenerate", [ILI], "LB-19", "Q1 divergence lead-vs-peak (~12 wk)", tol=0.05),
+    R("LB-e4-adv-lvl-low", "E4", "e4_flu_onset.json", ["level_sensitivity", "lvl+0.5", "advantage_mean"],
+      "num", "regenerate", [ILI], "LB-18",
+      "onset advantage at the LOOSER level threshold (+0.5pp): lower bound of the symmetric-sweep range (~5.3 wk)", tol=0.05),
+    R("LB-e4-adv-lvl-high", "E4", "e4_flu_onset.json", ["level_sensitivity", "lvl+1.5", "advantage_mean"],
+      "num", "regenerate", [ILI], "LB-18",
+      "onset advantage at the STRICTER level threshold (+1.5pp): upper bound of the symmetric-sweep range (~9.7 wk)", tol=0.05),
 
     # ---- E5 strain-level divergence ----------------------------------------
     R("LB-e5-single", "E5", "e5_strain_id.json", ["single_strain", "hit"], "int", "regenerate",

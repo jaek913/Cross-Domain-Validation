@@ -2,7 +2,7 @@
   "experiment": "E3",
   "title": "Theorem-8b persistence-sign test (in-paper falsifier)",
   "rule": "sign[Corr(D_t,Y_{t+h})] = sign[Rbar(h,h+wf) - Rbar(h+wf,h+ws)]; D = SMA_wf - SMA_ws (LEVEL divergence)",
-  "significance": "p < 0.05 AND Fisher-z 95% CI excludes zero (repro used p<0.05 alone; reported as a cross-check)",
+  "significance": "p < 0.05 AND Fisher-z 95% CI excludes zero - DEMOTED cross-check (anti-conservative: sub<ws => overlapping windows + long-range dependence); backbone = predicted sign + IS/OOS stability (Phase-5a)",
   "systems": {
     "Colorado": {
       "n": 46767,
@@ -785,6 +785,235 @@
       "Rbar_far": -0.163,
       "acf_first_zero_crossing": 14,
       "_note": "seasonal ACF; zero-crossing at ~14 wk is DISTINCT from h=26; DISC-1.4-05"
+    },
+    "causal_deseason_robustness": {
+      "n_daily_predictions": 20,
+      "n_observed_sign_flips": 2,
+      "n_correct_flips": 3,
+      "n_significant_correct_flips": 0,
+      "_note": "E3 grid recomputed with EXPANDING (causal) per-calendar deseasonalization for the 4 daily systems (flu is RAW, unaffected); flu's 5 predictions are unchanged. The 2 observed-sign flips are non-significant near-zero weather predictions; no significant-correct verdict changes. Closes the 5a finding that the causal-vs-full check covered only E1 (Phase-5a 4A).",
+      "detail": [
+        {
+          "system": "Colorado",
+          "h": 21,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.176,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Colorado",
+          "h": 42,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.104,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Colorado",
+          "h": 63,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.085,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Colorado",
+          "h": 126,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.085,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Colorado",
+          "h": 252,
+          "obs_sign_full": -1,
+          "obs_sign_causal": -1,
+          "rho_causal": -0.057,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Ohio",
+          "h": 21,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.108,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Ohio",
+          "h": 42,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.109,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Ohio",
+          "h": 63,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.06,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": true,
+          "obs_flip": false
+        },
+        {
+          "system": "Ohio",
+          "h": 126,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.047,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Ohio",
+          "h": 252,
+          "obs_sign_full": -1,
+          "obs_sign_causal": -1,
+          "rho_causal": -0.024,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Norwich",
+          "h": 21,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.034,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Norwich",
+          "h": 42,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.059,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Norwich",
+          "h": 63,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.02,
+          "correct_full": false,
+          "correct_causal": false,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Norwich",
+          "h": 126,
+          "obs_sign_full": -1,
+          "obs_sign_causal": -1,
+          "rho_causal": -0.009,
+          "correct_full": false,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Norwich",
+          "h": 252,
+          "obs_sign_full": -1,
+          "obs_sign_causal": -1,
+          "rho_causal": -0.034,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Dallas",
+          "h": 21,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.04,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Dallas",
+          "h": 42,
+          "obs_sign_full": 1,
+          "obs_sign_causal": -1,
+          "rho_causal": -0.006,
+          "correct_full": false,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": true
+        },
+        {
+          "system": "Dallas",
+          "h": 63,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.049,
+          "correct_full": true,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": false
+        },
+        {
+          "system": "Dallas",
+          "h": 126,
+          "obs_sign_full": -1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.007,
+          "correct_full": false,
+          "correct_causal": true,
+          "was_significant_correct": false,
+          "obs_flip": true
+        },
+        {
+          "system": "Dallas",
+          "h": 252,
+          "obs_sign_full": 1,
+          "obs_sign_causal": 1,
+          "rho_causal": 0.033,
+          "correct_full": false,
+          "correct_causal": false,
+          "was_significant_correct": false,
+          "obs_flip": false
+        }
+      ]
     },
     "rejected_vol_formulation": {
       "correct": 18,

@@ -130,6 +130,23 @@ def main():
         sens[f"div>{thr}"] = {"advantage_mean": _r3((d2 - l2).mean()),
                               "earlier_pct": _r3(100.0 * e2 / len(d2)), "n": int(len(d2))}
 
+    # 2A (Phase-5a): SYMMETRIC level-threshold sweep - the div sweep above moved only the FAVORABLE knob
+    lvl_sens = {}
+    for add in (0.5, 1.0, 1.5):
+        d3, l3, e3c = [], [], 0
+        for _, idx in seas:
+            a = lead_div(idx, Y, D, DIV_THR); b = lead_lvl(idx, Y, add)
+            if a is not None and b is not None:
+                d3.append(a); l3.append(b); e3c += (a > b)
+        d3, l3 = np.array(d3, float), np.array(l3, float)
+        lvl_sens[f"lvl+{add}"] = {"advantage_mean": _r3((d3 - l3).mean()),
+                                  "earlier_pct": _r3(100.0 * e3c / len(d3)) if len(d3) else None,
+                                  "n": int(len(d3))}
+    _lvl_adv = [v["advantage_mean"] for v in lvl_sens.values() if v["advantage_mean"] is not None]
+    _div_adv = [v["advantage_mean"] for v in sens.values() if v["advantage_mean"] is not None]
+    advantage_range_level = [min(_lvl_adv), max(_lvl_adv)]
+    advantage_range_all = [min(_lvl_adv + _div_adv), max(_lvl_adv + _div_adv)]
+
     real_mean, tc_z = temporal_concentration_z(paired_idx, Y)
 
     out = {"experiment": "E4", "title": "divergence-based influenza onset detection",
@@ -148,6 +165,9 @@ def main():
                                          "wilcoxon_stat": _r3(w_stat), "wilcoxon_p": _r3(w_p),
                                          "_target": "advantage +8.2, earlier 26/27, t 9.35"},
            "sensitivity": sens,
+           "level_sensitivity": lvl_sens,
+           "advantage_range_level_sweep": advantage_range_level,
+           "advantage_range_all_thresholds": advantage_range_all,
            "temporal_concentration_shuffle": {"div_lead_mean": _r3(real_mean), "z": _r3(tc_z),
                                                "_note": "robustness diagnostic only (random-onset-week null, seed 0); NOT load-bearing; v4 reported z ~ +2.6 by an under-determined shuffle"},
            "per_season": per_season,
@@ -174,6 +194,10 @@ def main():
           f"earlier {earlier}/{len(dl)}  paired t {t:.2f} (p {p:.2g})  Wilcoxon p {w_p:.2g}  [target +8.2 / 26 / t 9.35]")
     for k, v in sens.items():
         print(f"    {k}: advantage {v['advantage_mean']}, earlier {v['earlier_pct']}% (n {v['n']})")
+    print("  [2A] level-threshold sweep (div fixed at 0.2):")
+    for k, v in lvl_sens.items():
+        print(f"    {k}: advantage {v['advantage_mean']}, earlier {v['earlier_pct']}% (n {v['n']})")
+    print(f"  [2A] advantage range - level sweep {advantage_range_level} ; all thresholds {advantage_range_all}")
     print(f"  temporal-concentration shuffle (diagnostic): div-lead mean {real_mean:.1f}, z {tc_z:+.2f}  (v4 ~+2.6, under-determined)")
     print(f"\nwrote {OUT}")
 

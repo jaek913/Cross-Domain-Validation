@@ -156,6 +156,26 @@ def deseason_doy(series, doy):
     return (s - s.groupby(d).transform("mean")).values
 
 
+def deseason_month_causal(series, months):
+    """CAUSAL (no look-ahead) per-calendar-month deseasonalization: at each obs subtract the EXPANDING
+    mean of its calendar month using only data up to and including that obs (Phase-5a 4A robustness;
+    deseason_month above instead uses the whole-series month mean)."""
+    s = pd.Series(np.asarray(series, float)).reset_index(drop=True)
+    m = pd.Series(np.asarray(months)).reset_index(drop=True)
+    season = s.groupby(m).transform(lambda x: x.expanding(min_periods=1).mean())
+    return (s - season).values
+
+
+def deseason_doy_causal(series, doy):
+    """CAUSAL (no look-ahead) day-of-year deseasonalization: at each obs subtract the EXPANDING
+    day-of-year mean using only data up to and including that obs (Phase-5a 4A robustness;
+    deseason_doy above instead uses the whole-history doy mean)."""
+    s = pd.Series(np.asarray(series, float)).reset_index(drop=True)
+    d = pd.Series(np.asarray(doy)).reset_index(drop=True)
+    season = s.groupby(d).transform(lambda x: x.expanding(min_periods=1).mean())
+    return (s - season).values
+
+
 # --------------------------------------------------------------------------- smoke test
 def _smoke():
     print(f"LT_CDV_DATA = {DATA}\n")

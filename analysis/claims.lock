@@ -6,11 +6,11 @@
     "design_version": "v0.10",
     "source_pin_sha256": "982176a228c35cd76856b76fee17433ad5f6312e3490bf58f893dc17c3302a50",
     "generated_by": "analysis/build_claims.py",
-    "generated_at": "2026-06-29T20:16:18Z",
+    "generated_at": "2026-06-30T00:15:37Z",
     "warning": "GENERATED ARTIFACT - DO NOT HAND-EDIT. Regenerate via build_claims.py.",
-    "n_claims": 73,
+    "n_claims": 78,
     "n_by_provenance": {
-      "regenerate": 52,
+      "regenerate": 57,
       "cite": 2,
       "open": 5,
       "negative": 12,
@@ -215,7 +215,7 @@
         },
         "5_overlap_consistency": {
           "status": "pass",
-          "note": "subsample every 21/8 (non-overlapping); IS/OOS split at the temporal midpoint on 6 representative predictions incl. both flips."
+          "note": "subsample stride 21/8 is SHORTER than the slow window (63/16), so adjacent subsamples' divergence windows OVERLAP -> the parametric Fisher-z significance is anti-conservative and DEMOTED to a cross-check (Phase-5a); the load-bearing backbone is the predicted SIGN + IS/OOS sign-stability (all 13 significant predictions sign-consistent across both temporal halves) + the causal-deseasonalization recompute (no significant-correct verdict flips). A moving-block bootstrap was attempted and rejected as the wrong tool for a theory-derived correlation (DECISIONS 2026-06-29)."
         },
         "6_record_boundaries": {
           "status": "pass",
@@ -407,7 +407,7 @@
   },
   "claims": {
     "LB-e1-weather-sw": {
-      "claim": "weather deseasonalized S_W band (Norwich/Dallas); paper band 1.3-7.7%",
+      "claim": "weather deseasonalized S_W band (Norwich/Dallas); paper band ~2.5-5.2%",
       "experiment": "E1",
       "provenance": "regenerate",
       "script": "analysis/e1_calibration_decomposition.py",
@@ -1315,6 +1315,72 @@
         "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
       }
     },
+    "LB-e3-isoos-consistent": {
+      "claim": "IS/OOS sign-stable among the significant predictions (13/13; the block-independent backbone of the sign claim)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "isoos_consistent_among_significant"
+      ],
+      "check": "int",
+      "value": 13,
+      "design_lb": "LB-14",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98",
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      }
+    },
+    "LB-e3-causal-sigcorrect-flips": {
+      "claim": "causal (expanding) deseasonalization flips 0 significant-correct verdicts (5a 4A robustness)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "causal_deseason_robustness",
+        "n_significant_correct_flips"
+      ],
+      "check": "int",
+      "value": 0,
+      "design_lb": "LB-14",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98"
+      }
+    },
+    "LB-e3-causal-obs-flips": {
+      "claim": "causal deseasonalization flips only 2/20 daily observed signs (both non-significant near-zero weather)",
+      "experiment": "E3",
+      "provenance": "regenerate",
+      "script": "analysis/e3_theorem8b_sign.py",
+      "output": "outputs/e3_theorem8b.json",
+      "json_path": [
+        "summary",
+        "causal_deseason_robustness",
+        "n_observed_sign_flips"
+      ],
+      "check": "int",
+      "value": 2,
+      "design_lb": "LB-14",
+      "cic_ref": "E3",
+      "inputs": {
+        "usgs_08158000.rdb": "560c03580ef081cae184f204b554946f5542a060dcb4df1d382fb8fb6fef70b6",
+        "usgs_03294500.rdb": "524ba88325fa4765699fa9ea5c3fe82840a0b81762640ac68d572c0a8f67ad3d",
+        "ghcn_USC00065910.csv": "03130664df8228ffdb77ce794addea7b9d1faf64f5047d4f48d7f47da3eca2bb",
+        "ghcn_USW00003927.csv": "2d2ca0b03cdd5343156f98f37613f52281a005f69305ebe8fc12abcc7108ec98"
+      }
+    },
     "LB-e4-div-lead": {
       "claim": "divergence onset lead-vs-peak (14.1 wk)",
       "experiment": "E4",
@@ -1458,6 +1524,46 @@
       "check": "num",
       "value": 11.5,
       "design_lb": "LB-19",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e4-adv-lvl-low": {
+      "claim": "onset advantage at the LOOSER level threshold (+0.5pp): lower bound of the symmetric-sweep range (~5.3 wk)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "level_sensitivity",
+        "lvl+0.5",
+        "advantage_mean"
+      ],
+      "check": "num",
+      "value": 5.286,
+      "design_lb": "LB-18",
+      "cic_ref": "E4",
+      "inputs": {
+        "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"
+      },
+      "tol": 0.05
+    },
+    "LB-e4-adv-lvl-high": {
+      "claim": "onset advantage at the STRICTER level threshold (+1.5pp): upper bound of the symmetric-sweep range (~9.7 wk)",
+      "experiment": "E4",
+      "provenance": "regenerate",
+      "script": "analysis/e4_flu_onset.py",
+      "output": "outputs/e4_flu_onset.json",
+      "json_path": [
+        "level_sensitivity",
+        "lvl+1.5",
+        "advantage_mean"
+      ],
+      "check": "num",
+      "value": 9.731,
+      "design_lb": "LB-18",
       "cic_ref": "E4",
       "inputs": {
         "ILINet.csv": "aeb46976107e1156a91c783dafbc3f0264b26e976e65ce63909c1daaf302b461"

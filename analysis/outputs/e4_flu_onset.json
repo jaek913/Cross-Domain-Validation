@@ -49,6 +49,31 @@
       "n": 26
     }
   },
+  "level_sensitivity": {
+    "lvl+0.5": {
+      "advantage_mean": 5.286,
+      "earlier_pct": 92.857,
+      "n": 28
+    },
+    "lvl+1.0": {
+      "advantage_mean": 8.222,
+      "earlier_pct": 96.296,
+      "n": 27
+    },
+    "lvl+1.5": {
+      "advantage_mean": 9.731,
+      "earlier_pct": 100.0,
+      "n": 26
+    }
+  },
+  "advantage_range_level_sweep": [
+    5.286,
+    9.731
+  ],
+  "advantage_range_all_thresholds": [
+    4.769,
+    9.731
+  ],
   "temporal_concentration_shuffle": {
     "div_lead_mean": 14.148,
     "z": 7.734,
