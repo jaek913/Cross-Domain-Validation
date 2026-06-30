@@ -1,0 +1,35 @@
+# Cross-Domain-Validation - pinned runtime dependencies
+# ----------------------------------------------------------------------------
+# Python 3.12.10 (CPython).  Reproduce in a clean virtual environment:
+#
+#     python -m venv .venv
+#     .\.venv\Scripts\Activate.ps1        # Windows PowerShell
+#     python -m pip install -U pip
+#     pip install -r requirements.txt
+#
+# The five DIRECT packages below are the complete third-party import surface of
+# analysis/ (including checks/) and data/; every other module the pipeline uses
+# is in the Python 3.12 standard library.  The TRANSITIVE pins are the exact
+# versions pip resolves for those five in a clean 3.12 environment, listed so a
+# clean-room install is fully deterministic.
+
+# --- direct ---
+numpy==1.26.4
+pandas==2.3.3
+scipy==1.16.3
+sympy==1.14.0
+matplotlib==3.10.8
+
+# --- transitive (pinned for determinism) ---
+contourpy==1.3.3
+cycler==0.12.1
+fonttools==4.62.1
+kiwisolver==1.5.0
+mpmath==1.3.0
+packaging==25.0
+pillow==12.2.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+pytz==2025.2
+six==1.17.0
+tzdata==2025.3

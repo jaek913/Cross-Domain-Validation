@@ -26,14 +26,14 @@ Run locally:
     python pull.py
 """
 from __future__ import annotations
-import csv, hashlib, sys, urllib.request
+import csv, hashlib, os, sys, urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
 # --------------------------------------------------------------------------- config
-STORE         = Path(r"C:\Users\jaek9\Documents\LaggingTruth\Data")
+STORE         = Path(os.environ.get("LT_CDV_SHARED", r"C:\Users\jaek9\Documents\LaggingTruth\Data"))
 FLU           = STORE / "FluViewPhase2Data"
-PROJECT_STORE = Path(r"C:\Users\jaek9\Documents\LaggingTruth\Cross-Domain-Validation")
+PROJECT_STORE = Path(os.environ.get("LT_CDV_DATA", r"C:\Users\jaek9\Documents\LaggingTruth\Cross-Domain-Validation"))
 REPO_DATA     = Path(__file__).resolve().parent                 # repo/data/
 SOURCES_MD    = REPO_DATA / "SOURCES.md"
 ANCHOR_END    = "2026-03-18"                                    # USGS / NOAA coverage-end anchor
