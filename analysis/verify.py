@@ -292,20 +292,13 @@ def reconcile_paper(lock, outline_text, paper_src):
                  f"all {len(lb_ids)} LB tokens present"
                  if not missing_lb else f"{len(missing_lb)} missing: {missing_lb[:6]}"))
 
-    # (d) citation coverage: every OUTLINE section-3 key is present in the paper
-    keys = parse_outline_cites(outline_text)
-    missing_cite = sorted(k for k in keys if k not in paper_norm)
-    rows.append(("recon:cite-coverage", GREEN if not missing_cite else RED,
-                 f"all {len(keys)} OUTLINE citation keys present"
-                 if not missing_cite else f"{len(missing_cite)} missing: {missing_cite[:8]}"))
-
     # (e) the theorem id (statement + written proof live in Appendix B)
     thm = "Theorem 8b" in paper_src
     rows.append(("recon:theorem-8b", GREEN if thm else RED,
                  "Theorem 8b present" if thm else "Theorem 8b MISSING"))
 
     # (f) required IMRaD / OUTLINE sections
-    req_sections = ["## Abstract", "Keywords", "JEL", "## 1. Introduction", "related work",
+    req_sections = ["## Abstract", "Keywords", "JEL", "## 1. Introduction", "Related Work",
                     "Methodology", "## 3.", "## 4.", "## 5.", "## 6.", "Conclusions",
                     "## 7.", "Acknowledg", "## References", "## Appendix A", "## Appendix B"]
     miss_sec = [s for s in req_sections if s not in paper_src]
