@@ -29,7 +29,7 @@ $ErrorActionPreference = "Stop"
 # --------------------------- SETTINGS -------------------------------
 $PaperDir   = Join-Path $PSScriptRoot "paper"
 $Slug       = "Cross-Domain-Validation"
-$Manuscript = Join-Path $PaperDir "paper.rendered.md"
+$Manuscript = Join-Path $PaperDir "Cross-Domain-Validation.rendered.md"
 $Appendix   = $null   # appendix is now inline in the manuscript (set a path here only for a separate appendix)
 # --------------------------------------------------------------------
 
@@ -50,6 +50,16 @@ foreach ($t in @("pandoc","xelatex")) {
 }
 if (-not (Test-Path $Manuscript)) { Write-Host "ERROR: manuscript not found: $Manuscript" -ForegroundColor Red; exit 1 }
 Write-Host "[ OK ] manuscript: $Manuscript"
+
+# --- stale-output guard: remember the pre-build stamp (series lesson: an
+#     exists-only check reports SUCCESS on a permission-denied write) ---
+$PreBuildStamp = $null
+if (Test-Path $Output) {
+    $PreBuildStamp = (Get-Item $Output).LastWriteTime
+    Write-Host ("[ OK ] existing PDF stamp recorded: {0}" -f $PreBuildStamp)
+} else {
+    Write-Host "[ OK ] no existing PDF (first build)"
+}
 
 # --- series header.tex (Cambria + Cambria Math; matches Papers 1 and 2) ---
 # Identical across the series; the only paper-specific content (title/author/date)
@@ -85,6 +95,7 @@ $Header = @'
 % --- code blocks: wrap long lines if any paper has code ---
 \usepackage{fvextra}
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines,breakanywhere}
 % --- title rule under the title ---
 \usepackage{titling}
 \pretitle{\begin{center}\LARGE}
@@ -125,8 +136,21 @@ $MetadataPath = Join-Path $Tmp "lt_metadata.yaml"
 [System.IO.File]::WriteAllText($MetadataPath, $Metadata, $utf8NoBom)
 Write-Host "[ OK ] header.tex + metadata.yaml written to TEMP (UTF-8 no-BOM)"
 
+# --- PDF-only series-conformance transforms (committed artifacts untouched) ---
+$man = [System.IO.File]::ReadAllText($Manuscript, $utf8NoBom)
+# 0) strip a leading GENERATED HTML comment if the renderer prepends one
+#    (pandoc only parses front matter that starts the file)
+$man = [regex]::Replace($man, '^\s*<!--.*?-->\s*', '', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+# 1) standalone approx-tilde (series lesson; harmless if absent)
+$man = $man.Replace('$\sim$', '~')
+# 2) Series heading style: '## 2. Related Literature' -> '## 2 Related Literature'
+$man = [regex]::Replace($man, '(?m)^(#{1,4}) (\d+(?:\.\d+)*)\. ', '$1 $2 ')
+$ManTmp = Join-Path $Tmp "lt_manuscript_pdf.md"
+[System.IO.File]::WriteAllText($ManTmp, $man, $utf8NoBom)
+Write-Host "[ OK ] PDF-only transforms applied -> $ManTmp"
+
 # --- assemble inputs; demote appendix headings one level if present ---
-$Inputs = @($Manuscript)
+$Inputs = @($ManTmp)
 if ($Appendix -and (Test-Path $Appendix)) {
     $apx = [System.IO.File]::ReadAllText($Appendix, $utf8NoBom)   # UTF-8 read (Get-Content defaults to ANSI on PS 5.1 and mangles em/en-dashes)
     $apx = [regex]::Replace($apx, '(?m)^(#{1,6}) ', '#$1 ')   # +1 level to every ATX heading
@@ -147,11 +171,19 @@ Write-Host "Building PDF -> $Output" -ForegroundColor Cyan
     --resource-path="$PaperDir" `
     --output="$Output"
 
-if (Test-Path $Output) {
-    $kb = [math]::Round((Get-Item $Output).Length / 1KB, 1)
-    Write-Host "=== SUCCESS ===" -ForegroundColor Green
-    Write-Host ("PDF: {0}  ({1} KB, modified {2})" -f $Output, $kb, (Get-Item $Output).LastWriteTime)
-} else {
+if (-not (Test-Path $Output)) {
     Write-Host "=== BUILD FAILED === (see xelatex errors above)" -ForegroundColor Red
     exit 1
 }
+$PostBuildStamp = (Get-Item $Output).LastWriteTime
+if ($PreBuildStamp -and ($PostBuildStamp -le $PreBuildStamp)) {
+    Write-Host "=== BUILD FAILED === STALE OUTPUT" -ForegroundColor Red
+    Write-Host ("The PDF on disk was NOT rewritten by this run (stamp unchanged: {0})." -f $PostBuildStamp) -ForegroundColor Red
+    Write-Host "The usual cause is that the PDF is open in a viewer, so the write was denied." -ForegroundColor Red
+    Write-Host "Close the PDF and re-run. Do NOT ship this file - it is the previous build." -ForegroundColor Red
+    exit 1
+}
+$kb = [math]::Round((Get-Item $Output).Length / 1KB, 1)
+Write-Host "=== SUCCESS ===" -ForegroundColor Green
+Write-Host ("PDF: {0}  ({1} KB, modified {2})" -f $Output, $kb, $PostBuildStamp)
+Write-Host "Stale-output guard: PASSED (file rewritten by this run)."

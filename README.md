@@ -8,8 +8,8 @@ end-to-end by `analysis/verify.py`.
 
 ## Layout
 
-- `paper/` - manuscript: `paper.md` is the token-bearing source, `paper.rendered.md`
-  the rendered copy, plus `figure1.png` and `paper_companion.md`.
+- `paper/` - manuscript: `Cross-Domain-Validation.md` is the token-bearing source,
+  `Cross-Domain-Validation.rendered.md` the rendered copy, plus `figure1.png`.
 - `analysis/` - generating scripts `e1_*` .. `e7b_*`; shared `data_io.py` and
   `operators.py`; `build_claims.py` (writes the lock); `render_claims.py` (renders
   the manuscript); `make_fig1.py`; `claims.lock`; `outputs/*.json`; `checks/`
@@ -60,7 +60,7 @@ equivalent data. The exact hash-pinned snapshot is the fixed input to the verifi
    ```
 3. Run the full gate:
    ```
-   python analysis\verify.py --paper paper\paper.md
+   python analysis\verify.py --paper paper\Cross-Domain-Validation.md
    ```
    Expected: `VERIFY: PASS`, with (1) input integrity 13/13, (2a) re-run scripts
    8/8, (2b) reproduction 74/74, (3) CIC signed 8/8, (4) theorem checks 2/2, and
@@ -70,7 +70,7 @@ equivalent data. The exact hash-pinned snapshot is the fixed input to the verifi
 4. (Optional) regenerate the derived artifacts and confirm they are unchanged:
    ```
    python analysis\build_claims.py            # rewrites claims.lock from outputs/
-   python analysis\render_claims.py paper\paper.md paper\paper.rendered.md
+   python analysis\render_claims.py paper\Cross-Domain-Validation.md paper\Cross-Domain-Validation.rendered.md
    python analysis\make_fig1.py               # rewrites paper\figure1.png
    ```
 

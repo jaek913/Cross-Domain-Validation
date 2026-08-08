@@ -300,7 +300,7 @@ def reconcile_paper(lock, outline_text, paper_src):
     # (f) required IMRaD / OUTLINE sections
     req_sections = ["## Abstract", "Keywords", "JEL", "## 1. Introduction", "Related Work",
                     "Methodology", "## 3.", "## 4.", "## 5.", "## 6.", "Conclusions",
-                    "## 7.", "Acknowledg", "## References", "## Appendix A", "## Appendix B"]
+                    "## 7.", "## Disclosure", "## References", "## Appendix A", "## Appendix B"]
     miss_sec = [s for s in req_sections if s not in paper_src]
     rows.append(("recon:sections", GREEN if not miss_sec else RED,
                  f"all {len(req_sections)} required sections present"
