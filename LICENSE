@@ -15,13 +15,14 @@ below.
      not altered and redistributed.
 
   2. THE PLAIN-ENGLISH COMPANION
-     The companion explainer under paper/ (filename ends in _companion).
+     The companion explainer is not contained in this repository. Its canonical
+     home is LaggingTruth.com (one authoritative copy, kept current there).
      License: Creative Commons Attribution-NonCommercial 4.0 International
      (CC BY-NC 4.0).
      https://creativecommons.org/licenses/by-nc/4.0/
      You may share AND adapt it (translate it, excerpt it, build teaching
      materials from it) with attribution, for non-commercial purposes. The
-     NoDerivatives restriction is deliberately NOT applied here, so the
+     NoDerivatives restriction is deliberately NOT applied there, so the
      explainer can travel.
 
   3. THE CODE
