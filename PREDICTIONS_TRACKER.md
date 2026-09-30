@@ -11,7 +11,7 @@ National **% WEIGHTED ILI** (ILINet). Divergence D = SMA4 - SMA12; **divergence 
 - Divergence fire week: _____  |  Level fire week: _____  |  **Lead (weeks): _____**
 - Peak % WEIGHTED ILI: _____ (mark UNTESTABLE if < 2.0%)  |  **P1 provisional verdict: _____**
 
-**Secondary readout (added 2026-09-30, before week-40 data; see CORRECTIONS.md C-2026-09-30).** The registered rule fires on the first in-window week with D > 0.2 and does not require a crossing; historically it fired on week 40 itself in 10 of 27 seasons. Report beside P1, not instead of it:
+**Secondary readout (added 2026-09-30, before week-40 data; see CORRECTIONS.md C-2026-09-30).** The registered rule fires on the first in-window week with D > 0.2 and does not require a crossing; historically it fired on week 40 itself in 13 of 27 seasons (10 of the 21 seasons with year-round reporting, 2003-04 onward). Report beside P1, not instead of it:
 
 - Crossing onset (first week in 2026-40 ... 2027-20 at which D moves from <= 0.2 to > 0.2): _____  |  **Crossing lead (weeks): _____**
 - If D > 0.2 at 2026-40 and never dips below 0.2 before the level fires: crossing onset = NOT SCORABLE; mark P1 verdict **boundary-assisted**.
